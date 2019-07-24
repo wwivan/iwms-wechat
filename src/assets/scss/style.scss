@@ -78,18 +78,27 @@ $size in $font-sizes {
 .h-100 {
   height: 100%
 }
-.h-80{
+
+.h-80 {
   height: 80%
 }
-.b-0{
+
+.b-0 {
   bottom: 0px;
 }
-.posi-r{
+
+.posi-r {
   position: relative;
 }
-.posi-a{
+
+.posi-f {
+  position: fixed;
+}
+
+.posi-a {
   position: absolute
 }
+
 //flex
 .d-flex {
   display: flex;
