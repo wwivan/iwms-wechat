@@ -1,6 +1,13 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Main from "./views/Main.vue";
+import AccountSecurity from "./views/AccountSecurity"
+import CheckAccount from "./views/CheckAccount"
+import Echart from "./views/Echart"
+import ItemSearch from "./views/ItemSearch"
+import LogOut from "./views/LogOut.vue"
+import StockIn from "./views/StockIn"
+import StockOut from "./views/StockOut"
 
 Vue.use(Router);
 
@@ -8,17 +15,17 @@ export default new Router({
   routes: [
     {
       path: "/",
-      name: "home",
-      component: Home
-    },
-    {
-      path: "/about",
-      name: "about",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      name: "main",
+      component: Main,
+      children:[
+        {path:"stockIn",component:StockIn},
+        {path:"stockOut",component:StockOut},
+        {path:"item/search",component:ItemSearch},
+        {path:"check/account",component:CheckAccount},
+        {path:"echart",component:Echart},
+        {path:"account/security",component:AccountSecurity},
+        {path:"logOut",component:LogOut}
+      ]
     }
   ]
 });
