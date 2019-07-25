@@ -76,6 +76,7 @@ export default {
         // tab_active: 0,
         // active: 1,
         // act: undefined,
+        // isshow:true,
         StockInType: undefined, //1明细，2封盘，3上架
         loading: false,
         finished: false,
@@ -124,16 +125,19 @@ export default {
       },
       findStockInList() {
         this.params.searchParams = this.searchParams;
-        if (this.StockInType == "1") {
+        if (this.isshow == true) {
           //this.params.searchParams["EQ_status"] = "0";
-        } else if (this.StockInType == "2") {
+          console.log(11111111111111111)
+        } else if (this.isshow == false) {
           this.params.searchParams["IN_status"] = "0,1,2";
+          console.log(111122222211111)
         }
 
         // 获取记录
         findStockInList(this.params)
           .then(res => {
             // console.log(JSON.stringify(res));
+            console.log(33333)
             this.loading = false;
             this.finished = res.data.last;
             this.records.push(...res.data.content);

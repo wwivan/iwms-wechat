@@ -7,7 +7,7 @@
     </div>
     <div class="nav bg-orange d-flex jc-between ai-center">
       <div class="text-white ml-3">返回</div>
-      <div class="text-white fs-xl">功能</div>
+      <div class="text-white fs-xl">{{this.navName}}</div>
       <div class="text-white mr-3" @click="changeIsshow">菜单</div>
     </div>
     <div
@@ -27,7 +27,7 @@
           </div>入库登记
         </router-link>
         <router-link class="item" tag="div" to="/stockOut" v-show="!this.act" @click="changeToshow">
-          <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
+          <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
             <div class="icon">
               <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
             </div>
@@ -40,7 +40,7 @@
           v-show="!this.act"
           @click="changeToshow"
         >
-          <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
+          <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
             <div class="icon">
               <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
             </div>
@@ -65,13 +65,6 @@
             </div>
           </div>对账
         </router-link>
-        <router-link class="item" tag="div" to="/echart" v-show="this.act" @click="changeToshow">
-          <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
-            <div class="icon">
-              <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
-            </div>
-          </div>智能图表
-        </router-link>
       </div>
       <!-- 主体内容展示 -->
       <div>
@@ -95,7 +88,8 @@ export default {
     return {
       isshow: false,
       act: false,
-      toshow: true
+      toshow: true,
+      navName:"功能"
     };
   },
   computed:{
@@ -111,12 +105,14 @@ export default {
       this.toshow = false;
     },
     operation() {
+      this.navName = "功能"
       this.act = false;
       this.toshow = true;
       this.isshow = false;
       this.$router.push("/")
     },
     statistical(){
+      this.navName = "统计"
       this.toshow = false;
       this.isshow = false;
       this.$router.push("/echart")

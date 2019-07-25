@@ -1,27 +1,24 @@
 <template>
-    <div>
-    <h1>任务看板</h1>
-    <h1>库存总量</h1>
-    <h1>物料分布</h1>
-    <h1>出入库统计</h1>
-    <h1>库存预警</h1>
-
-    </div>
+  <div>
+      <circle-echart></circle-echart>
+      <stick-echart></stick-echart>
+  </div>
 </template>
 <script>
+import circleEchart from "../component/Echart/circleEchart"
+
+import stickEchart from "../component/Echart/stickEchart"
 export default {
-    data(){
-        return{
-        //  <!-- 任务看板 数字块 -->
+    components:{circleEchart,stickEchart},
 
-        // <!-- 库存总量 数字块 -->
+    // initChart() {
+    //   this.chart = echarts.init(this.$refs.myEchart);
+    //   // 把配置和数据放这里
+    //   this.axios.get('/url').then((data) => {
+    //     this.chart.setOption({
 
-        // <!-- 物料分布 环形图 -->
-
-        // <!-- 出入库统计 横柱状图 -->
-
-        // <!-- 库存预警 表单-->
-        }
-    }
+    //     })
+    //   })
+    // }
 }
 </script>
