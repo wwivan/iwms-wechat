@@ -8,11 +8,14 @@ import ItemSearch from "./views/ItemSearch"
 import LogOut from "./views/LogOut.vue"
 import StockIn from "./views/StockIn"
 import StockOut from "./views/StockOut"
+import Login from "./views/Login"
 
 Vue.use(Router);
 
 export default new Router({
-  routes: [
+  routes: [{
+path:"/login",name:'login',component:Login
+  },
     {
       path: "/",
       name: "main",
