@@ -18,13 +18,13 @@ export default new Router({
       name: "main",
       component: Main,
       children:[
-        {path:"stockIn",component:StockIn},
-        {path:"stockOut",component:StockOut},
-        {path:"item/search",component:ItemSearch},
-        {path:"check/account",component:CheckAccount},
-        {path:"echart",component:Echart},
-        {path:"account/security",component:AccountSecurity},
-        {path:"logOut",component:LogOut}
+        {path:"/stockIn",component:StockIn},
+        {path:"/stockOut",component:StockOut},
+        {path:"/item/search",component:ItemSearch},
+        {path:"/check/account",component:CheckAccount},
+        {path:"/echart",component:Echart},
+        {path:"/account/security",component:AccountSecurity},
+        {path:"/logOut",component:LogOut}
       ]
     }
   ]

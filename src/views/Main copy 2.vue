@@ -79,7 +79,7 @@
       </div>
       <!-- 信息展示 -->
       <!-- 信息展示 -->
-      <div v-show="toshow">
+      <div>
         <h3>最新消息</h3>
       </div>
     </div>
@@ -99,8 +99,8 @@ export default {
     };
   },
   computed:{
-// ...mapGetters(['toshow']),
-// ...mapMutations(["toshowOpen","toshowClose"])
+...mapGetters(['toshow']),
+...mapMutations(["toshowOpen","toshowClose"])
   },
   methods: {
     changeIsshow() {
@@ -117,9 +117,10 @@ export default {
       this.$router.push("/")
     },
     statistical(){
-      this.toshow = false;
+      this.act = true;
+      this.toshow = true;
       this.isshow = false;
-      this.$router.push("/echart")
+      this.$router.push("/")
     }
   }
 };

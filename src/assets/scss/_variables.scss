@@ -17,7 +17,7 @@ $colors:("primary":#3F7FFE,
 );
 
 
-$border-color:map-get($colors, 'light-1');
+$border-color:map-get($colors, black);
 
 //font-size
 $base-font-size:1rem;
