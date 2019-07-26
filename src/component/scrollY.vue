@@ -1,7 +1,7 @@
 <template>
   <div ref="wrapper" class="wrapper">
     <div ref="content" class="content">
-      <slot :data="data"></slot>
+      <slot :data="data" :pulldown="pulldown"></slot>
     </div>
   </div>
 </template>
@@ -25,7 +25,11 @@ export default {
     listenScroll: {
       type: Boolean,
       default: false
-    }
+    },
+     pulldown: {
+        type: Boolean,
+        default: false
+      },
   },
   data() {
     return {};
@@ -55,6 +59,14 @@ export default {
       if (this.listenScroll) {
         this.scroll.on('scroll', pos => {
           this.$emit('scroll', pos);
+        });
+      }
+      if (this.pulldown) {
+        this.scroll.on("touchend", pos => {
+          // 下拉动作
+          if (pos.y > 50) {
+            this.$emit("pulldown");
+          }
         });
       }
     },

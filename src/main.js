@@ -8,6 +8,7 @@ import 'vant/lib/index.css';
 Vue.use(Vant)
 Vue.config.productionTip = false;
 
+
 import {
   formatStockInStatus,
   formatFen2Yuan,

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  const dataformat = require("date-format-lite");
+  import dataformat from "date-format-lite";
   export default {
     name: "DataSelectCell",
     data() {
