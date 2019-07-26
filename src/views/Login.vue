@@ -1,10 +1,18 @@
 <template>
   <transition name="slide">
     <div class="login">
-      <h1>欢迎使用龙猫云驿wms</h1> 
+      <h1>欢迎使用龙猫云驿wms</h1>
       <van-cell-group class="login-from">
         <van-field v-model="userName" clearable border label="账号" placeholder="请输入账号" />
-        <van-field v-model="password" clearable border type="password" label="密码" placeholder="请输入密码" :error-message="passwordErr" />
+        <van-field
+          v-model="password"
+          clearable
+          border
+          type="password"
+          label="密码"
+          placeholder="请输入密码"
+          :error-message="passwordErr"
+        />
         <van-cell>
           <van-row>
             <van-col span="12" class="btn">
@@ -18,56 +26,61 @@
 </template>
 
 <script>
-import MD5 from 'crypto-js/md5';
+import MD5 from "crypto-js/md5";
 import { mapGetters } from "vuex";
-import { emailCheck, pwdCheck } from '@/util/util';
-import { login } from '@/api/api';
-import { Toast } from 'vant';
+import { emailCheck, pwdCheck } from "@/util/util";
+import { login } from "@/api/api";
+import { Toast } from "vant";
 // Vue.use(Toast).use(Cell).use(CellGroup).use(Button).use(Col).use(Row);
 
 export default {
   data() {
     return {
-      userName: 'admin',
-      password: 'a111111',
-      userNameErr: '',
-      passwordErr: '',
+      userName: "admin",
+      password: "a111111",
+      userNameErr: "",
+      passwordErr: "",
       loading: false,
       redirect: this.$route.query.redirect,
       params: {
-        fid: "",//42dd7498-b9d3-43b3-b736-3e9844f03ff5
-       
+        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
       }
     };
   },
   mounted() {
     this.params.fid = this.fid;
+
     if (this.redirect) {
       Toast({
-        position: 'bottom',
-        message: '未登录或登陆过期，请重新登陆~'
+        position: "bottom",
+        message: "未登录或登陆过期，请重新登陆~"
       });
     }
   },
   methods: {
     login() {
-      this.userNameErr = '';
-      this.passwordErr = '';
+      this.userNameErr = "";
+      this.passwordErr = "";
       this.loading = true;
+      console.log(this.fid)
       // if (!emailCheck(this.userName)) {
       //   this.userNameErr = '邮箱格式不正确';
       //   this.loading = false;
       //   return;
       // }
       if (!pwdCheck(this.password)) {
-        this.passwordErr = '密码格式不正确';
+        this.passwordErr = "密码格式不正确";
         this.loading = false;
         return;
       }
-       //this.$router.push('/Main');
-      login({ loginName: this.userName, password: this.password, fid: this.params.fid })
+      //this.$router.push('/Main');
+      login({
+        loginName: this.userName,
+        password: this.password,
+        fid: this.params.fid
+      })
         .then(res => {
-          this.$router.push('/Main');
+          this.$router.push("/");
           // if (res.status === 200) {
           //   this.loading = false;
           //   this.$router.push('/Main');
@@ -80,45 +93,48 @@ export default {
           Toast.fail(error);
           this.loading = false;
         });
-      }
-    },
-     computed: {
-      ...mapGetters(["fid"])
+    }
+  },
+  computed: {
+    ...mapGetters(["fid"])
   }
 };
 </script>
 
 <style lang="scss" scoped>
 .login {
-  width:100%;
-  height:100%;
-  text-align:center;
-  background:url('./../../images/bgc/bgc.jpg');
-  background-repeat:no-repeat;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  // background: url("./../../images/bgc/bgc.jpg");
+  background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  overflow hidden
-  h1{
-    margin-top:40%;
+  overflow:hidden ;
+  h1 {
+    margin-top: 40%;
   }
 }
-.login-from{
-  width:80%;
-  text-align:center;
+.login-from {
+  width: 80%;
+  text-align: center;
   padding: 10px;
   margin: 0 auto;
-  box-shadow:0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
 
-  .btn{
-    text-align:center;
-    margin-top:10px;
+  .btn {
+    text-align: center;
+    margin-top: 10px;
   }
-    
 }
-.slide-enter-active, .slide-leave-active
-  transition all 0.5s
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s;
+}
 
-.slide-enter, .slide-leave-to
-  opacity 0
-  transform translate3d(100%, 0, 0)
+.slide-enter,
+.slide-leave-to {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
 </style>

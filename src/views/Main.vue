@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <div class="text-white ml-3">关闭</div>
+      <router-link tag="div" to="/login" class="text-white ml-3">关闭</router-link>
       <div class="text-white fs-xl">仓库管理</div>
       <div class="text-white mr-3">我的</div>
     </div>
     <div class="nav bg-orange d-flex jc-between ai-center">
-      <div class="text-white ml-3">返回</div>
+      <div class="text-white ml-3" @click="back">返回</div>
       <div class="text-white fs-xl">{{this.navName}}</div>
       <div class="text-white mr-3" @click="changeIsshow">菜单</div>
     </div>
@@ -72,31 +72,90 @@
       </div>
       <!-- 信息展示 -->
       <!-- 信息展示 -->
-      <div v-show="toshow">
-        <h3>最新消息</h3>
-      </div>
+      <scroll-y
+        v-show="toshow"
+        class="wrapper"
+        style="height:440px;overflow:hidden"
+        :data="news"
+        :pulldown="pulldown"
+        @pulldown="loadData"
+      >
+        <div class="content">
+          <div v-for="(item,index) in news" :key="index" class="d-flex jc-start">
+            <span class="bot ml-3" style="background: linear-gradient(135deg, #4181ff, #2360ef);"></span>
+            <span class="ml-3">{{item.title}}</span>
+            <span class="ml-3">{{item.context}}</span>
+          </div>
+        </div>
+      </scroll-y>
     </div>
   </div>
 </template>
 
 <script>
 import Home from "./Home";
-import {mapGetters,mapMutations} from "vuex"
+import ScrollY from "../component/scrollY";
+import { mapGetters, mapMutations } from "vuex";
 export default {
-  components: { Home },
+  components: { Home, ScrollY },
   data() {
     return {
       isshow: false,
       act: false,
       toshow: true,
-      navName:"功能"
+      navName: "功能",
+      pulldown:true,
+      news: [
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
+        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" }
+      ]
     };
   },
-  computed:{
-// ...mapGetters(['toshow']),
-// ...mapMutations(["toshowOpen","toshowClose"])
+  computed: {
+    // ...mapGetters(['toshow']),
+    // ...mapMutations(["toshowOpen","toshowClose"])
+  },
+  updated() {
+    this.confirmStatus();
   },
   methods: {
+    loadData() {
+      console.log("下拉刷新");
+    },
     changeIsshow() {
       this.isshow = !this.isshow;
     },
@@ -105,17 +164,25 @@ export default {
       this.toshow = false;
     },
     operation() {
-      this.navName = "功能"
+      this.navName = "功能";
       this.act = false;
       this.toshow = true;
       this.isshow = false;
-      this.$router.push("/")
+      this.$router.push("/");
     },
-    statistical(){
-      this.navName = "统计"
+    statistical() {
+      this.navName = "统计";
       this.toshow = false;
       this.isshow = false;
-      this.$router.push("/echart")
+      this.$router.push("/echart");
+    },
+    async back() {
+      await this.$router.go(-1);
+    },
+    confirmStatus() {
+      if (this.$router.currentRoute.fullPath == "/") {
+        this.toshow = true;
+      }
     }
   }
 };
@@ -124,11 +191,17 @@ export default {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  height: 4.9231rem;
+  height: 40px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 .nav {
+  position: sticky;
+  top: 40px;
+  z-index: 999;
   width: 100%;
-  height: 3.0769rem;
+  height: 40px;
 }
 .active {
   display: block;
@@ -138,13 +211,19 @@ export default {
 }
 .menu {
   z-index: 999;
-  width:1.5385rem;
-  height: 6.1538rem;
-  right: -1rem;
+  width: 20px;
+  height: 80px;
+  right: -13px;
+}
+.bot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
 }
 .square {
-  height:120px;
-  padding-top: 1.5385rem;
+  height: 120px;
+  padding-top: 20px;
   border-bottom: 1px solid rgb(192, 192, 192);
   .item {
     line-height: 35px;
@@ -156,10 +235,10 @@ export default {
       position: relative;
       .icon {
         position: absolute;
-        width: 2.4615rem;
-        height: 2.4615rem;
-        margin-left: 0.9231rem;
-        margin-top: 0.9231rem;
+        width: 32px;
+        height: 32px;
+        margin-left: 12px;
+        margin-top: 12px;
       }
     }
   }
