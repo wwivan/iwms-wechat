@@ -133,6 +133,7 @@ export default {
     stockInCreate() {
       if (this.isshow == false) {
         console.log("新建入库单");
+        this.$router.push("/stockIn/form")
       } else if (this.isshow == true) {
         console.log("新建预约单");
       }
