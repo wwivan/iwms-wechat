@@ -223,10 +223,9 @@ export default {
       // if(StockOutDetailParams.status == '3') {
       //    this.addStockLibrary(StockOutDetailParams.id);
       // }
+      console.log("11111111111111111")
       setStore("StockOutDetailParams", StockOutDetailParams);
-      this.$router.push({
-        name: "StockOutDetail"
-      });
+      this.$router.push('/stock/out/detail');
     }
   },
   computed: {
