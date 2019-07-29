@@ -11,6 +11,7 @@ import StockOut from "./views/StockOut"
 import Login from "./views/Login"
 import StockInForm from "./views/StockInForm"
 import StockOutDetail from "./views/StockOutDetail"
+import StockOutItemDetail from "./views/StockOutItemDetail"
 
 
 Vue.use(Router);
@@ -32,7 +33,8 @@ path:"/login",name:'login',component:Login
         {path:"/account/security",component:AccountSecurity},
         {path:"/logOut",component:LogOut},
         {path:"/stockIn/form",component:StockInForm},
-        {path:"/stock/out/detail",component:StockOutDetail}
+        {path:"/stock/out/detail",component:StockOutDetail},
+        {path:"/stock/out/item/detail",component:StockOutItemDetail}
       ]
     }
   ]
