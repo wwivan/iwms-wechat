@@ -1,11 +1,17 @@
 <template>
-  <div :class="className" :id="id" :style="{height:height,width:width}" ref="myEchart">
+  <div :class="className" :id="id" :style="{height:'150px',width:'300px'}" ref="myEchart">
   </div>
 </template>
 <script>
 import echarts from 'echarts'
 export default {
   props: {
+    items: {
+        type: Array,
+        default () {        //默认数据，没有数剧的情况下启用
+          return [{name: '生物', value: 95, max: '100'}, {name: '数学', value: 55, max: '100'}, {name: '语文', value: 86, max: '100'}, {name: '物理', value: 54, max: '100'}, {name: '美术', value: 59, max: '100'}]
+        }
+      },
     className: {
       type: String,
       default: 'yourClassName'
@@ -25,8 +31,12 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      data:[],
+      dataValue:[]
     }
+  },
+  created(){
   },
   mounted() {
     this.initChart();
@@ -43,17 +53,17 @@ export default {
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
-          tooltip : {
+        tooltip : {
         trigger: 'item',
         formatter: "{a} <br/>{b} : {c} ({d}%)"
     },
-    legend: {
+    legend: {//导航栏
         orient : 'vertical',
         x : 'left',
-        data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
+        data:this.items
     },
-    toolbox: {
-        show : true,
+    toolbox: {//工具部分
+        show : false,
         feature : {
             mark : {show: true},
             dataView : {show: true, readOnly: false},
@@ -64,21 +74,22 @@ export default {
                     funnel: {
                         x: '25%',
                         width: '50%',
-                        funnelAlign: 'center',
+                        funnelAlign: 'left',
                         max: 1548
                     }
                 }
             },
             restore : {show: true},
-            saveAsImage : {show: true}
+            saveAsImage : {show: true}//保存为图片
         }
     },
     calculable : true,
     series : [
         {
             name:'访问来源',
+             x : 'right',
             type:'pie',
-            radius : ['50%', '70%'],
+            radius : ['0', '70%'],
             itemStyle : {
                 normal : {
                     label : {
@@ -91,21 +102,15 @@ export default {
                 emphasis : {
                     label : {
                         show : true,
-                        position : 'center',
+                        position : 'right',
                         textStyle : {
-                            fontSize : '30',
+                            fontSize : '13',
                             fontWeight : 'bold'
                         }
                     }
                 }
             },
-            data:[
-                {value:335, name:'直接访问'},
-                {value:310, name:'邮件营销'},
-                {value:234, name:'联盟广告'},
-                {value:135, name:'视频广告'},
-                {value:1548, name:'搜索引擎'}
-            ]
+            data:this.items
         }
     ]
       })

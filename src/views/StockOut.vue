@@ -70,246 +70,254 @@
   </div>
 </template>
 <script>
- import Vue from "vue";
-  import { Toast } from "vant";
-  import { mapGetters } from "vuex";
-  import { findStockOutList, toLocation, saveStockLibrary } from "@/api/api";
-  import { CompleteGetStockOutList } from "@/api/api";
-  import {
-    setStore,
-    getStore,
-    removeStore,
-    formatStockOutStatus
-  } from "@/util/util";
-  import { Dialog } from "vant";
-  Vue.filter("formatStockOutStatus", formatStockOutStatus);
-  export default {
-    data() {
-      return {
-        active: 1,
-        StockOutType: undefined, //1明细，2分配货位，3拣货，4下架
-        DownStock: {},
-        show: false,
-        loading: false,
-        finished: false,
-        records: [],
-        searchParams: {},
-        params: {
-          pageNumber: 1,
-          stockOutId: undefined,
-          pageSize: 30,
-          sortType: "auto",
-          fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
-          searchParams: {
-            EQ_status: undefined
-          }
+import Vue from "vue";
+import { Toast } from "vant";
+import { mapGetters } from "vuex";
+import { findStockOutList, toLocation, saveStockLibrary } from "@/api/api";
+import { CompleteGetStockOutList } from "@/api/api";
+import {
+  setStore,
+  getStore,
+  removeStore,
+  formatStockOutStatus
+} from "@/util/util";
+import { Dialog } from "vant";
+Vue.filter("formatStockOutStatus", formatStockOutStatus);
+export default {
+  data() {
+    return {
+      active: 1,
+      StockOutType: undefined, //1明细，2分配货位，3拣货，4下架
+      DownStock: {},
+      show: false,
+      loading: false,
+      finished: false,
+      records: [],
+      searchParams: {},
+      params: {
+        pageNumber: 1,
+        stockOutId: undefined,
+        pageSize: 30,
+        sortType: "auto",
+        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+        searchParams: {
+          EQ_status: undefined
         }
-      };
-    },
-    mounted() {
-      this.params.fid = this.fid;
-      let temp = getStore("stockOutSearchParams");
-      if (temp) {
-        removeStore("stockOutSearchParams");
-        this.searchParams = JSON.parse(temp);
-      } else {
-        this.searchParams = {};
       }
-      let StockOutType = getStore("StockOutType");
-      this.StockOutType = StockOutType;
-      // if(StockOutType == '2'){//分配货位
-      //   this.searchParams.EQ_status = 1;
-      // }else if(StockOutTy2pe == '3'){//拣货
-      //   this.params.searchParams["IN_status"] = 1,2,3;
-      // }else {
-      //   console.log(`StockOutType: ${ StockOutType }`)
-      // }
+    };
+  },
+  created() {
+    this.initStatus();
+  },
+  mounted() {
+    this.params.fid = this.fid;
+    let temp = getStore("stockOutSearchParams");
+    if (temp) {
+      removeStore("stockOutSearchParams");
+      this.searchParams = JSON.parse(temp);
+    } else {
+      this.searchParams = {};
+    }
+    let StockOutType = getStore("StockOutType");
+    this.StockOutType = StockOutType;
+    console.log(1212321231122);
+    console.log(this.StockOutType);
+    // if(StockOutType == '2'){//分配货位
+    //   this.searchParams.EQ_status = 1;
+    // }else if(StockOutTy2pe == '3'){//拣货
+    //   this.params.searchParams["IN_status"] = 1,2,3;
+    // }else {
+    //   console.log(`StockOutType: ${ StockOutType }`)
+    // }
+  },
+  methods: {
+    initStatus() {
+      setStore("StockOutType", "1");
     },
-    methods: {
-      createGetStockOut() {
-        this.$router.push({
-          name: "GetStockOut"
+    createGetStockOut() {
+      this.$router.push({
+        name: "GetStockOut"
+      });
+    },
+    onRefreshList() {
+      // 刷新
+      //this.params.pageNumber = 1;
+      this.records = [];
+      this.findStockOutList();
+    },
+    onLoadMore() {
+      console.log("############");
+      //this.params.pageNumber = this.params.pageNumber + 1;
+      console.log(this.params.pageNumber);
+      this.findStockOutList();
+    },
+    findStockOutList() {
+      this.params.searchParams = this.searchParams;
+      //  if(this.StockOutType=="1"){
+      //   //this.params.searchParams["EQ_status"] = "0";
+      // }else if(this.StockOutType=="3"){
+      //   this.params.searchParams["IN_status"] = "0,1";
+      // }
+      // 获取记录
+      findStockOutList(this.params)
+        .then(res => {
+          this.loading = false;
+          this.finished = res.data.last;
+          this.records.push(...res.data.content);
+        })
+        .catch(error => {
+          this.finished = true;
+          this.loading = false;
+          Toast("请求错误");
         });
-      },
-      onRefreshList() {
-        // 刷新
-        //this.params.pageNumber = 1;
-        this.records = [];
-        this.findStockOutList();
-      },
-      onLoadMore() {
-        console.log("############");
-        //this.params.pageNumber = this.params.pageNumber + 1;
-        console.log(this.params.pageNumber);
-        this.findStockOutList();
-      },
-      findStockOutList() {
-        this.params.searchParams = this.searchParams;
-        //  if(this.StockOutType=="1"){
-        //   //this.params.searchParams["EQ_status"] = "0";
-        // }else if(this.StockOutType=="3"){
-        //   this.params.searchParams["IN_status"] = "0,1";
-        // }
-        // 获取记录
-        findStockOutList(this.params)
-          .then(res => {
-            this.loading = false;
-            this.finished = res.data.last;
-            this.records.push(...res.data.content);
-          })
-          .catch(error => {
-            this.finished = true;
-            this.loading = false;
-            Toast("请求错误");
-          });
-      },
-      //拣货完成跳转货位列表
-      getToLocationList(item) {
-        //获取stockLibraryId
-        setStore("stockLibraryId", item.stockLibrary.id);
-        setStore("SealandShelf", "4"); //下架扫描
-        this.$router.push({
-          name: "StockInCamera"
-        });
-      },
-      onTitleClickLeft() {
-        // 返回
+    },
+    //拣货完成跳转货位列表
+    getToLocationList(item) {
+      //获取stockLibraryId
+      setStore("stockLibraryId", item.stockLibrary.id);
+      setStore("SealandShelf", "4"); //下架扫描
+      this.$router.push({
+        name: "StockInCamera"
+      });
+    },
+    onTitleClickLeft() {
+      // 返回
+      this.$router.push({
+        name: "Main"
+      });
+    },
+    onTabChange(active) {
+      if (active == "0") {
         this.$router.push({
           name: "Main"
         });
-      },
-      onTabChange(active) {
-        if (active == "0") {
-          this.$router.push({
-            name: "Main"
-          });
-        } else if (active == "1") {
-          this.$router.push({
-            name: "Statistics"
-          });
-        } else if (active == "2") {
-          this.$router.push({
-            name: "Mine"
-          });
-        }
-      },
-      onClickSearch() {
+      } else if (active == "1") {
         this.$router.push({
-          name: "StockOutSearch"
+          name: "Statistics"
         });
-      },
-      onClickForm() {
-        setStore("StockOutType", "1");
+      } else if (active == "2") {
         this.$router.push({
-          name: "StockOutForm"
-        });
-      },
-      onTitileClickRight() {
-        // 查询
-        this.$router.push({
-          name: "StockOutSearch"
-        });
-      },
-      findStockOutDetail(StockOutDetailParams) {
-        //获取单个出库单详细
-        // if(StockOutDetailParams.status == '3') {
-        //    this.addStockLibrary(StockOutDetailParams.id);
-        // }
-        setStore("StockOutDetailParams", StockOutDetailParams);
-        this.$router.push({
-          name: "StockOutDetail"
+          name: "Mine"
         });
       }
     },
-    computed: {
-      ...mapGetters(["fid"])
+    onClickSearch() {
+      this.$router.push({
+        name: "StockOutSearch"
+      });
     },
-    filters: {
-      formatType(value) {
-        let realVal = "";
-        if (value == "1") {
-          realVal = "销售出库";
-        } else if (value == "2") {
-          realVal = "退货出库";
-        } else if (value == "3") {
-          realVal = "生产使用";
-        } else if (value == "4") {
-          realVal = "外协出库";
-        } else if (value == "5") {
-          realVal = "借用出库";
-        } else if (value == "6") {
-          realVal = "废品出库";
-        }
-        return realVal;
-      }
+    onClickForm() {
+      setStore("StockOutType", "1");
+      this.$router.push({
+        name: "StockOutForm"
+      });
+    },
+    onTitileClickRight() {
+      // 查询
+      this.$router.push({
+        name: "StockOutSearch"
+      });
+    },
+    findStockOutDetail(StockOutDetailParams) {
+      //获取单个出库单详细
+      // if(StockOutDetailParams.status == '3') {
+      //    this.addStockLibrary(StockOutDetailParams.id);
+      // }
+      setStore("StockOutDetailParams", StockOutDetailParams);
+      this.$router.push({
+        name: "StockOutDetail"
+      });
     }
-  };
+  },
+  computed: {
+    ...mapGetters(["fid"])
+  },
+  filters: {
+    formatType(value) {
+      let realVal = "";
+      if (value == "1") {
+        realVal = "销售出库";
+      } else if (value == "2") {
+        realVal = "退货出库";
+      } else if (value == "3") {
+        realVal = "生产使用";
+      } else if (value == "4") {
+        realVal = "外协出库";
+      } else if (value == "5") {
+        realVal = "借用出库";
+      } else if (value == "6") {
+        realVal = "废品出库";
+      }
+      return realVal;
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-  }
-  .top-bar {
-    background: white;
-    position: sticky;
-    top: 0;
-    z-index: 999;
-    height: 70px;
-    box-shadow: 0 10px 50px rgba(168, 168, 168, 0.25);
-  }
-  .stock-out-header {
-    display: flex;
-    height: 46px;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .stock-out {
-    margin-left: 12px;
-    margin-top: 22px;
-    margin-right: 12px;
-  }
-  .stock-out .header {
-    margin-top: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-left: 13px;
-    margin-right: 12px;
-  }
-  .header .bot {
-    width: 11px;
-    height: 11px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .header .context {
-    margin-left: 7px;
-    flex: 1;
-    font-size: 12px;
-    color: #3f7ffe;
-    text-align: left
-  }
-  .header .icon {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
-  }
-  .content {
-    margin-top: 16px;
-    margin-left: 13px;
-    display: flex;
-    align-items: center;
-    text-align: left
-  }
-  .content div div {
-    font-family: PingFangSC-Regular;
-    color: #4a4a4a;
-    font-size: 13px;
-    line-height: 28px;
-  }
-  .content .confirm {
-    margin-left: 60px;
-  }
+  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+.top-bar {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  height: 70px;
+  box-shadow: 0 10px 50px rgba(168, 168, 168, 0.25);
+}
+.stock-out-header {
+  display: flex;
+  height: 46px;
+  justify-content: space-around;
+  align-items: center;
+}
+.stock-out {
+  margin-left: 12px;
+  margin-top: 22px;
+  margin-right: 12px;
+}
+.stock-out .header {
+  margin-top: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 13px;
+  margin-right: 12px;
+}
+.header .bot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.header .context {
+  margin-left: 7px;
+  flex: 1;
+  font-size: 12px;
+  color: #3f7ffe;
+  text-align: left;
+}
+.header .icon {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+.content {
+  margin-top: 16px;
+  margin-left: 13px;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+.content div div {
+  font-family: PingFangSC-Regular;
+  color: #4a4a4a;
+  font-size: 13px;
+  line-height: 28px;
+}
+.content .confirm {
+  margin-left: 60px;
+}
 </style>
 

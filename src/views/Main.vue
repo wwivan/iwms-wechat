@@ -198,7 +198,7 @@ export default {
 }
 .nav {
   position: sticky;
-  top: 40px;
+  top: 64px;
   z-index: 999;
   width: 100%;
   height: 40px;
