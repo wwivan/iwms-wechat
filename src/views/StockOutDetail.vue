@@ -19,7 +19,7 @@
             <span v-show="item.status == 5"
                   class="bot"
                   style="background: linear-gradient(135deg, #F7C77F, #FF9860);"></span>
-            <span style="font-size:13px;color:#4181FF">{{item.stockOut==undefined? '':item.stockOut.orderNo}}</span>
+            <span style="font-size:13px;color:#4181FF;margin-left:6px">{{item.stockOut==undefined? '':item.stockOut.orderNo}}</span>
           </div>
           <div class="content">
             <div>
@@ -272,7 +272,7 @@
     margin-top: 25px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: start;
     margin-left: 13px;
     margin-right: 12px;
   }

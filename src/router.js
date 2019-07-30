@@ -12,6 +12,8 @@ import Login from "./views/Login"
 import StockInForm from "./views/StockInForm"
 import StockOutDetail from "./views/StockOutDetail"
 import StockOutItemDetail from "./views/StockOutItemDetail"
+import StockOutForm from "./views/StockOutForm"
+import Customer from "./views/Customer"
 
 
 Vue.use(Router);
@@ -34,7 +36,9 @@ path:"/login",name:'login',component:Login
         {path:"/logOut",component:LogOut},
         {path:"/stockIn/form",component:StockInForm},
         {path:"/stock/out/detail",component:StockOutDetail},
-        {path:"/stock/out/item/detail",component:StockOutItemDetail}
+        {path:"/stock/out/item/detail",component:StockOutItemDetail},
+        {path:"/stock/out/form",component:StockOutForm},
+        {path:"/customer",component:Customer},
       ]
     }
   ]

@@ -81,10 +81,10 @@
         @pulldown="loadData"
       >
         <div class="content">
-          <div v-for="(item,index) in news" :key="index" class="d-flex jc-start">
-            <span class="bot ml-3" style="background: linear-gradient(135deg, #4181ff, #2360ef);"></span>
-            <span class="ml-3">{{item.title}}</span>
-            <span class="ml-3">{{item.context}}</span>
+          <div v-for="(item,index) in news" :key="index" class="d-flex jc-start ai-center" style="height:30px;">
+            <span class="bot ml-4" style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
+            <span class="ml-4 text-grey-1">{{item.title}}</span>
+            <span class="ml-4 text-grey-1">{{item.context}}</span>
           </div>
         </div>
       </scroll-y>

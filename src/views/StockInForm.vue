@@ -6,6 +6,7 @@
         <span class="message">{{params.reserveOrderNo}}</span>
       </div>
       <picker-popup
+      class="text-left"
         style="margin-left:12px"
         :title="'仓库'"
         :placeholder="'请选提仓库'"
@@ -13,6 +14,7 @@
         :columns="sarehouses"
       />
       <picker-popup
+      class="text-left"
         style="margin-left:12px"
         :title="'入库类型'"
         :placeholder="'请选提入库类型'"
@@ -21,6 +23,7 @@
       />
       <div class="row">
         <date-select-cell
+        class="text-left"
           style="margin-left:-15px;"
           :title="'入库时间'"
           :placeholder="'请输入入库时间'"
@@ -28,18 +31,19 @@
         ></date-select-cell>
       </div>
       <div
-        class="row"
+        class="row d-flex ai-center"
         v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
       >
         <span style="margin-left:0" class="title">供应商</span>
         <span class="message">{{params.supplierName}}</span>
-      </div>
-      <van-button
+        <van-button
         v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
         size="small"
         @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
-        style="border-radius:5px;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:20px;margin-left:27px;"
+        style="border-radius:5px;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
       >选择</van-button>
+      </div>
+      
       <div class="row">
         <span style="margin-left:0" class="title">送货单号</span>
         <input

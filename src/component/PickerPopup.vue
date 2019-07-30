@@ -1,8 +1,8 @@
 <template>
   <div>
     <van-field :border="border" is-link readonly :label="title" @click="show=true" :placeholder="placeholder" :value="selectedItem.name"></van-field>
-    <van-actionsheet v-model="show" :actions="columns" :close-on-click-overlay="close" @cancel="onCancel" cancel-text="取消"
-      @select="onSelect"></van-actionsheet>
+    <van-action-sheet v-model="show" :actions="columns" :close-on-click-overlay="close" @cancel="onCancel" cancel-text="取消"
+      @select="onSelect"></van-action-sheet>
   </div>
 </template>
 
@@ -46,5 +46,7 @@
 </script>
 
 <style scoped>
-
+.van-picker__cancel{
+  color: #000 !important
+}
 </style>

@@ -21,7 +21,7 @@
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
             <span
-              style="font-size:13px;color:#4181FF"
+              style="font-size:13px;color:#4181FF;margin-left:6px;"
             >{{item.stockOutItem.stockOut==undefined? '':item.stockOutItem.stockOut.orderNo}}</span>
           </div>
           <div class="content">
@@ -208,7 +208,7 @@ export default {
   margin-top: 25px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content:start;
   margin-left: 13px;
   margin-right: 12px;
 }

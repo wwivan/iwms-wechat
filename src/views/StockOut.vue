@@ -67,6 +67,22 @@
         </div>
       </div>
     </van-pull-refresh>
+    <div
+      class="bg-primary d-flex"
+      style="position:fixed;bottom:40px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:45px;height:30px;border:none"
+        @click="stockOutCreate"
+      >新建</button>
+      <div class="bg-white" style="width:2px;height:30px"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:45px;height:30px;border:none"
+        @click="stockOutSearch"
+      >搜索</button>
+    </div>
   </div>
 </template>
 <script>
@@ -131,6 +147,13 @@ export default {
     // }
   },
   methods: {
+    stockOutCreate(){
+      console.log("新建出库单")
+      this.$router.push("/stock/out/form")
+    },
+    stockOutSearch(){
+      console.log("搜索出库单")
+    },
     initStatus() {
       setStore("StockOutType", "1");
     },

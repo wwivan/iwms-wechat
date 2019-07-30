@@ -16,11 +16,11 @@ export default {
     },
     width: {
       type: String,
-      default: "375px"
+      default: "350px"
     },
     height: {
       type: String,
-      default: "300px"
+      default: "280px"
     }
   },
   data() {
@@ -88,13 +88,13 @@ export default {
           }
         },
         calculable: true,
-        yAxis: [
+        xAxis: [
           {
             type: "category",
             data:this.names
           }
         ],
-        xAxis: [
+        yAxis: [
           {
             type: "value"
           }
@@ -118,22 +118,22 @@ export default {
             name: "出库量",
             type: "bar",
             data: this.stockOutValues,
-            itemStyle: {
-              normal: {
-                //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
-                color: function(params) {
-                  // build a color map as your need.
-                  var colorList = ["#FF9779", "#2360EF"];
-                  return colorList[params.dataIndex];
-                }, //以下为是否显示，显示位置和显示格式的设置了
-                label: {
-                  show: true,
-                  position: "top",
-                  //                             formatter: '{c}'
-                  formatter: "{b}\n{c}"
-                }
-              }
-            },
+            // itemStyle: {
+            //   normal: {
+            //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
+            //     color: function(params) {
+            //       // build a color map as your need.
+            //       var colorList = ["#FF9779", "#2360EF"];
+            //       return colorList[params.dataIndex];
+            //     }, //以下为是否显示，显示位置和显示格式的设置了
+            //     label: {
+            //       show: true,
+            //       position: "top",
+            //       //                             formatter: '{c}'
+            //       formatter: "{b}\n{c}"
+            //     }
+            //   }
+            // },
             // markPoint: {
             //   data: [
             //     {
