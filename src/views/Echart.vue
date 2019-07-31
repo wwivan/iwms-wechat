@@ -7,7 +7,7 @@
           <span class="iconfont icon-kucun"></span>
           <div class="ml-2">
             <div class="fs-xl text-white">{{store.storage}}</div>
-            <div class="text-left text-white mt-1">库存总量</div>
+            <div class="text-left text-white mt-1" @click="findStockInItemList">库存总量</div>
           </div>
         </div>
         <div class="row d-flex ai-center" @click="checkDanger">
@@ -58,17 +58,24 @@
 import circleEchart from "../component/Echart/circleEchart";
 
 import stickEchart from "../component/Echart/stickEchart";
+import { mapGetters } from "vuex";
+import {
+  findStockInItemList,
+  confirmSealedTray,
+  getCheckedInQty
+} from "@/api/api";
+import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
   components: { circleEchart, stickEchart },
   data() {
     return {
-      store:{
-        storage:0,
-        danger:3,
-        todayOut:1,
-        waitOut:0,
-        todayIn:3,
-        waitIn:0
+      store: {
+        storage: 0,
+        danger: 3,
+        todayOut: 1,
+        waitOut: 0,
+        todayIn: 3,
+        waitIn: 0,
       },
       items: [
         { name: "成品", value: 95, max: "100" },
@@ -82,9 +89,20 @@ export default {
       ]
     };
   },
+  mounted(){
+    
+  },
+  computed: {
+    ...mapGetters(["fid"])
+  },
   methods: {
-    checkDanger(){
-      console.log("查看库存预警")
+    findStockInItemList() {
+      findStockInItemList(this.fid).then(res => {
+        console.log(res.data);
+      });
+    },
+    checkDanger() {
+      console.log("查看库存预警");
     },
     log() {
       let items2 = this.items1.map(Element => {
@@ -116,20 +134,20 @@ export default {
       span {
         font-size: 30px;
         color: white;
-      };
-      div{
-        div{
-          text-align: right
+      }
+      div {
+        div {
+          text-align: right;
         }
       }
     }
   }
 }
-.circleEchart{
+.circleEchart {
   margin: 10px auto;
   width: 80%;
 }
-.stickEchart{
+.stickEchart {
   margin: 10px auto;
   width: 80%;
 }

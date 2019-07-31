@@ -36,7 +36,7 @@
         <router-link
           class="item"
           tag="div"
-          to="/item/search"
+          to="/materiel/search"
           v-show="!this.act"
           @click="changeToshow"
         >
@@ -152,6 +152,9 @@ export default {
   updated() {
     this.confirmStatus();
   },
+  created(){
+    this.confirmStatus();
+  },
   methods: {
     loadData() {
       console.log("下拉刷新");
@@ -182,6 +185,9 @@ export default {
     confirmStatus() {
       if (this.$router.currentRoute.fullPath == "/") {
         this.toshow = true;
+      }
+      if (this.$router.currentRoute.fullPath != "/") {
+        this.toshow = false;
       }
     }
   }

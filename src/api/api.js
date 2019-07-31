@@ -4,6 +4,7 @@ import {
 } from '@/util/http';
 export const test = () => get('/');
 export const login = params => post('/login', params);
+export const authorize = params => post('/api/auth/getAuthUrl',params)
 export const reg = params => post('reg', params);
 export const hotSale = () => post('hotsale');
 export const saleGroup = () => post('salegroup');

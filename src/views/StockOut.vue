@@ -153,6 +153,7 @@ export default {
     },
     stockOutSearch(){
       console.log("搜索出库单")
+      this.$router.push("/stock/out/search")
     },
     initStatus() {
       setStore("StockOutType", "1");

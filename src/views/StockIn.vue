@@ -130,6 +130,9 @@ export default {
     // this.onRefreshList();
   },
   methods: {
+    initStatus() {
+      setStore("StockInType", "1");
+    },
     stockInCreate() {
       if (this.isshow == false) {
         console.log("新建入库单");
@@ -141,6 +144,7 @@ export default {
     stockInSearch() {
       if (this.isshow == false) {
         console.log("搜索入库单");
+        this.$router.push("/stockIn/search")
       } else if (this.isshow == true) {
         console.log("搜索预约单");
       }
@@ -246,10 +250,8 @@ export default {
     findStockInDetail(StockInDetailParams) {
       //获取单个入库单详细
       setStore("StockInDetailParams", StockInDetailParams);
-
-      this.$router.push({
-        name: "StockInDetail"
-      });
+      this.initStatus()
+      this.$router.push('/stockIn/detail');
     }
   },
   computed: {

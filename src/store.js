@@ -5,7 +5,8 @@ Vue.use(Vuex);
 const state ={
   isshow:false,
   toshow:false,
-  fid: '42dd7498-b9d3-43b3-b736-3e9844f03ff5'
+  fid: '42dd7498-b9d3-43b3-b736-3e9844f03ff5',
+  openid:""
 }
 const mutations = {
   resIsshow(state) {
@@ -27,6 +28,9 @@ const getters={
   },
   toshow: state =>{
     return state.isshow
+  },
+  openid: state =>{
+    return state.openid
   },
   fid: state => {
     return state.fid;

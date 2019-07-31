@@ -29,6 +29,7 @@
 
       <div class="row">
         <date-select-cell
+        class="text-left"
           style="margin-left:-15px;"
           v-if="selectedStockOutType.id == '3' || selectedStockOutType.id == '5'"
           :title="'出库时间'"
