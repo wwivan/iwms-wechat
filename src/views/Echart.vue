@@ -7,7 +7,7 @@
           <span class="iconfont icon-kucun"></span>
           <div class="ml-2">
             <div class="fs-xl text-white">{{store.storage}}</div>
-            <div class="text-left text-white mt-1" @click="findStockInItemList">库存总量</div>
+            <div class="text-left text-white mt-1" @click="getTask">库存总量</div>
           </div>
         </div>
         <div class="row d-flex ai-center" @click="checkDanger">
@@ -60,9 +60,7 @@ import circleEchart from "../component/Echart/circleEchart";
 import stickEchart from "../component/Echart/stickEchart";
 import { mapGetters } from "vuex";
 import {
-  findStockInItemList,
-  confirmSealedTray,
-  getCheckedInQty
+  getTask
 } from "@/api/api";
 import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
@@ -77,6 +75,9 @@ export default {
         todayIn: 3,
         waitIn: 0,
       },
+      params:{
+        fid:undefined
+      },
       items: [
         { name: "成品", value: 95, max: "100" },
         { name: "半成品", value: 55, max: "100" },
@@ -90,16 +91,16 @@ export default {
     };
   },
   mounted(){
-    
+    this.params.fid=this.fid
   },
   computed: {
     ...mapGetters(["fid"])
   },
   methods: {
-    findStockInItemList() {
-      findStockInItemList(this.fid).then(res => {
-        console.log(res.data);
-      });
+    getTask(){
+      getTask(this.params).then(res=>{
+        console.log(res.data)
+      })
     },
     checkDanger() {
       console.log("查看库存预警");

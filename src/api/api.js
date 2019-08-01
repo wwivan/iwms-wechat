@@ -4,7 +4,10 @@ import {
 } from '@/util/http';
 export const test = () => get('/');
 export const login = params => post('/login', params);
-export const authorize = params => post('/api/auth/getAuthUrl',params)
+export const authorize = params => get('/auth/getAuthUrl',params);
+export const getUser = params => get("/auth/getUserOpenIdAndSessionKey",params);
+export const getUserInfo = params => get('/auth/getUserInfo',params);
+export const getTask = params => get("/order/getDefault",params)
 export const reg = params => post('reg', params);
 export const hotSale = () => post('hotsale');
 export const saleGroup = () => post('salegroup');

@@ -11,6 +11,7 @@ import StockIn from "./views/StockIn"
 import StockInDetail from "./views/StockInDetail"
 import StockOut from "./views/StockOut"
 import Login from "./views/Login"
+import Authorize from "./views/Authorize"
 import StockInForm from "./views/StockInForm"
 import StockInSearch from "./views/StockInSearch"
 import StockInItemForm from "./views/StockInItemForm"
@@ -29,7 +30,9 @@ Vue.use(Router);
 export default new Router({
   routes: [{
 path:"/login",name:'login',component:Login
-  },
+  },{
+    path:"/authorize",name:'authorize',component:Authorize
+      },
     {
       path: "/",
       name: "main",

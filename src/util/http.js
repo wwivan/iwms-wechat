@@ -11,6 +11,16 @@ if (process.env.NODE_ENV == 'development') {
 } else {
   axios.defaults.baseURL = 'http://47.111.87.217:2080/iwms-api/api';
 }
+// 请求拦截
+// axios.interceptors.request.use(function (config) {
+//   if (localStorage.token) {
+//     config.headers.Authorization = "Bearer " + localStorage.token
+//   }
+
+//   return config;
+// }, function (error) {
+//   return Promise.reject(error)
+// })
 
 // 超时时间
 axios.defaults.timeout = 10000;
@@ -18,7 +28,7 @@ axios.defaults.timeout = 10000;
 // 响应拦截
 axios.interceptors.response.use(
   response => {
-    if (response.status === 200) {
+    if (response.status === 200 && localStorage.appid) {
       return Promise.resolve(response);
     } else {
       return Promise.reject(response);
