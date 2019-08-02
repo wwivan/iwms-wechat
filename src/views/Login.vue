@@ -13,7 +13,11 @@
           placeholder="请输入密码"
           :error-message="passwordErr"
         />-->
-        <button @click="getVcode">{{time}}</button>
+        <button
+          @click="getVcode"
+          class="bg-primary text-white"
+          style="height:30px;border:none"
+        >{{!time?"点击获取验证码":time}}</button>
         <van-field
           v-model="params.vcode"
           clearable
@@ -41,14 +45,16 @@ import { emailCheck, pwdCheck } from "@/util/util";
 import { login, getUserAuth, getVcode } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Toast } from "vant";
+import { setInterval, clearInterval } from "timers";
 // Vue.use(Toast).use(Cell).use(CellGroup).use(Button).use(Col).use(Row);
 
 export default {
   data() {
     return {
+      isfalse: false,
       userName: "admin",
       password: "a111111",
-      time: 30,
+      time: undefined,
       userNameErr: "",
       passwordErr: "",
       loading: false,
@@ -56,8 +62,8 @@ export default {
       // params: {
       //   fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
       // },
-      getVcodeParmas:{
-        mobileNo: 18674484084,
+      getVcodeParmas: {
+        mobileNo: 18674484084
       },
       params: {
         mobileNo: 18674484084,
@@ -87,12 +93,25 @@ export default {
   methods: {
     initstatus() {
       setStore("appid", this.params.extUserId);
-      
     },
     getVcode() {
-      getVcode(this.getVcodeParmas).then(res => {
-        console.log(res.data);
-      });
+      if (this.isfalse) {
+        return;
+      } else {
+        this.time = 10;
+        
+        setInterval(() => {
+          this.time--;
+          this.isfalse = true
+          if (this.time < 0) {
+            this.time = undefined;
+          }
+        }, 1000);
+        
+        getVcode(this.Parmas).then(res => {
+          console.log(res.data);
+        });
+      }
     },
     login() {
       login(this.params).then(res => {

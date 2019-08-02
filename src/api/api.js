@@ -7,10 +7,15 @@ export const test = () => get('/');
 export const login = params => post('/rbac/mall/wxLogin', params);
 export const loginOut = params => post('/auth/backLogin',params);
 export const authorize = params => get('/auth/getAuthUrl',params);
+//获取验证码
 export const getVcode = params => get('/message/sendSmsVcode',params);
+// 获取用户openid和token
 export const getUser = params => get("/auth/getUserOpenIdAndSessionKey",params);
+// 获取用户openid和token 无：给默认值
 export const getUserAuth = params => get("/auth/getOpenId?extUserId=oYNm1vxJvmn-r3qMhkzEGwsmxe1Q",params)
+// 获取用户信息
 export const getUserInfo = params => get('/auth/getUserInfo',params);
+// 获取统计数据
 export const getTask = params => post("/order/getDefault",params)
 export const reg = params => post('reg', params);
 export const hotSale = () => post('hotsale');
