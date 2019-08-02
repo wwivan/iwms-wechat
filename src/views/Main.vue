@@ -3,7 +3,7 @@
     <div class="header bg-dark-1 d-flex jc-between ai-center">
       <router-link tag="div" to="/login" class="text-white ml-3">关闭</router-link>
       <div class="text-white fs-xl">仓库管理</div>
-      <div class="text-white mr-3">我的</div>
+      <div class="text-white mr-3" @click="system">我的</div>
     </div>
     <div class="nav bg-orange d-flex jc-between ai-center">
       <div class="text-white ml-3" @click="back">返回</div>
