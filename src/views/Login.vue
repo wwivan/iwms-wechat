@@ -3,7 +3,7 @@
     <div class="login">
       <h1>欢迎使用龙猫云驿wms</h1>
       <van-cell-group class="login-from">
-        <van-field v-model="params.mobileNo" clearable border label="手机号" placeholder="请输入手机号" />
+        <van-field v-model="getVcodeParmas.mobileNo" clearable border label="手机号" placeholder="请输入手机号" />
         <!-- <van-field
           v-model="password"
           clearable
@@ -63,10 +63,10 @@ export default {
       //   fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
       // },
       getVcodeParmas: {
-        mobileNo: 18674484084
+        mobileNo: "18674484084"
       },
       params: {
-        mobileNo: 18674484084,
+        mobileNo: "18674484084",
         vcode: undefined,
         extUserId: "oYNm1v_3tmH0FHHqjU_yrMt-AeEE",
         fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5"
@@ -98,7 +98,7 @@ export default {
       if (this.isfalse) {
         return;
       } else {
-        this.time = 10;
+        this.time = 60;
         
         setInterval(() => {
           this.time--;
@@ -108,7 +108,7 @@ export default {
           }
         }, 1000);
         
-        getVcode(this.Parmas).then(res => {
+        getVcode(this.getVcodeParmas).then(res => {
           console.log(res.data);
         });
       }

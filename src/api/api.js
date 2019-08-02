@@ -8,7 +8,7 @@ export const login = params => post('/rbac/mall/wxLogin', params);
 export const loginOut = params => post('/auth/backLogin',params);
 export const authorize = params => get('/auth/getAuthUrl',params);
 //获取验证码
-export const getVcode = params => get('/message/sendSmsVcode',params);
+export const getVcode = params => post('/message/sendSmsVcode',params);
 // 获取用户openid和token
 export const getUser = params => get("/auth/getUserOpenIdAndSessionKey",params);
 // 获取用户openid和token 无：给默认值
