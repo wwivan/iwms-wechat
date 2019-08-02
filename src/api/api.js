@@ -3,11 +3,15 @@ import {
   post
 } from '@/util/http';
 export const test = () => get('/');
-export const login = params => post('/login', params);
+// export const login = params => post('/login', params);
+export const login = params => post('/rbac/mall/wxLogin', params);
+export const loginOut = params => post('/auth/backLogin',params);
 export const authorize = params => get('/auth/getAuthUrl',params);
+export const getVcode = params => get('/message/sendSmsVcode',params);
 export const getUser = params => get("/auth/getUserOpenIdAndSessionKey",params);
+export const getUserAuth = params => get("/auth/getOpenId?extUserId=oYNm1vxJvmn-r3qMhkzEGwsmxe1Q",params)
 export const getUserInfo = params => get('/auth/getUserInfo',params);
-export const getTask = params => get("/order/getDefault",params)
+export const getTask = params => post("/order/getDefault",params)
 export const reg = params => post('reg', params);
 export const hotSale = () => post('hotsale');
 export const saleGroup = () => post('salegroup');
@@ -23,6 +27,10 @@ export const createOrder = params => post('createOrder', params);
 export const getGoodById = params => post('getGoodById', params);
 export const listMessage = params => post('listMessage', params);
 export const messageDetail = params => post('messageDetail', params);
+//库存预警
+export const dangerStorage = params => post('/order/stockUseNumLTMinStock', params);
+// 出入库流水
+export const stockDetailList = params => post('/order/stockDetailList', params);
 // 预约单列表
 export const findReserveOrderList = params => post('/storage/reserveOrder/findReserveOrderList', params);
 // 预约明细单列表

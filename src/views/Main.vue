@@ -81,7 +81,12 @@
         @pulldown="loadData"
       >
         <div class="content">
-          <div v-for="(item,index) in news" :key="index" class="d-flex jc-start ai-center" style="height:30px;">
+          <div
+            v-for="(item,index) in news"
+            :key="index"
+            class="d-flex jc-start ai-center"
+            style="height:30px;"
+          >
             <span class="bot ml-4" style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
             <span class="ml-4 text-grey-1">{{item.title}}</span>
             <span class="ml-4 text-grey-1">{{item.context}}</span>
@@ -96,6 +101,7 @@
 import Home from "./Home";
 import ScrollY from "../component/scrollY";
 import { mapGetters, mapMutations } from "vuex";
+import { stockDetailList } from "@/api/api";
 export default {
   components: { Home, ScrollY },
   data() {
@@ -104,7 +110,10 @@ export default {
       act: false,
       toshow: true,
       navName: "功能",
-      pulldown:true,
+      pulldown: true,
+      params: {
+        fid: ""
+      },
       news: [
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
@@ -146,16 +155,27 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters(['toshow']),
+    ...mapGetters(["fid"])
     // ...mapMutations(["toshowOpen","toshowClose"])
   },
   updated() {
     this.confirmStatus();
   },
-  created(){
+  created() {
+    this.params.fid = this.fid;
+    console.log(this.params.fid);
     this.confirmStatus();
   },
+  mounted() {
+    this.stockDetailList();
+  },
   methods: {
+    stockDetailList() {
+      console.log(11111111)
+      stockDetailList(this.params).then(res=>{
+        console.log(res.data)
+      })
+    },
     loadData() {
       console.log("下拉刷新");
     },

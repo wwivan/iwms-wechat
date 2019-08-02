@@ -7,13 +7,14 @@
           <span class="iconfont icon-kucun"></span>
           <div class="ml-2">
             <div class="fs-xl text-white">{{store.storage}}</div>
-            <div class="text-left text-white mt-1" @click="getTask">库存总量</div>
+            <div class="text-left text-white mt-1">库存总量</div>
           </div>
         </div>
         <div class="row d-flex ai-center" @click="checkDanger">
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.danger}} 项</div>
+            <!-- <div class="fs-xl text-white">{{store.danger}} 项</div> -->
+            <marquee class="text-left text-white" width="55px">{{store.skuWaringMsg}}</marquee>
             <div class="text-left text-white mt-1">库存预警</div>
           </div>
         </div>
@@ -60,7 +61,7 @@ import circleEchart from "../component/Echart/circleEchart";
 import stickEchart from "../component/Echart/stickEchart";
 import { mapGetters } from "vuex";
 import {
-  getTask
+  getTask,dangerStorage
 } from "@/api/api";
 import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
@@ -69,7 +70,7 @@ export default {
     return {
       store: {
         storage: 0,
-        danger: 3,
+        skuWaringMsg: "",
         todayOut: 1,
         waitOut: 0,
         todayIn: 3,
@@ -92,18 +93,32 @@ export default {
   },
   mounted(){
     this.params.fid=this.fid
+    this.getTask()
   },
   computed: {
     ...mapGetters(["fid"])
   },
   methods: {
+    dangerStorage(){
+      dangerStorage(this.params).then(res=>{
+        console.log(res.data)
+      })
+    },
     getTask(){
       getTask(this.params).then(res=>{
         console.log(res.data)
+        console.log(res.data.outSum)
+        this.store.todayIn = res.data.inSum
+        this.store.todayOut = res.data.outSum
+        this.store.waitIn = res.data.notfor4InItem
+        this.store.waitOut = res.data.notfor4OutItem
+        this.store.storage = res.data.stockSum
+        this.store.skuWaringMsg = res.data.skuWaringMsg
       })
     },
     checkDanger() {
       console.log("查看库存预警");
+      this.dangerStorage()
     },
     log() {
       let items2 = this.items1.map(Element => {
