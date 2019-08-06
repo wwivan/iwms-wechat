@@ -170,7 +170,8 @@ export default {
   },
   methods: {
     async getSign() {
-      const res = axios.get("http://49.235.41.147:3000/sign");
+      console.log(1111)
+      const res = axios.get("https://api.weixin.qq.com/cgi-bin/user/info?access_token=24_q88UPWkQbyjb4ucgEl9ZfoAYIVa0biqO7kWxk_KUr7U9pbr9Et-ktLNM2Sr_9BkD5mg535EwMsuqzqj6lX040cfmnX0pSEeTm9x6K2STNwiijGquCZ45grzMubAks-lIMgJDayVLQi3ugkCMTZGeADAJPW&openid=oL2mSxOZsDUd1ePM1IQQ1pmZ_f7E");
       console.log(res.data);
     },
     system() {
@@ -234,12 +235,18 @@ export default {
         this.$router.push("/stockIn");
       } else if (this.$router.currentRoute.fullPath == "/stockIn/search") {
         this.$router.push("/stockIn");
-      } else if (this.$router.currentRoute.fullPath == "/") {
-      } else if (this.$router.currentRoute.fullPath == "/") {
-      } else if (this.$router.currentRoute.fullPath == "/") {
-      } else if (this.$router.currentRoute.fullPath == "/") {
-      } else if (this.$router.currentRoute.fullPath == "/") {
-      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/stockOut") {
+        this.$router.push("/");
+      } else if (this.$router.currentRoute.fullPath == "/stockOut/detail") {
+        this.$router.push("/stockOut");
+      } else if (this.$router.currentRoute.fullPath == "/stockOut/form") {
+        this.$router.push("/stockOut");
+      } else if (this.$router.currentRoute.fullPath == "/stockOut/search") {
+        this.$router.push("/stockOut");
+      } else if (
+        this.$router.currentRoute.fullPath == "/stockOut/item/detail"
+      ) {
+        this.$router.push("/stockOut/detail");
       } else {
         this.$router.go("-1");
       }
