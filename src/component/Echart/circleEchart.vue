@@ -58,6 +58,15 @@ export default {
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
+        title: {
+          text: "物料统计",
+          x: "center",
+          y:"top",
+          textStyle: {
+            color: "#FF9860"
+          }
+          // subtext: "纯属虚构"
+        },
         tooltip: {
           trigger: "item",
           formatter: "{a} <br/>{b} : {c} ({d}%)"

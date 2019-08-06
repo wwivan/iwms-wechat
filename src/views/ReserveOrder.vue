@@ -182,9 +182,7 @@ export default {
       setStore("StockInType", this.StockInType);
       setStore("act", this.act);
       setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push({
-        name: "ReserveOrderDetail"
-      });
+      this.$router.push('/reserve/order/detail');
     }
   },
   computed: {
@@ -277,6 +275,7 @@ export default {
   display: inline-block;
 }
 .header .context {
+  text-align: left;
   margin-left: 7px;
   flex: 1;
   font-size: 12px;
@@ -288,6 +287,7 @@ export default {
   height: 18px;
 }
 .content {
+  text-align: left;
   margin-top: 16px;
   margin-left: 13px;
   display: flex;

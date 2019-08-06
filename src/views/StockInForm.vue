@@ -293,9 +293,7 @@ export default {
       saveStockIn(this.params)
         .then(res => {
           Toast("保存成功!");
-          this.$router.push({
-            name: "StockIn"
-          });
+          this.$router.push("/stockIn");
         })
         .catch(error => {
           console.log(error);
@@ -313,9 +311,7 @@ export default {
       setStore("selectedWarehouse", selectedWarehouse);
       setStore("selectedStockInType", selectedStockInType);
       console.log(selectedWarehouse);
-      // this.$router.push({
-      //   name: "Supplier"
-      // });
+      this.$router.push("/supplier");
     },
     addItem() {
       this.params.wareHouse.id = this.selectedWarehouse.id;
@@ -324,9 +320,7 @@ export default {
         .then(res => {
           Toast("保存成功!");
           setStore("StockInDetailParams", res.data);
-          // this.$router.push({
-          //   name: "StockInDetail"
-          // });
+          this.$router.push("/stockIn/detail");
         })
         .catch(error => {
           console.log(error);

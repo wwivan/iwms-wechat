@@ -57,7 +57,7 @@
                 @click="useMateriel(item)"
               >选择入库</div> -->
               <div
-                v-show="StockInType=='1'"
+                v-show="StockInType"
                 style="width:80px;height:33px;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
                 @click="useMateriel(item)"
               >选择</div>
@@ -160,9 +160,7 @@ export default {
     useMateriel(materiel) {
       setStore("materielSku", materiel);
       if (this.isshow == true) {
-        this.$router.push({
-          name: "ReserveOrderDetailForm"
-        });
+        this.$router.push("/reserve/order/detail/form");
       } else if (this.isshow == false) {
         this.initStatus()
         this.$router.push('/stockIn/item/form');
@@ -170,9 +168,7 @@ export default {
     },
 
     onClickSearch() {
-      this.$router.push({
-        name: "MaterielSkuSearch"
-      });
+      this.$router.push("/materiel/search");
     },
     onTitleClickLeft() {
       // 返回

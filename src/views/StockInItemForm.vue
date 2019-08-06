@@ -129,9 +129,7 @@ export default {
       saveStockInItem(this.stockInItem)
         .then(res => {
           Toast("保存成功!");
-          this.$router.push({
-            name: "StockInDetail"
-          });
+          this.$router.push("/stockIn/detail");
         })
         .catch(error => {
           console.log(error);

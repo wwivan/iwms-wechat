@@ -139,6 +139,7 @@ export default {
         this.$router.push("/stockIn/form")
       } else if (this.isshow == true) {
         console.log("新建预约单");
+        this.$router.push("/reserve/order/form")
       }
     },
     stockInSearch() {
@@ -147,6 +148,7 @@ export default {
         this.$router.push("/stockIn/search")
       } else if (this.isshow == true) {
         console.log("搜索预约单");
+        this.$router.push("/reserve/order/search")
       }
     },
     onRefreshList() {

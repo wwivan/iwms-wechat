@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link tag="div" to="/login" class="text-white ml-3">关闭</router-link>
+      <router-link tag="div" to="/authorize" class="text-white ml-3">关闭</router-link>
       <div class="text-white fs-xl">仓库管理</div>
       <div class="text-white mr-3" @click="system">我的</div>
     </div>
@@ -102,6 +102,7 @@ import Home from "./Home";
 import ScrollY from "../component/scrollY";
 import { mapGetters, mapMutations } from "vuex";
 import { stockDetailList } from "@/api/api";
+import axios from "axios";
 export default {
   components: { Home, ScrollY },
   data() {
@@ -165,16 +166,21 @@ export default {
     this.params.fid = this.fid;
     console.log(this.params.fid);
     this.confirmStatus();
-  },
-  mounted() {
-    this.stockDetailList();
+    this.getSign();
   },
   methods: {
+    async getSign() {
+      const res = axios.get("http://49.235.41.147:3000/sign");
+      console.log(res.data);
+    },
+    system() {
+      console.log("我的");
+    },
     stockDetailList() {
-      console.log(11111111)
-      stockDetailList(this.params).then(res=>{
-        console.log(res.data)
-      })
+      console.log(11111111);
+      stockDetailList(this.params).then(res => {
+        console.log(res.data);
+      });
     },
     loadData() {
       console.log("下拉刷新");
@@ -199,8 +205,44 @@ export default {
       this.isshow = false;
       this.$router.push("/echart");
     },
-    async back() {
-      await this.$router.go(-1);
+    back() {
+      if (this.$router.currentRoute.fullPath == "/reserve/order") {
+        this.$router.push("/");
+      } else if (
+        this.$router.currentRoute.fullPath == "/reserve/order/detail"
+      ) {
+        this.$router.push("/reserve/order");
+      } else if (this.$router.currentRoute.fullPath == "/reserve/order/form") {
+        this.$router.push("/reserve/order");
+      } else if (
+        this.$router.currentRoute.fullPath == "/reserve/order/search"
+      ) {
+        this.$router.push("/reserve/order");
+      } else if (
+        this.$router.currentRoute.fullPath == "/reserve/order/detail/form"
+      ) {
+        this.$router.push("/reserve/order/detail");
+      } else if (
+        this.$router.currentRoute.fullPath == "/reserve/order/detail/search"
+      ) {
+        this.$router.push("/reserve/order/detail");
+      } else if (this.$router.currentRoute.fullPath == "/stockIn") {
+        this.$router.push("/");
+      } else if (this.$router.currentRoute.fullPath == "/stockIn/form") {
+        this.$router.push("/stockIn");
+      } else if (this.$router.currentRoute.fullPath == "/stockIn/detail") {
+        this.$router.push("/stockIn");
+      } else if (this.$router.currentRoute.fullPath == "/stockIn/search") {
+        this.$router.push("/stockIn");
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else if (this.$router.currentRoute.fullPath == "/") {
+      } else {
+        this.$router.go("-1");
+      }
     },
     confirmStatus() {
       if (this.$router.currentRoute.fullPath == "/") {
