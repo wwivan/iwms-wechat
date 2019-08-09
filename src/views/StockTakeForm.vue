@@ -36,21 +36,6 @@
       style="margin:5px 27px;border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="addItem"
     >添加明细</van-button>
-    <van-tabbar v-model="active" @change="onTabChange">
-      <van-tabbar-item>
-        <div class="iconfont icon-gongnengguanli" style="font-size:23px"></div>
-        <div style="line-height:17px">主页</div>
-      </van-tabbar-item>
-      <!-- <van-tabbar-item icon="search">功能</van-tabbar-item> -->
-      <van-tabbar-item>
-        <div class="iconfont icon-tongji" style="font-size:23px"></div>
-        <div style="line-height:17px">统计</div>
-      </van-tabbar-item>
-      <van-tabbar-item>
-        <div class="iconfont icon-shezhi" style="font-size:23px"></div>
-        <div style="line-height:17px">设置</div>
-      </van-tabbar-item>
-    </van-tabbar>
   </div>
 </template>
 

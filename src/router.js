@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Main from "./views/Main.vue";
+import Home from "./views/Home.vue";
 import AccountSecurity from "./views/AccountSecurity"
 import CheckAccount from "./views/CheckAccount"
 import Echart from "./views/Echart"
@@ -44,7 +45,9 @@ path:"/login",name:'login',component:Login
       path: "/",
       name: "main",
       component: Main,
+      redirect:"/home",
       children:[
+        {path:"/home",component:Home},
         {path:"/stockIn",component:StockIn},
         {path:"/stockOut",component:StockOut},
         {path:"/materiel",component:Materiel},

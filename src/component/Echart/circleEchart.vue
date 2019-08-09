@@ -1,8 +1,9 @@
 <template>
-  <div :class="className" :id="id" :style="{height:'150px',width:'350px'}" ref="myEchart"></div>
+  <div :class="className" :id="id" :style="{height:'200px',width:'350px'}" ref="myEchart"></div>
 </template>
 <script>
 import echarts from "echarts";
+import { totalmem } from 'os';
 export default {
   props: {
     items: {
@@ -32,7 +33,7 @@ export default {
     },
     height: {
       type: String,
-      default: "300px"
+      default: "350px"
     }
   },
   data() {
@@ -55,14 +56,29 @@ export default {
   },
   methods: {
     initChart() {
+      var i =0
+      var colors = [
+                // "#F6617B",
+                // "#4181FF",
+                "#F7C77F",
+                "#749f83",
+                "#c23531",
+                "#2f4554",
+                "#ca8622",
+                "#bda29a",
+                "#6e7074",
+                "#546570",
+                "#c4ccd3"
+              ]
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
         title: {
           text: "物料统计",
-          x: "center",
-          y:"top",
+          x: "left",
+          y: "top",
           textStyle: {
+            bottom:"0px",
             color: "#FF9860"
           }
           // subtext: "纯属虚构"
@@ -75,6 +91,7 @@ export default {
           //导航栏
           orient: "vertical",
           x: "left",
+          y:"center",
           data: this.items
         },
         toolbox: {
@@ -105,9 +122,13 @@ export default {
             name: "访问来源",
             x: "right",
             type: "pie",
-            radius: ["30", "70%"],
+            radius: ["30%", "60%"],
             itemStyle: {
+              
               normal: {
+                color: function() {
+                  return colors[i++];
+                },
                 label: {
                   show: false
                 },

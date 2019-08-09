@@ -6,9 +6,12 @@ import Vant from "vant"
 import "./assets/scss/style.scss";
 import 'vant/lib/index.css';
 import "./assets/iconfont/iconfont.css"
+import "./assets/iconfont-tab/iconfont.css"
+import VueAwesomeSwiper from "vue-awesome-swiper";
+import "swiper/dist/css/swiper.css";
 Vue.use(Vant)
 Vue.config.productionTip = false;
-
+Vue.use(VueAwesomeSwiper);
 
 import {
   formatStockInStatus,

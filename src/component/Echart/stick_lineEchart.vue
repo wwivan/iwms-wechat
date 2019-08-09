@@ -47,25 +47,25 @@ export default {
   methods: {
     initData() {
       let names = this.items.map(e => {
-        return e.name;
+        return e.name
       });
       let stockInValues = this.items.map(e => {
-        return e.stockInValue;
+        return e.stockInValue
       });
       let stockOutValues = this.items.map(e => {
-        return e.stockOutValue;
+        return  e.stockOutValue
       });
       this.names = names;
       this.stockInValues = stockInValues;
       this.stockOutValues = stockOutValues;
-      // console.log(this.names);
+      // console.log(this.names)
     },
     initChart() {
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
         title: {
-          text: "库存统计Top10",
+          text: "库存预警",
           textStyle: {
             color: "#FF9860"
           }
@@ -82,7 +82,7 @@ export default {
           feature: {
             mark: { show: true },
             dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ["line", "bar"] },
+            // magicType: { show: true, type: ["line", "bar"] },
             restore: { show: true },
             saveAsImage: { show: true }
           }
@@ -91,7 +91,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: [1,2,3,4,5,6,7,8,9,10]
+            data:this.names
           }
         ],
         yAxis: [
@@ -101,11 +101,50 @@ export default {
         ],
         series: [
           {
-            name: "库存",
+            name: "当前库存",
             type: "bar",
+            data: this.stockOutValues,
+            itemStyle: {
+              color: "#4181FF"
+            },
+            // itemStyle: {
+            //   normal: {
+            //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
+            //     color: function(params) {
+            //       // build a color map as your need.
+            //       var colorList = ["#FF9779", "#2360EF"];
+            //       return colorList[params.dataIndex];
+            //     }, //以下为是否显示，显示位置和显示格式的设置了
+            //     label: {
+            //       show: true,
+            //       position: "top",
+            //       //                             formatter: '{c}'
+            //       formatter: "{b}\n{c}"
+            //     }
+            //   }
+            // },
+            // markPoint: {
+            //   data: [
+            //     {
+            //       name: "年最高",
+            //       value: 182.2,
+            //       yxAxis: 7,
+            //       xAxis: 183,
+            //       symbolSize: 18
+            //     },
+            //     { name: "年最低", value: 2.3, yAxis: 11, xAxis: 3 }
+            //   ]
+            // },
+            // markLine: {
+            //   data: [{ type: "average", name: "平均值" }]
+            // }
+          },
+          {
+            name: "安全库存",
+            type: "line",
             data: this.stockInValues,
             itemStyle: {
-              color: "#FF9860"
+              color: "#F6617B"
             },
             // markPoint: {
             //   data: [
@@ -113,49 +152,11 @@ export default {
             //     { type: "min", name: "最小值" }
             //   ]
             // },
-            markLine: {
-              data: [{ type: "average", name: "平均值" }]
-            }
+            // markLine: {
+            //   data: [{ type: "average", name: "平均值" }]
+            // }
           },
-          // {
-          //   name: "出库量",
-          //   type: "bar",
-          //   itemStyle: {
-          //     color: "#4181FF"
-          //   },
-          //   data: this.stockOutValues,
-          //   // itemStyle: {
-          //   //   normal: {
-          //   //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
-          //   //     color: function(params) {
-          //   //       // build a color map as your need.
-          //   //       var colorList = ["#FF9779", "#2360EF"];
-          //   //       return colorList[params.dataIndex];
-          //   //     }, //以下为是否显示，显示位置和显示格式的设置了
-          //   //     label: {
-          //   //       show: true,
-          //   //       position: "top",
-          //   //       //                             formatter: '{c}'
-          //   //       formatter: "{b}\n{c}"
-          //   //     }
-          //   //   }
-          //   // },
-          //   // markPoint: {
-          //   //   data: [
-          //   //     {
-          //   //       name: "年最高",
-          //   //       value: 182.2,
-          //   //       yxAxis: 7,
-          //   //       xAxis: 183,
-          //   //       symbolSize: 18
-          //   //     },
-          //   //     { name: "年最低", value: 2.3, yAxis: 11, xAxis: 3 }
-          //   //   ]
-          //   // },
-          //   markLine: {
-          //     data: [{ type: "average", name: "平均值" }]
-          //   }
-          // }
+          
         ]
       });
     }

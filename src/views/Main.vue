@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link tag="div" to="/authorize" class="text-white ml-3">关闭</router-link>
-      <div class="text-white fs-xl">仓库管理</div>
+      <router-link tag="div" to="/authorize" class="text-white  w-20"><img src="../assets/images/logo1.png" class="w-60" alt=""></router-link>
+      <div class="text-white fs-xl">江苏东志信有限公司</div>
       <div class="text-white mr-3" @click="system">我的</div>
     </div>
-    <div class="nav bg-orange d-flex jc-between ai-center">
+    <!-- <div class="nav bg-orange d-flex jc-between ai-center">
       <div class="text-white ml-3" @click="back">返回</div>
       <div class="text-white fs-xl">{{this.navName}}</div>
       <div class="text-white mr-3" @click="changeIsshow">菜单</div>
@@ -16,147 +16,96 @@
     >
       <div class="mt-2" @click="operation">功能</div>
       <div class="mt-2" @click="statistical">统计</div>
+    </div>-->
+    <div class="main bg-white">
+      <router-view></router-view>
     </div>
-    <div class="main">
-      <div class="square d-flex jc-around" v-if="this.toshow" @click="changeToshow">
-        <router-link class="item" tag="div" to="/stockIn" v-show="!this.act">
-          <div class="icon-container" style="background:linear-gradient(135deg, #FF9779, #F6617B)">
-            <div class="icon">
-              <img src="../assets/images/入库登记@2x.png" style="width:100%" alt />
-            </div>
-          </div>入库登记
-        </router-link>
-        <router-link class="item" tag="div" to="/stockOut" v-show="!this.act" @click="changeToshow">
-          <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
-            <div class="icon">
-              <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
-            </div>
-          </div>出库登记
-        </router-link>
-        <router-link
-          class="item"
-          tag="div"
-          to="/materiel/search"
-          v-show="!this.act"
-          @click="changeToshow"
-        >
-          <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
-            <div class="icon">
-              <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
-            </div>
-          </div>物料查询
-        </router-link>
-        <!-- <div class="item" @click="onStockOutToCell">
-            <div>
-              <van-icon color="#1d8afa" name="gift-card-o" size="40px" />
-            </div>
-            下架
-        </div>-->
-        <router-link
-          class="item"
-          tag="div"
-          to="/check/account"
-          v-show="!this.act"
-          @click="changeToshow"
-        >
-          <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
-            <div class="icon">
-              <img src="../assets/images/盘点操作@2x.png" style="width:100%" alt />
-            </div>
-          </div>对账
-        </router-link>
-      </div>
-      <!-- 主体内容展示 -->
-      <div>
-        <router-view></router-view>
-      </div>
-      <!-- 信息展示 -->
-      <!-- 信息展示 -->
-      <scroll-y
-        v-show="toshow"
-        class="wrapper"
-        style="height:440px;overflow:hidden"
-        :data="news"
-        :pulldown="pulldown"
-        @pulldown="loadData"
-      >
-        <div class="content">
-          <div
-            v-for="(item,index) in news"
-            :key="index"
-            class="d-flex jc-start ai-center"
-            style="height:30px;"
-          >
-            <span class="bot ml-4" style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
-            <span class="ml-4 text-grey-1">{{item.title}}</span>
-            <span class="ml-4 text-grey-1">{{item.context}}</span>
-          </div>
+    <div style="height:57px;width:100%"></div>
+    <div class="tabbar d-flex jc-around w-100 ai-center">
+      <router-link tag="div" to="/home" class="w-25 border-right">
+        <div class="mt-2">
+          <span
+            class="iconfont icon-gongnengguanli"
+            @click="tab1Active"
+            :class="this.tab1?'active':''"
+          ></span>
         </div>
-      </scroll-y>
+        <div class="text fs-sm mt-1" :class="this.tab1?'active':''">首页</div>
+      </router-link>
+      <router-link tag="div" to="/StockIn" class="w-25 border-right">
+        <div class="mt-2">
+          <span
+            class="iconfont icon-gongnengguanli"
+            @click="tab2Active"
+            :class="this.tab2?'active':''"
+          ></span>
+        </div>
+        <div class="text fs-sm mt-1" :class="this.tab2?'active':''">预约</div>
+      </router-link>
+      <router-link tag="div" to="/materiel/search" class="w-25 border-right">
+        <div class="mt-2">
+          <span
+            class="iconfont icon-gongnengguanli"
+            @click="tab3Active"
+            :class="this.tab3?'active':''"
+          ></span>
+        </div>
+        <div class="text fs-sm mt-1" :class="this.tab3==1?'active':''">查询</div>
+      </router-link>
+      <router-link tag="div" to="/check/account" class="w-25">
+        <div class="mt-2">
+          <span
+            class="iconfont icon-gongnengguanli"
+            @click="tab4Active"
+            :class="this.tab4?'active':''"
+          ></span>
+        </div>
+        <div class="text fs-sm mt-1" :class="this.tab4?'active':''">对账</div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Home from "./Home";
 import ScrollY from "../component/scrollY";
 import { mapGetters, mapMutations } from "vuex";
 import { stockDetailList } from "@/api/api";
 import axios from "axios";
 export default {
-  components: { Home, ScrollY },
+  components: { ScrollY },
   data() {
     return {
+      tab1: true,
+      tab2: false,
+      tab3: false,
+      tab4: false,
       isshow: false,
       act: false,
       toshow: true,
       navName: "功能",
       pulldown: true,
+      appID: "wx08c444d8f0255f63",
+      code: "",
+      appserect: "ee2d5ba41eabb66b7b39229d4405db75",
       params: {
-        fid: ""
+        pageNumber: 1,
+        pageSize: 30,
+        sortType: "auto",
+        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+        searchParams: {}
       },
-      news: [
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" }
-      ]
+      signature: "7447D0441882CAA7070646C0DA7646E7AA854778,1785",
+      sysParam: {
+        appid: "5032022018001"
+      }
     };
   },
   computed: {
+    swiper() {
+      return this.$refs.mySwiper.swiper;
+    },
     ...mapGetters(["fid"])
+
     // ...mapMutations(["toshowOpen","toshowClose"])
   },
   updated() {
@@ -166,13 +115,34 @@ export default {
     this.params.fid = this.fid;
     console.log(this.params.fid);
     this.confirmStatus();
-    this.getSign();
+    this.stockDetailList();
   },
   methods: {
+    tab1Active() {
+      this.tab1 = true;
+      this.tab2 = this.tab3 = this.tab4 = false;
+    },
+    tab2Active() {
+      this.tab2 = true;
+      this.tab1 = this.tab3 = this.tab4 = false;
+    },
+    tab3Active() {
+      this.tab3 = true;
+      this.tab2 = this.tab1 = this.tab4 = false;
+    },
+    tab4Active() {
+      this.tab4 = true;
+      this.tab2 = this.tab3 = this.tab1 = false;
+    },
     async getSign() {
-      console.log(1111)
-      const res = axios.get("https://api.weixin.qq.com/cgi-bin/user/info?access_token=24_q88UPWkQbyjb4ucgEl9ZfoAYIVa0biqO7kWxk_KUr7U9pbr9Et-ktLNM2Sr_9BkD5mg535EwMsuqzqj6lX040cfmnX0pSEeTm9x6K2STNwiijGquCZ45grzMubAks-lIMgJDayVLQi3ugkCMTZGeADAJPW&openid=oL2mSxOZsDUd1ePM1IQQ1pmZ_f7E");
+      // const res = await axios.get(
+      //   `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${this.appID}&secret=${this.appserect}&code=001iMOp62phV1S0oKCo62ZuCp62iMOpH&grant_type=authorization_code`
+      // );
+      const res = await axios.get(
+        "http://26f096i864.zicp.vip:56836/getWxConfig"
+      );
       console.log(res.data);
+      this.code = res.data;
     },
     system() {
       console.log("我的");
@@ -264,6 +234,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.tabbar {
+  height: 57px;
+  position: fixed;
+  bottom: 0;
+  border-top: 1px solid #f0f0f0;
+  background: white;
+}
+.iconfont {
+  font-size: 30px;
+  color: grey;
+}
+.text {
+  color: grey;
+}
 .header {
   width: 100%;
   height: 64px;
@@ -279,7 +263,7 @@ export default {
   height: 40px;
 }
 .active {
-  display: block;
+  color: #ff9860;
 }
 .normal {
   display: none;
@@ -297,26 +281,8 @@ export default {
   display: inline-block;
 }
 .square {
-  height: 120px;
-  padding-top: 20px;
-  border-bottom: 1px solid rgb(192, 192, 192);
-  .item {
-    line-height: 35px;
-    height: 90px;
-    .icon-container {
-      width: 55.0004px;
-      height: 55.0004px;
-      border-radius: 50%;
-      position: relative;
-      .icon {
-        position: absolute;
-        width: 32px;
-        height: 32px;
-        margin-left: 12px;
-        margin-top: 12px;
-      }
-    }
-  }
+  height: 40px;
+  border-bottom: 1px solid rgb(199, 198, 198);
 }
 </style>
 

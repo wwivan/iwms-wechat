@@ -35,7 +35,8 @@ export const messageDetail = params => post('messageDetail', params);
 //库存预警
 export const dangerStorage = params => post('/order/stockUseNumLTMinStock', params);
 // 出入库流水
-export const stockDetailList = params => post('/order/stockDetailList', params);
+export const stockDetailList = params => post('order/stockDetailList', params);
+//export const stockDetailList = params => post('storage/stockDetail/stockDetailList', params);
 // 预约单列表
 export const findReserveOrderList = params => post('/storage/reserveOrder/findReserveOrderList', params);
 // 预约明细单列表

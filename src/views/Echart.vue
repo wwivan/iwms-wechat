@@ -50,22 +50,25 @@
         </div>
       </div>
     </div>
-    <div class="mt-4 fs-xl text-primary">物料统计</div>
+    <!-- <div class="mt-4 fs-xl text-primary">物料统计</div> -->
     <circle-echart :items="items" class="circleEchart"></circle-echart>
     <stick-echart :items="items1" class="stickEchart"></stick-echart>
+    <stick-line-echart :items="items2" class="stickEchart"></stick-line-echart>
+    <line-echart :items="items3" class="stickEchart"></line-echart>
   </div>
 </template>
 <script>
 import circleEchart from "../component/Echart/circleEchart";
-
+import stickLineEchart from "../component/Echart/stick_lineEchart"
 import stickEchart from "../component/Echart/stickEchart";
+import lineEchart from "../component/Echart/lineEchart"
 import { mapGetters } from "vuex";
 import {
   getTask,dangerStorage
 } from "@/api/api";
 import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
-  components: { circleEchart, stickEchart },
+  components: { circleEchart, stickEchart,stickLineEchart,lineEchart },
   data() {
     return {
       store: {
@@ -88,6 +91,28 @@ export default {
         { name: "三级垫圈", stockInValue: 300, stockOutValue: 200 },
         { name: "外六角", stockInValue: 400, stockOutValue: 200 },
         { name: "螺钉", stockInValue: 500, stockOutValue: 200 }
+      ],
+      items2: [
+        { name: "1", stockInValue: 30, stockOutValue: 10 },
+        { name: "2", stockInValue: 40, stockOutValue: 20 },
+        { name: "3", stockInValue: 50, stockOutValue: 30 },
+        { name: "4", stockInValue: 30, stockOutValue: 14 },
+        { name: "5", stockInValue: 40, stockOutValue: 20 },
+        { name: "6", stockInValue: 50, stockOutValue: 40 }
+      ],
+      items3: [
+        { name: "1", stockInValue: 30, stockOutValue: 10,storage:20 },
+        { name: "2", stockInValue: 40, stockOutValue: 20,storage:20 },
+        { name: "3", stockInValue: 50, stockOutValue: 30 ,storage:20},
+        { name: "4", stockInValue: 30, stockOutValue: 14,storage:16 },
+        { name: "5", stockInValue: 40, stockOutValue: 20,storage:20 },
+        { name: "6", stockInValue: 50, stockOutValue: 40,storage:10},
+        { name: "7", stockInValue: 30, stockOutValue: 10,storage:20 },
+        { name: "8", stockInValue: 40, stockOutValue: 20,storage:20 },
+        { name: "9", stockInValue: 50, stockOutValue: 30 ,storage:20},
+        { name: "10", stockInValue: 30, stockOutValue: 14,storage:16 },
+        { name: "11", stockInValue: 40, stockOutValue: 20,storage:20 },
+        { name: "12", stockInValue: 50, stockOutValue: 40,storage:10}
       ]
     };
   },
