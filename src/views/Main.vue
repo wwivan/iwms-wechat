@@ -157,7 +157,7 @@ export default {
     async getUserInfo() {
       if (this.code != null) {
         const res = await axios.get(
-          `http://26f096i864.zicp.vip:56836/${this.code}`
+          `http://49.235.41.147:3000/${this.code}`
         );
         this.userInfo = res.data;
         console.log(this.userInfo);
