@@ -1,13 +1,13 @@
 <template>
   <div>
-    <van-nav-bar title="供应商" left-text="返回" left-arrow @click-left="onTitleClickLeft">
+    <!-- <van-nav-bar title="供应商" left-text="返回" left-arrow @click-left="onTitleClickLeft">
       <van-button
         slot="right"
         @click="onClickSearch(selectedStockInType,selectedWarehouse,deliveryNumber,purchaseNo)"
       >
         <van-icon name="search" size="1.5em"/>
       </van-button>
-    </van-nav-bar>
+    </van-nav-bar> -->
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel v-for="(item, index) in records" :title="item.orderNo" :key="index">
@@ -39,6 +39,7 @@
         </div>
       </div>
     </van-pull-refresh>
+    
   </div>
 </template>
 

@@ -10,7 +10,8 @@
     </div>
     <div class="container">
       <reserve-order v-show="isshow"></reserve-order>
-      <van-pull-refresh v-model="loading" @refresh="onRefreshList">
+      <reserve-out v-show="!isshow"></reserve-out>
+      <!-- <van-pull-refresh v-model="loading" @refresh="onRefreshList">
         <div v-show="!isshow">
           <van-list v-model="loading" :finished="finished">
             <div
@@ -60,7 +61,7 @@
             </div>
           </van-list>
         </div>
-      </van-pull-refresh>
+      </van-pull-refresh> -->
     </div>
     <div
       class="bg-primary d-flex"
@@ -80,3 +81,18 @@
     </div>
     </div>
 </template>
+<script>
+import reserveOrder from "@/views/ReserveOrder";
+import reserveOut from "@/views/ReserveOutOrder";
+import { mapGetters, mapMutations } from "vuex";
+import { setStore, getStore, removeStore } from "@/util/util";
+export default {
+  components: { reserveOrder,reserveOut},
+  data(){
+    return{
+      
+    }
+  }
+}
+</script>
+

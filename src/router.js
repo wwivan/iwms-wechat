@@ -31,6 +31,7 @@ import StockTakeSearch from "./views/StockTakeSearch"
 import StockTakeDetail from "./views/StockTakeDetail"
 import ReserveOrderDetailForm from "./views/ReserveOrderDetailForm"
 import ReserveOrderDetailSearch from "./views/ReserveOrderDetailSearch"
+import SearchPage from "./views/SearchPage"
 
 
 Vue.use(Router);
@@ -54,6 +55,7 @@ path:"/login",name:'login',component:Login
         {path:"/materiel/search",component:MaterielSearch},
         {path:"/check/account",component:CheckAccount},
         {path:"/echart",component:Echart},
+        {path:"/search/page",component:SearchPage},
         {path:"/account/security",component:AccountSecurity},
         {path:"/logOut",component:LogOut},
         {path:"/stockIn/detail",component:StockInDetail},

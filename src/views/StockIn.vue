@@ -64,7 +64,7 @@
     </div>
     <div
       class="bg-primary d-flex"
-      style="position:fixed;bottom:40px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
+      style="position:fixed;bottom:80px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
     >
       <button
         class="bg-peach-red-dark text-white"

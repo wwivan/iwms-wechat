@@ -1,9 +1,14 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link tag="div" to="/authorize" class="text-white  w-20"><img src="../assets/images/logo1.png" class="w-60" alt=""></router-link>
+      <router-link tag="div" to="/authorize" class="text-white w-20">
+        <img src="../assets/images/logo1.png" class="w-60" alt />
+      </router-link>
       <div class="text-white fs-xl">江苏东志信有限公司</div>
-      <div class="text-white mr-3" @click="system">我的</div>
+      <div class="text-white mr-3" style="width:25px;height:25px">
+        <span v-show="!this.userInfo.headimgurl" class="iconfont icon-canguanyuyue" style="font-size:20px;color:white"></span>
+        <img class="w-100" v-show="this.userInfo.headimgurl" :src="userInfo.headimgurl">
+      </div>
     </div>
     <!-- <div class="nav bg-orange d-flex jc-between ai-center">
       <div class="text-white ml-3" @click="back">返回</div>
@@ -35,32 +40,34 @@
       <router-link tag="div" to="/StockIn" class="w-25 border-right">
         <div class="mt-2">
           <span
-            class="iconfont icon-gongnengguanli"
+            class="iconfont icon-canguanyuyue"
             @click="tab2Active"
             :class="this.tab2?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab2?'active':''">预约</div>
+        <div class="text fs-sm mt-1" :class="this.tab2?'active':''">入库</div>
       </router-link>
-      <router-link tag="div" to="/materiel/search" class="w-25 border-right">
+      <router-link tag="div" to="/StockOut" class="w-25 border-right">
         <div class="mt-2">
-          <span
-            class="iconfont icon-gongnengguanli"
-            @click="tab3Active"
-            :class="this.tab3?'active':''"
-          ></span>
+          <span class="iconfont icon-daichuku" @click="tab3Active" :class="this.tab3?'active':''"></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab3==1?'active':''">查询</div>
+        <div class="text fs-sm mt-1" :class="this.tab3?'active':''">出库</div>
+      </router-link>
+      <router-link tag="div" to="/search/page" class="w-25 border-right">
+        <div class="mt-2">
+          <span class="iconfont icon-query1" @click="tab4Active" :class="this.tab4?'active':''"></span>
+        </div>
+        <div class="text fs-sm mt-1" :class="this.tab4==1?'active':''">查询</div>
       </router-link>
       <router-link tag="div" to="/check/account" class="w-25">
         <div class="mt-2">
           <span
-            class="iconfont icon-gongnengguanli"
-            @click="tab4Active"
-            :class="this.tab4?'active':''"
+            class="iconfont icon-shuxingliebiaoxiangqing"
+            @click="tab5Active"
+            :class="this.tab5?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab4?'active':''">对账</div>
+        <div class="text fs-sm mt-1" :class="this.tab5?'active':''">对账</div>
       </router-link>
     </div>
   </div>
@@ -75,10 +82,23 @@ export default {
   components: { ScrollY },
   data() {
     return {
+      userInfo: {
+        openid: "",
+        nickname: "",
+        sex: 1,
+        language: "",
+        city: "",
+        province: "",
+        country: "",
+        headimgurl: "",
+        privilege: []
+      },
+      code: "",
       tab1: true,
       tab2: false,
       tab3: false,
       tab4: false,
+      tab5: false,
       isshow: false,
       act: false,
       toshow: true,
@@ -115,35 +135,57 @@ export default {
     this.params.fid = this.fid;
     console.log(this.params.fid);
     this.confirmStatus();
-    this.stockDetailList();
+    // this.stockDetailList();
+    this.getCode();
+  },
+  mounted(){
+    this.getUserInfo()
   },
   methods: {
+    getCode() {
+      let name = "code";
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); // 构造一个含有目标参数的正则表达式对象
+      var r = window.location.search.substr(1).match(reg); // 匹配目标参数
+      // this.code = unescape(r[2]);
+      if (r != null) {
+        this.code = unescape(r[2]);
+      } else {
+        this.code = null;
+      }
+      console.log(this.code);
+    },
+    async getUserInfo() {
+      if (this.code != null) {
+        const res = await axios.get(
+          `http://26f096i864.zicp.vip:56836/${this.code}`
+        );
+        this.userInfo = res.data;
+        console.log(this.userInfo);
+      } else {
+        return;
+      }
+    },
     tab1Active() {
       this.tab1 = true;
-      this.tab2 = this.tab3 = this.tab4 = false;
+      this.tab5 = this.tab2 = this.tab3 = this.tab4 = false;
     },
     tab2Active() {
       this.tab2 = true;
-      this.tab1 = this.tab3 = this.tab4 = false;
+      this.tab5 = this.tab1 = this.tab3 = this.tab4 = false;
     },
     tab3Active() {
       this.tab3 = true;
-      this.tab2 = this.tab1 = this.tab4 = false;
+      this.tab5 = this.tab2 = this.tab1 = this.tab4 = false;
     },
     tab4Active() {
       this.tab4 = true;
-      this.tab2 = this.tab3 = this.tab1 = false;
+      this.tab5 = this.tab2 = this.tab3 = this.tab1 = false;
     },
-    async getSign() {
-      // const res = await axios.get(
-      //   `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${this.appID}&secret=${this.appserect}&code=001iMOp62phV1S0oKCo62ZuCp62iMOpH&grant_type=authorization_code`
-      // );
-      const res = await axios.get(
-        "http://26f096i864.zicp.vip:56836/getWxConfig"
-      );
-      console.log(res.data);
-      this.code = res.data;
+    tab5Active() {
+      this.tab5 = true;
+      this.tab4 = this.tab2 = this.tab3 = this.tab1 = false;
     },
+
     system() {
       console.log("我的");
     },

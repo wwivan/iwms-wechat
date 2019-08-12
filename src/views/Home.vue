@@ -7,8 +7,8 @@
         <a :href="item.url"> <img class="w-100" :src="item.image" alt=""/></a>
         </swiper-slide>-->
         <swiper-slide v-for="(item,index) in news" :key="index">
-          <span>
-            <img src alt />公告
+          <span class="iconfont icon-xiaolaba">
+           
           </span>
           <span class="ml-3" style="height:39px;line-height:39px;">{{item.title}}</span>
           <span class="ml-3" style="height:39px;line-height:39px;">{{item.context}}</span>
@@ -22,6 +22,59 @@
         </swiper-slide> -->
       </swiper>
     </div>
+    <div class="taskView w-100">
+      <!-- 任务看板 -->
+      <div class="col d-flex ai-center">
+        
+        <div class="row d-flex ai-center">
+          <span class="iconfont icon-rukuliucheng"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{store.waitIn}}</div>
+            <div class="text-left text-white mt-1">预约入库</div>
+          </div>
+        </div>
+        <div class="row d-flex ai-center">
+          <span class="iconfont icon-rukuguanli-"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{store.todayIn}}</div>
+            <div class="text-left text-white mt-1">今日入库</div>
+          </div>
+        </div>
+        <div class="row d-flex ai-center" @click="checkDanger">
+          <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
+          <div class="ml-2">
+            <!-- <div class="fs-xl text-white">{{store.danger}} 项</div> -->
+            <marquee class="text-left text-white" width="55px">{{store.skuWaringMsg}}</marquee>
+            <div class="text-left text-white mt-1">本月入库</div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col d-flex ai-center">
+        <div class="row d-flex ai-center">
+          <span class="iconfont icon-daichuku"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{store.waitOut}}</div>
+            <div class="text-left text-white mt-1">预约出库</div>
+          </div>
+        </div>
+        
+        <div class="row d-flex ai-center">
+          <span class="iconfont icon-chuku"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{store.todayOut}}</div>
+            <div class="text-left text-white mt-1">今日出库</div>
+          </div>
+        </div>
+        <div class="row d-flex ai-center">
+          <span class="iconfont icon-kucun"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{store.storage}}</div>
+            <div class="text-left text-white mt-1">本月出库</div>
+          </div>
+        </div>
+      </div>
+    </div>
      <circle-echart :items="items" class="circleEchart"></circle-echart>
     <stick-echart :items="items1" class="stickEchart"></stick-echart>
     <stick-line-echart :items="items2" class="stickEchart"></stick-line-echart>
@@ -34,10 +87,26 @@ import circleEchart from "../component/Echart/circleEchart";
 import stickLineEchart from "../component/Echart/stick_lineEchart"
 import stickEchart from "../component/Echart/stickEchart";
 import lineEchart from "../component/Echart/lineEchart"
+import { mapGetters } from "vuex";
+import {
+  getTask,dangerStorage
+} from "@/api/api";
+import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
    components: { circleEchart, stickEchart,stickLineEchart,lineEchart },
   data() {
     return {
+      store: {
+        storage: 0,
+        skuWaringMsg: "",
+        todayOut: 1,
+        waitOut: 0,
+        todayIn: 3,
+        waitIn: 0,
+      },
+      params:{
+        fid:undefined
+      },
       swiperOption: {
         notNextTick: true,
         //循环
@@ -159,10 +228,44 @@ export default {
     swiper() {
       return this.$refs.mySwiper.swiper;
     },
+    ...mapGetters(["fid"])
+  },
+  mounted(){
+    this.params.fid=this.fid
+    // this.getTask()
   },
   methods:{
     detailNews(){
       console.log('查看公告详情')
+    },
+    dangerStorage(){
+      dangerStorage(this.params).then(res=>{
+        console.log(res.data)
+      })
+    },
+    getTask(){
+      getTask(this.params).then(res=>{
+        console.log(res.data)
+        console.log(res.data.outSum)
+        this.store.todayIn = res.data.inSum
+        this.store.todayOut = res.data.outSum
+        this.store.waitIn = res.data.notfor4InItem
+        this.store.waitOut = res.data.notfor4OutItem
+        this.store.storage = res.data.stockSum
+        this.store.skuWaringMsg = res.data.skuWaringMsg
+      })
+    },
+    checkDanger() {
+      console.log("查看库存预警");
+      this.dangerStorage()
+    },
+    log() {
+      let items2 = this.items1.map(Element => {
+        return {
+          name: Element.name
+        };
+      });
+      console.log(this.stockOutValue);
     }
   }
 };
@@ -173,7 +276,35 @@ export default {
   position: sticky;
   top:64px;
   z-index: 999;
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
   // border-bottom: 1px solid rgb(199, 198, 198);
+}
+.taskView {
+  width: 95%;
+  margin: 0 auto;
+  .col {
+    margin-top: 10px;
+    width: 100%;
+    .row {
+      border-radius: 10px;
+      background: rgb(192, 192, 192);
+      border-left: 3px solid white;
+      border-right: 3px solid white;
+      width: 33.3%;
+      padding: 6px;
+      justify-content: space-between;
+      span {
+        font-size: 30px;
+        color: white;
+      }
+      div {
+        div {
+          text-align: right;
+        }
+      }
+    }
+  }
 }
 .circleEchart {
   margin: 10px auto;
