@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <van-pull-refresh v-model="loading"
+  <div>
+    <van-pull-refresh v-model="loading"
                       @refresh="onRefreshList">
       <van-list v-model="loading"
                 :finished="finished"
@@ -45,23 +45,18 @@
         </div>
       </div>
     </van-pull-refresh>
-    <div
-      class="bg-primary d-flex"
-      style="position:fixed;bottom:80px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
-    >
-      <button
-        class="bg-peach-red-dark text-white"
-        style="width:45px;height:30px;border:none"
-        @click="checkAccountCreate"
-      >新建</button>
-      <div class="bg-white" style="width:2px;height:30px"></div>
-      <button
-        class="bg-peach-red text-white"
-        style="width:45px;height:30px;border:none"
-        @click="checkAccountSearch"
-      >查询</button>
+    <div class="bg-primary d-flex"
+         style="position:fixed;bottom:80px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden">
+      <button class="bg-peach-red-dark text-white"
+              style="width:45px;height:30px;border:none"
+              @click="checkAccountCreate"><span class="iconfont icon-xinjian"></span></button>
+      <div class="bg-white"
+           style="width:2px;height:30px"></div>
+      <button class="bg-peach-red text-white"
+              style="width:45px;height:30px;border:none"
+              @click="checkAccountSearch"><span class="iconfont icon-sousuo"></span></button>
     </div>
-    </div>
+  </div>
 </template>
 <script>
   import Vue from "vue";
@@ -104,12 +99,12 @@
       }
     },
     methods: {
-      checkAccountCreate(){
-        console.log("新建盘点单")
+      checkAccountCreate() {
+        console.log("新建盘点单");
         this.$router.push("/stock/take/form");
       },
-      checkAccountSearch(){
-        console.log("盘点查询")
+      checkAccountSearch() {
+        console.log("盘点查询");
         this.$router.push("/stock/take/search");
       },
       onRefreshList() {
@@ -171,7 +166,7 @@
       findStockTakeDetail(StockTakeDetailParams) {
         //获取单个盘点单详细
         setStore("StockTakeDetailParams", StockTakeDetailParams);
-        this.$router.push('/stock/take/detail');
+        this.$router.push("/stock/take/detail");
       },
       onClickForm() {
         this.$router.push({
@@ -197,7 +192,7 @@
 </script>
 
 <style lang="scss" scoped>
- .stock-take {
+  .stock-take {
     margin-left: 12px;
     margin-top: 22px;
     margin-right: 12px;
@@ -221,7 +216,7 @@
     flex: 1;
     font-size: 12px;
     color: #3f7ffe;
-    text-align: left
+    text-align: left;
   }
   .header .icon {
     margin-right: 10px;
@@ -233,7 +228,7 @@
     margin-left: 13px;
     display: flex;
     align-items: center;
-    text-align: left
+    text-align: left;
   }
   .content div div {
     font-family: PingFangSC-Regular;
