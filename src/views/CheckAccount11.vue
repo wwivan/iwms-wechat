@@ -7,7 +7,7 @@
                 @load="onLoadMore">
         <div v-for="(item, index) in records"
              :key="index"
-             class="stock-take"
+             class="check-account"
              :class="(index < (records.length-1))?'bottom':''">
           <div class="header">
             <span v-show="item.status == 3"
@@ -23,11 +23,14 @@
           </div>
           <div class="content">
             <div>
-              <div>盘点员: {{item.operatorUser}}</div>
-              <div>仓库: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>盘点类型: {{item.type | typeFilter}}</div>
-              <div>状态: {{item.status | formatStockTakeStatus}}</div>
-              <div>创建时间: {{item.createTime}}</div>
+              <!-- <div>对账单号: {{item.orderNo}}</div> -->
+              <div>供应商: {{item.supplier.id == undefined? "":item.supplier.name}}</div>
+              <div>客户: {{item.customer.id == undefined? "":item.customer.name}}</div>
+              <!-- <div>盘点类型: {{item.type | typeFilter}}</div>
+              <div>状态: {{item.status | formatStockTakeStatus}}</div> -->
+              <div>起始时间: {{item.startTime}}</div>
+               <div>结束时间: {{item.endTime}}</div>
+               <div>送货单号：{{item.purchaseNo}}</div>
               <div style="margin-bottom:5px"></div>
             </div>
             <div class="confirm">
@@ -62,7 +65,7 @@
   import Vue from "vue";
   import { Toast } from "vant";
   import { mapGetters } from "vuex";
-  import { findStockTakeList, doToCell } from "@/api/api";
+  import { findCheckAccountList, doToCell } from "@/api/api";
   import {
     setStore,
     getStore,
@@ -100,29 +103,29 @@
     },
     methods: {
       checkAccountCreate() {
-        console.log("新建盘点单");
-        this.$router.push("/stock/take/form");
+        console.log("新建对账单");
+        this.$router.push("/check/account/form");
       },
       checkAccountSearch() {
-        console.log("盘点查询");
-        this.$router.push("/stock/take/search");
+        console.log("对账单查询");
+        this.$router.push("/check/account/search");
       },
       onRefreshList() {
         // 刷新
         //this.params.pageNumber = 1;
         this.records = [];
-        this.findStockTakeList();
+        this.findCheckAccountList();
       },
       onLoadMore() {
         console.log("############");
         //this.params.pageNumber = this.params.pageNumber + 1;
         console.log(this.params.pageNumber);
-        this.findStockTakeList();
+        this.findCheckAccountList();
       },
-      findStockTakeList() {
+      findCheckAccountList() {
         this.params.searchParams = this.searchParams;
         // 获取记录
-        findStockTakeList(this.params)
+        findCheckAccountList(this.params)
           .then(res => {
             console.log(JSON.stringify(res));
             this.loading = false;
@@ -136,43 +139,28 @@
             Toast("请求错误");
           });
       },
-      onTabChange(active) {
-        if (active == "0") {
-          this.$router.push({
-            name: "Main"
-          });
-        } else if (active == "1") {
-          this.$router.push({
-            name: "Statistics"
-          });
-        } else if (active == "2") {
-          this.$router.push({
-            name: "Mine"
-          });
-        }
-      },
-      onTitleClickLeft() {
-        // 返回
-        this.$router.push({
-          name: "Main"
-        });
-      },
-      onClickSearch() {
-        // 查询
-        this.$router.push({
-          name: "StockTakeSearch"
-        });
-      },
-      findStockTakeDetail(StockTakeDetailParams) {
+      // onTitleClickLeft() {
+      //   // 返回
+      //   this.$router.push({
+      //     name: "Main"
+      //   });
+      // },
+      // onClickSearch() {
+      //   // 查询
+      //   this.$router.push({
+      //     name: "StockTakeSearch"
+      //   });
+      // },
+      findCheckAccountDetail(CheckAccountDetailParams) {
         //获取单个盘点单详细
-        setStore("StockTakeDetailParams", StockTakeDetailParams);
-        this.$router.push("/stock/take/detail");
+        setStore("CheckAccountDetailParams", CheckAccountDetailParams);
+        this.$router.push("/check/account/detail");
       },
-      onClickForm() {
-        this.$router.push({
-          name: "StockTakeForm"
-        });
-      }
+      // onClickForm() {
+      //   this.$router.push({
+      //     name: "StockTakeForm"
+      //   });
+      // }
     },
     computed: {
       ...mapGetters(["fid"])
@@ -238,8 +226,5 @@
   }
   .content .confirm {
     margin-left: 60px;
-  }
-  .bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
   }
 </style>

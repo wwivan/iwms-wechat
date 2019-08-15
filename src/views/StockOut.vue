@@ -10,13 +10,19 @@
              class="stock-out"
              :class="(index < (records.length-1))?'bottom':''">
           <div class="header">
-            <span v-show="item.status == 3"
+            <span v-show="item.status == 1"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"></span>
+            <span v-show="item.status == 2"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
+            <span v-show="item.status == 5"
                   class="bot"
                   style="background: linear-gradient(135deg, #4181ff, #2360ef);"></span>
             <span v-show="item.status == 4"
                   class="bot"
                   style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
-            <span v-show="item.status == 5"
+            <span v-show="item.status == 3"
                   class="bot"
                   style="background: linear-gradient(135deg, #F7C77F, #FF9860);"></span>
             <span class="context">{{item.orderNo}}</span>

@@ -79,6 +79,10 @@
     <stick-echart :items="items1" class="stickEchart"></stick-echart>
     <stick-line-echart :items="items2" class="stickEchart"></stick-line-echart>
     <line-echart :items="items3" class="stickEchart"></line-echart>
+    <!-- 订单管理模块 -->
+    <div>
+      
+    </div>
   </div>
 </template>
 
