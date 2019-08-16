@@ -3,7 +3,7 @@
     <van-nav-bar title="预约明细记录" left-text="返回" left-arrow @click-left="onTitleClickLeft">
       <van-button
         slot="right"
-        v-if="records.length==0||status=='0'"
+        v-if="records.length == 0||status == '0'"
         @click="onClickForm(StockInType)"
       >
         <van-icon name="plus" size="1.5em" />
@@ -16,17 +16,17 @@
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel
           v-for="(item, index) in records"
-          :title="item.barcode==undefined? '':item.barcode"
+          :title="item.barcode == undefined? '':item.barcode"
           :key="index"
           :status="item.status | statusFilter"
         >
           <div class="panel-item">
-            <div>物料名称: {{item.materielSku.name}}</div>
-            <div>物料型号: {{item.materielSku.model}}</div>
-            <div>送货数量: {{item.purchaseNum}}</div>
-            <div v-if="item.status=='1'">确认数量: {{item.qty}}</div>
+            <div>物料名称: {{ item.materielSku.name }}</div>
+            <div>物料型号: {{ item.materielSku.model }}</div>
+            <div>送货数量: {{ item.purchaseNum }}</div>
+            <div v-if="item.status == '1'">确认数量: {{ item.qty }}</div>
             <van-field
-              v-if="item.status=='0'"
+              v-if="item.status == '0'"
               clearable
               label="确认数量"
               placeholder="请输入 确认数量"
