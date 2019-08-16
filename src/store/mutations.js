@@ -1,5 +1,3 @@
-import * as types from './mutations-types';
-
 const mutations = {
   // [types.SET_GOOD_MUTATION](state, payload) {
   //   state.good = payload;
@@ -17,10 +15,10 @@ const mutations = {
   //   state.addressId = payload;
   // },
   resIsshow(state) {
-    return state.isshow = true
+    return (state.isshow = true);
   },
   stockInIsshow(state) {
-    return state.isshow = false
+    return (state.isshow = false);
   }
 };
 

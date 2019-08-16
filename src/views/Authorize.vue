@@ -14,7 +14,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      url:undefined,
+      url: undefined,
       params: {
         appid: "oYNm1v_3tmH0FHHqjU_yrMt-AeEE",
         token:
@@ -22,12 +22,12 @@ export default {
       }
     };
   },
-  created(){
-      this.initstatus()
+  created() {
+    this.initstatus();
   },
   methods: {
-    initstatus(){
-        setStore("appid", this.params.appid);
+    initstatus() {
+      setStore("appid", this.params.appid);
     },
     login() {
       axios.get(
@@ -37,7 +37,7 @@ export default {
     authorize() {
       authorize().then(res => {
         console.log(res.data);
-        this.url = res.data
+        this.url = res.data;
       });
       //   axios.get(
       //     "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx41da667575b81adb&redirect_uri=http://project.viphk1.ngrok.org/iwms-api/api/auth/getUserOpenIdAndSessionKey&response_type=code&scope=snsapi_userinfo&state=1&connect_redirect=1#wechat_redirect"
@@ -52,7 +52,7 @@ export default {
       getUserInfo(this.params).then(res => {
         console.log(res.data);
         setStore("appid", this.params.appid);
-        this.$router.push("/login")
+        this.$router.push("/login");
       });
     }
   }

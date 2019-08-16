@@ -6,7 +6,7 @@
       <div class="row">
         <span style="margin-left:0" class="title">供应商名称</span>
         <input
-        class="ipt fs-sm"
+          class="ipt fs-sm"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入供应商名称'"
@@ -100,7 +100,6 @@ export default {
 
 <style lang="scss" scoped>
 .content .row {
-  
   width: 3.26rem;
   height: 0.52rem;
   margin-left: 0.27rem;
@@ -108,7 +107,7 @@ export default {
   /* justify-content: space-around; */
   justify-content: space-between;
   align-items: center;
-  .ipt{
+  .ipt {
     width: 1.68rem;
     height: 0.17rem;
   }

@@ -186,9 +186,11 @@ export default {
       // const res = await axios.get(
       //   `https://api.weixin.qq.com/sns/oauth2/access_token?appid=${this.appID}&secret=${this.appserect}&code=001iMOp62phV1S0oKCo62ZuCp62iMOpH&grant_type=authorization_code`
       // );
-     const res = await axios.get("http://26f096i864.zicp.vip:56836/getWxConfig")
+      const res = await axios.get(
+        "http://26f096i864.zicp.vip:56836/getWxConfig"
+      );
       console.log(res.data);
-      this.code = res.data
+      this.code = res.data;
     },
     system() {
       console.log("我的");

@@ -29,7 +29,7 @@ export default {
       names: [],
       stockInValues: [],
       stockOutValues: [],
-      storages:[]
+      storages: []
     };
   },
   created() {
@@ -60,7 +60,7 @@ export default {
         return e.storage;
       });
       this.names = names;
-      this.storages = storages
+      this.storages = storages;
       this.stockInValues = stockInValues;
       this.stockOutValues = stockOutValues;
       // console.log(this.names);
@@ -122,7 +122,7 @@ export default {
               data: [{ type: "average", name: "平均值" }]
             }
           },
-           {
+          {
             name: "库存量",
             type: "line",
             data: this.storages,

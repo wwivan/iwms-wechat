@@ -16,7 +16,7 @@
           >确定</span>
         </div>
       </div>
-    </div> -->
+    </div>-->
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">送货单号</span>
@@ -27,28 +27,32 @@
           v-model="params.EQ_deliveryNumber"
         />
       </div>
-      <picker-popup class="text-left"
+      <picker-popup
+        class="text-left"
         style="margin-left:0.12rem"
         :title="'入库类型'"
         :placeholder="'请选提入库类型'"
         :selectedItem.sync="selectedWarehouse"
         :columns="sarehouses"
       />
-      <picker-popup class="text-left"
+      <picker-popup
+        class="text-left"
         style="margin-left:0.12rem"
         :title="'仓库'"
         :placeholder="'请选择仓库'"
         :selectedItem.sync="selectedStockInType"
         :columns="stockInTypes"
       />
-      <picker-popup class="text-left"
+      <picker-popup
+        class="text-left"
         style="margin-left:0.12rem"
         :title="'状态'"
         :placeholder="'请选择状态'"
         :selectedItem.sync="selectedStatus"
         :columns="statuss"
       />
-      <picker-popup class="text-left"
+      <picker-popup
+        class="text-left"
         style="margin-left:0.12rem"
         :title="'供应商'"
         :placeholder="'请选择供应商'"
@@ -57,7 +61,8 @@
       />
 
       <div class="row">
-        <date-select-cell class="text-left"
+        <date-select-cell
+          class="text-left"
           style="margin-left:-0.15rem;"
           :title="'开始日期'"
           :placeholder="'请输入开始日期'"
@@ -65,7 +70,8 @@
         ></date-select-cell>
       </div>
       <div class="row">
-        <date-select-cell class="text-left"
+        <date-select-cell
+          class="text-left"
           style="margin-left:-0.15rem;"
           :title="'截止日期'"
           :placeholder="'请输入截止日期'"

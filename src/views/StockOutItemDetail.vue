@@ -208,7 +208,7 @@ export default {
   margin-top: 0.25rem;
   display: flex;
   align-items: center;
-  justify-content:start;
+  justify-content: start;
   margin-left: 0.13rem;
   margin-right: 0.12rem;
 }

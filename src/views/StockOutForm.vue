@@ -5,9 +5,9 @@
         <span style="margin-left:0" class="title">出库单号</span>
         <span class="message">{{params.orderNo}}</span>
       </div>
-      <picker-popup 
-      class="text-left"
-      style="margin-left:0.12rem"
+      <picker-popup
+        class="text-left"
+        style="margin-left:0.12rem"
         :title="'出库类型'"
         :placeholder="'请选择出库类型'"
         :selectedItem.sync="selectedStockOutType"
@@ -29,7 +29,7 @@
 
       <div class="row">
         <date-select-cell
-        class="text-left"
+          class="text-left"
           style="margin-left:-0.15rem;"
           v-if="selectedStockOutType.id == '3' || selectedStockOutType.id == '5'"
           :title="'出库时间'"
@@ -278,9 +278,7 @@ export default {
     selectSupplier(selectedStockOutType) {
       setStore("StockOutType", "1");
       setStore("selectedStockOutType", selectedStockOutType);
-      this.$router.push(
-       "/customer"
-      );
+      this.$router.push("/customer");
     },
     center() {
       this.$router.push({

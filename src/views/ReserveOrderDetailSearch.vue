@@ -27,8 +27,8 @@ export default {
   data() {
     return {
       params: {
-        EQ_barcode:undefined,//商品编码
-        "LIKE_materielSku.name":undefined,//商品名称
+        EQ_barcode: undefined, //商品编码
+        "LIKE_materielSku.name": undefined //商品名称
       }
     };
   },
@@ -39,7 +39,7 @@ export default {
     },
     onTitileClickRight() {
       // 确定
-      console.log(this.params);
+      // console.log(this.params);
       setStore("ReserveDetailSearchParams", this.params);
       this.$router.go(-1);
     },
@@ -50,10 +50,7 @@ export default {
       // 采购员
     }
   },
-  components: {
-  }
+  components: {}
 };
 </script>
 
-<style>
-</style>

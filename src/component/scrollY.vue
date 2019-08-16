@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import BScroll from 'better-scroll';
+import BScroll from "better-scroll";
 export default {
   props: {
     probeType: {
@@ -26,10 +26,10 @@ export default {
       type: Boolean,
       default: false
     },
-     pulldown: {
-        type: Boolean,
-        default: false
-      },
+    pulldown: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {};
@@ -57,8 +57,8 @@ export default {
         });
       }
       if (this.listenScroll) {
-        this.scroll.on('scroll', pos => {
-          this.$emit('scroll', pos);
+        this.scroll.on("scroll", pos => {
+          this.$emit("scroll", pos);
         });
       }
       if (this.pulldown) {

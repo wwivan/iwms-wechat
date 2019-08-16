@@ -59,16 +59,14 @@
 </template>
 <script>
 import circleEchart from "../component/Echart/circleEchart";
-import stickLineEchart from "../component/Echart/stick_lineEchart"
+import stickLineEchart from "../component/Echart/stick_lineEchart";
 import stickEchart from "../component/Echart/stickEchart";
-import lineEchart from "../component/Echart/lineEchart"
+import lineEchart from "../component/Echart/lineEchart";
 import { mapGetters } from "vuex";
-import {
-  getTask,dangerStorage
-} from "@/api/api";
+import { getTask, dangerStorage } from "@/api/api";
 import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
-  components: { circleEchart, stickEchart,stickLineEchart,lineEchart },
+  components: { circleEchart, stickEchart, stickLineEchart, lineEchart },
   data() {
     return {
       store: {
@@ -77,10 +75,10 @@ export default {
         todayOut: 1,
         waitOut: 0,
         todayIn: 3,
-        waitIn: 0,
+        waitIn: 0
       },
-      params:{
-        fid:undefined
+      params: {
+        fid: undefined
       },
       items: [
         { name: "成品", value: 95, max: "100" },
@@ -101,49 +99,49 @@ export default {
         { name: "6", stockInValue: 50, stockOutValue: 40 }
       ],
       items3: [
-        { name: "1", stockInValue: 30, stockOutValue: 10,storage:20 },
-        { name: "2", stockInValue: 40, stockOutValue: 20,storage:20 },
-        { name: "3", stockInValue: 50, stockOutValue: 30 ,storage:20},
-        { name: "4", stockInValue: 30, stockOutValue: 14,storage:16 },
-        { name: "5", stockInValue: 40, stockOutValue: 20,storage:20 },
-        { name: "6", stockInValue: 50, stockOutValue: 40,storage:10},
-        { name: "7", stockInValue: 30, stockOutValue: 10,storage:20 },
-        { name: "8", stockInValue: 40, stockOutValue: 20,storage:20 },
-        { name: "9", stockInValue: 50, stockOutValue: 30 ,storage:20},
-        { name: "10", stockInValue: 30, stockOutValue: 14,storage:16 },
-        { name: "11", stockInValue: 40, stockOutValue: 20,storage:20 },
-        { name: "12", stockInValue: 50, stockOutValue: 40,storage:10}
+        { name: "1", stockInValue: 30, stockOutValue: 10, storage: 20 },
+        { name: "2", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "3", stockInValue: 50, stockOutValue: 30, storage: 20 },
+        { name: "4", stockInValue: 30, stockOutValue: 14, storage: 16 },
+        { name: "5", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "6", stockInValue: 50, stockOutValue: 40, storage: 10 },
+        { name: "7", stockInValue: 30, stockOutValue: 10, storage: 20 },
+        { name: "8", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "9", stockInValue: 50, stockOutValue: 30, storage: 20 },
+        { name: "10", stockInValue: 30, stockOutValue: 14, storage: 16 },
+        { name: "11", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "12", stockInValue: 50, stockOutValue: 40, storage: 10 }
       ]
     };
   },
-  mounted(){
-    this.params.fid=this.fid
-    this.getTask()
+  mounted() {
+    this.params.fid = this.fid;
+    this.getTask();
   },
   computed: {
     ...mapGetters(["fid"])
   },
   methods: {
-    dangerStorage(){
-      dangerStorage(this.params).then(res=>{
-        console.log(res.data)
-      })
+    dangerStorage() {
+      dangerStorage(this.params).then(res => {
+        console.log(res.data);
+      });
     },
-    getTask(){
-      getTask(this.params).then(res=>{
-        console.log(res.data)
-        console.log(res.data.outSum)
-        this.store.todayIn = res.data.inSum
-        this.store.todayOut = res.data.outSum
-        this.store.waitIn = res.data.notfor4InItem
-        this.store.waitOut = res.data.notfor4OutItem
-        this.store.storage = res.data.stockSum
-        this.store.skuWaringMsg = res.data.skuWaringMsg
-      })
+    getTask() {
+      getTask(this.params).then(res => {
+        console.log(res.data);
+        console.log(res.data.outSum);
+        this.store.todayIn = res.data.inSum;
+        this.store.todayOut = res.data.outSum;
+        this.store.waitIn = res.data.notfor4InItem;
+        this.store.waitOut = res.data.notfor4OutItem;
+        this.store.storage = res.data.stockSum;
+        this.store.skuWaringMsg = res.data.skuWaringMsg;
+      });
     },
     checkDanger() {
       console.log("查看库存预警");
-      this.dangerStorage()
+      this.dangerStorage();
     },
     log() {
       let items2 = this.items1.map(Element => {

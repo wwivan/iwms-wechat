@@ -7,7 +7,7 @@
       >
         <van-icon name="search" size="1.5em"/>
       </van-button>
-    </van-nav-bar> -->
+    </van-nav-bar>-->
     <!-- <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel v-for="(item, index) in records" :title="item.orderNo" :key="index">
@@ -38,7 +38,7 @@
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
       </div>
-    </van-pull-refresh> -->
+    </van-pull-refresh>-->
 
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
@@ -48,12 +48,11 @@
           class="stock-in-detail"
           :class="(index < (records.length-1))?'bottom':'' "
         >
-          
           <div class="content" style="justify-content:space-between">
             <div>
               <div>供应商名称: {{item.name}}</div>
-            <div>联系人名称: {{item.contactName}}</div>
-            <div>联系人电话: {{item.contactPhone}}</div>
+              <div>联系人名称: {{item.contactName}}</div>
+              <div>联系人电话: {{item.contactPhone}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -61,7 +60,7 @@
                 v-if="StockInType"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
-              >选择入库</div> -->
+              >选择入库</div>-->
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useSupplier(item,selectedStockInType,selectedWarehouse,deliveryNumber,purchaseNo)"
@@ -80,15 +79,14 @@
         </div>
       </div>
     </van-pull-refresh>
-    
   </div>
 </template>
 
 <script>
 import { Toast } from "vant";
-import { mapGetters,mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { findSupplierList } from "@/api/api";
-import { setStore, getStore, removeStore,timeFormat } from "@/util/util";
+import { setStore, getStore, removeStore, timeFormat } from "@/util/util";
 import { Dialog } from "vant";
 export default {
   data() {
@@ -97,18 +95,18 @@ export default {
       loading: false,
       finished: false,
       act: undefined,
-      selectedStockInType:[],
-      selectedWarehouse:[],
+      selectedStockInType: [],
+      selectedWarehouse: [],
       deliveryNumber: undefined,
       purchaseNo: undefined,
       records: [],
       searchParams: {},
       params: {
-        checkQty:undefined,
+        checkQty: undefined,
         pageNumber: 1,
         pageSize: 99,
         sortType: "auto",
-        fid: "",//42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        fid: "" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
       }
     };
   },
@@ -144,21 +142,21 @@ export default {
       this.selectedWarehouse = Warehouse;
       console.log(this.selectedWarehouse);
     }
-     let deliveryNumber = getStore("deliveryNumber");
-      if (deliveryNumber!="undefined") {
+    let deliveryNumber = getStore("deliveryNumber");
+    if (deliveryNumber != "undefined") {
       removeStore("deliveryNumber");
       this.deliveryNumber = deliveryNumber;
-     } else {
-       this.deliveryNumber = "";
-     }
+    } else {
+      this.deliveryNumber = "";
+    }
 
-     let purchaseNo = getStore("purchaseNo");
-      if (purchaseNo!="undefined") {
+    let purchaseNo = getStore("purchaseNo");
+    if (purchaseNo != "undefined") {
       removeStore("purchaseNo");
       this.purchaseNo = purchaseNo;
-     } else {
-       this.purchaseNo = "";
-     }
+    } else {
+      this.purchaseNo = "";
+    }
   },
   methods: {
     onRefreshList() {
@@ -168,10 +166,10 @@ export default {
       this.findSupplierList();
     },
     onLoadMore() {
-      console.log('############');
+      console.log("############");
       console.log(this.fid);
-     // this.params.pageNumber = this.params.pageNumber + 1;
-      console.log(this.params.pageNumber)
+      // this.params.pageNumber = this.params.pageNumber + 1;
+      console.log(this.params.pageNumber);
       this.findSupplierList();
     },
     findSupplierList() {
@@ -191,55 +189,63 @@ export default {
           Toast("请求错误");
         });
     },
-    useSupplier(supplier,selectedStockInType,selectedWarehouse,deliveryNumber,purchaseNo) {
-      setStore("deliveryNumber",deliveryNumber);
-      setStore("purchaseNo",purchaseNo);
-      setStore("selectedStockInType",selectedStockInType);
-      setStore("selectedWarehouse",selectedWarehouse);
-      setStore('supplier',supplier);
-      console.log(selectedStockInType.length)
-      if(this.isshow==true) {
-        this.$router.push('/reserve/order/form');
-      } else if(this.isshow==false) {
+    useSupplier(
+      supplier,
+      selectedStockInType,
+      selectedWarehouse,
+      deliveryNumber,
+      purchaseNo
+    ) {
+      setStore("deliveryNumber", deliveryNumber);
+      setStore("purchaseNo", purchaseNo);
+      setStore("selectedStockInType", selectedStockInType);
+      setStore("selectedWarehouse", selectedWarehouse);
+      setStore("supplier", supplier);
+      console.log(selectedStockInType.length);
+      if (this.isshow == true) {
+        this.$router.push("/reserve/order/form");
+      } else if (this.isshow == false) {
         this.$router.push("/stockIn/form");
       }
-
-       
     },
-    
+
     onTitleClickLeft() {
       // 返回
       this.$router.go(-1);
     },
-    onClickSearch(selectedStockInType,selectedWarehouse,purchaseNo,deliveryNumber){
-      setStore("deliveryNumber",deliveryNumber);
-      setStore("purchaseNo",purchaseNo);
-      setStore("selectedStockInType",selectedStockInType);
-      setStore("selectedWarehouse",selectedWarehouse);
-      this.$router.push("/supplier/search")
-    },
+    onClickSearch(
+      selectedStockInType,
+      selectedWarehouse,
+      purchaseNo,
+      deliveryNumber
+    ) {
+      setStore("deliveryNumber", deliveryNumber);
+      setStore("purchaseNo", purchaseNo);
+      setStore("selectedStockInType", selectedStockInType);
+      setStore("selectedWarehouse", selectedWarehouse);
+      this.$router.push("/supplier/search");
+    }
   },
   computed: {
     ...mapGetters(["fid"]),
-     ...mapMutations(["resIsshow","stockInIsshow"])
+    ...mapMutations(["resIsshow", "stockInIsshow"])
   },
-  created(){
-    this.isshow =this.$store.state.isshow
-    console.log(this.isshow)
+  created() {
+    this.isshow = this.$store.state.isshow;
+    console.log(this.isshow);
   },
   filters: {
     statusFilter(value) {
-      let realVal = '';
-        if(value == '0'){
-          realVal = '未使用';
-        }else if(value == '1'){
-          realVal = '使用';
-        }else if(value == '3'){
-          realVal = '封闭使用中';
-        }
-        return realVal;
-    },
-   
+      let realVal = "";
+      if (value == "0") {
+        realVal = "未使用";
+      } else if (value == "1") {
+        realVal = "使用";
+      } else if (value == "3") {
+        realVal = "封闭使用中";
+      }
+      return realVal;
+    }
   }
 };
 </script>
@@ -288,7 +294,7 @@ export default {
   color: #4a4a4a;
   font-size: 0.13rem;
   line-height: 0.28rem;
-  text-align: left
+  text-align: left;
 }
 .content .confirm {
   margin-left: 0.6rem;

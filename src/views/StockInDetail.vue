@@ -158,11 +158,11 @@ export default {
     this.StockInType = StockInType;
   },
   methods: {
-    stockInItemSearch(){
-console.log("查询")
+    stockInItemSearch() {
+      console.log("查询");
     },
-    stockInItemForm(){
-      this.$router.push("/stockIn/item/form")
+    stockInItemForm() {
+      this.$router.push("/stockIn/item/form");
     },
     onRefreshList() {
       // 刷新

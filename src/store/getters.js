@@ -17,8 +17,8 @@ const getters = {
   fid: state => {
     return state.fid;
   },
-  isshow: state =>{
-    return state.isshow
+  isshow: state => {
+    return state.isshow;
   }
 };
 export default getters;

@@ -182,7 +182,7 @@ export default {
       setStore("StockInType", this.StockInType);
       setStore("act", this.act);
       setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push('/reserve/order/detail');
+      this.$router.push("/reserve/order/detail");
     }
   },
   computed: {

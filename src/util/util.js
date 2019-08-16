@@ -30,7 +30,7 @@ export function stringCheck(string) {
 function removeSpace(string) {
   var result;
   result = string.trim();
-  result = result.replace(/\s/g, '');
+  result = result.replace(/\s/g, "");
   return result;
 }
 
@@ -44,7 +44,7 @@ export function timeFormat(time) {
   return str;
 }
 
-export const formatStockInStatus = function (num) {
+export const formatStockInStatus = function(num) {
   switch (num) {
     case 0:
     case "0":
@@ -64,7 +64,7 @@ export const formatStockInStatus = function (num) {
   }
 };
 
-export const formatStockOutStatus = function (num) {
+export const formatStockOutStatus = function(num) {
   switch (num) {
     case 1:
     case "1":
@@ -84,7 +84,7 @@ export const formatStockOutStatus = function (num) {
   }
 };
 
-export const formatStockTakeStatus = function (num) {
+export const formatStockTakeStatus = function(num) {
   switch (num) {
     case 1:
     case "1":
@@ -104,7 +104,7 @@ export const formatStockTakeStatus = function (num) {
   }
 };
 
-export const formatNextStockInStatus = function (num) {
+export const formatNextStockInStatus = function(num) {
   switch (num) {
     case 1:
     case "1":
@@ -127,7 +127,7 @@ export const formatNextStockInStatus = function (num) {
   }
 };
 
-export const formatStockInType = function (num) {
+export const formatStockInType = function(num) {
   switch (num) {
     case 1:
     case "1":
@@ -166,22 +166,23 @@ export const getStore = name => {
 /**
  * 设置cookie
  */
-export function setCookie(key,value) {
+export function setCookie(key, value) {
   var exdate = new Date(); //获取时间
   exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * 36500); //保存的天数，我这里写的是100年
   //字符串拼接cookie
-  window.document.cookie = key + "=" + value + ";path=/;expires=" + exdate.toGMTString();
+  window.document.cookie =
+    key + "=" + value + ";path=/;expires=" + exdate.toGMTString();
 }
 
 /**
  * 读取cookie
  */
 export function getCookie(param) {
-  var c_param = '';
+  var c_param = "";
   if (document.cookie.length > 0) {
-    var arr = document.cookie.split('; '); //这里显示的格式需要切割一下自己可输出看下
+    var arr = document.cookie.split("; "); //这里显示的格式需要切割一下自己可输出看下
     for (var i = 0; i < arr.length; i++) {
-      var arr2 = arr[i].split('='); //再次切割
+      var arr2 = arr[i].split("="); //再次切割
       //判断查找相对应的值
       if (arr2[0] == param) {
         c_param = arr2[1];
@@ -200,14 +201,13 @@ export const removeStore = name => {
   window.localStorage.removeItem(name);
 };
 
-
 /**
  * 格式化金额, 将分格式化为元</br>
  * eg: 100 -> 1.00
  */
-export const formatFen2Yuan = function (num) {
+export const formatFen2Yuan = function(num) {
   if (num === undefined) {
-    return "0.00"
+    return "0.00";
   }
   // eslint-disable-next-line no-useless-escape
   num = num.toString().replace(/\$|\,/g, "");
@@ -215,18 +215,18 @@ export const formatFen2Yuan = function (num) {
     return num;
   }
   num = num / 100;
-  let sign = (num === (num = Math.abs(num)));
+  let sign = num === (num = Math.abs(num));
   num = Math.floor(num * 100 + 0.50000000001);
   let cents = num % 100;
   num = Math.floor(num / 100).toString();
   if (cents < 10) {
-    cents = "0" + cents
+    cents = "0" + cents;
   }
   for (let i = 0; i < Math.floor((num.length - (1 + i)) / 3); i++) {
-    num = num.substring(0, num.length - (4 * i + 3)) + "," +
-      num.substring(num.length - (4 * i + 3))
+    num =
+      num.substring(0, num.length - (4 * i + 3)) +
+      "," +
+      num.substring(num.length - (4 * i + 3));
   }
-  return (((sign) ? "" : "-") + num + "." + cents)
+  return (sign ? "" : "-") + num + "." + cents;
 };
-
-

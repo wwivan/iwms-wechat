@@ -1,6 +1,6 @@
 <template>
-    <div>
-           <!-- <van-pull-refresh v-model="loading" @refresh="onRefreshList">
+  <div>
+    <!-- <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel
           v-for="(item, index) in records"
@@ -29,7 +29,7 @@
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
       </div>
-    </van-pull-refresh> -->
+    </van-pull-refresh>-->
 
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
@@ -39,12 +39,11 @@
           class="stock-in-detail"
           :class="(index < (records.length-1))?'bottom':'' "
         >
-          
           <div class="content" style="justify-content:space-between">
             <div>
-             <div>客户名称: {{item.name}}</div>
-            <div>联系人名称: {{item.contactName}}</div>
-            <div>联系人电话: {{item.contactPhone}}</div>
+              <div>客户名称: {{item.name}}</div>
+              <div>联系人名称: {{item.contactName}}</div>
+              <div>联系人电话: {{item.contactPhone}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -52,7 +51,7 @@
                 v-if="StockInType"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
-              >选择入库</div> -->
+              >选择入库</div>-->
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useSupplier(item,selectedStockOutType,StockOutType,selectedWarehouse)"
@@ -71,14 +70,14 @@
         </div>
       </div>
     </van-pull-refresh>
-    </div>
+  </div>
 </template>
 
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { findCustomerList } from "@/api/api";
-import { setStore, getStore, removeStore,timeFormat } from "@/util/util";
+import { setStore, getStore, removeStore, timeFormat } from "@/util/util";
 import { Dialog } from "vant";
 export default {
   data() {
@@ -89,15 +88,15 @@ export default {
       StockOutType: undefined,
       finished: false,
       selectedWarehouse: [],
-      selectedStockOutType:[],
+      selectedStockOutType: [],
       records: [],
       searchParams: {},
       params: {
-        checkQty:undefined,
+        checkQty: undefined,
         pageNumber: 1,
         pageSize: 10,
         sortType: "auto",
-        fid: "",//42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        fid: "" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
       }
     };
   },
@@ -105,7 +104,7 @@ export default {
     this.params.fid = this.fid;
     //  let temp = getStore("StockOutType");
     //  this.StockOutType = temp;
-     let temp = getStore("CustomerSearchParams");
+    let temp = getStore("CustomerSearchParams");
     if (temp) {
       removeStore("CustomerSearchParams");
       this.searchParams = JSON.parse(temp);
@@ -139,8 +138,6 @@ export default {
       this.selectedWarehouse = Warehouse;
       console.log(this.selectedWarehouse);
     }
-  
-  
   },
   methods: {
     onRefreshList() {
@@ -170,51 +167,54 @@ export default {
           Toast("请求错误");
         });
     },
-    useSupplier(customer,selectedStockOutType,StockOutType,selectedWarehouse) {
-      setStore("StockOutType",StockOutType);
-      setStore("selectedStockOutType",selectedStockOutType);
-      setStore("selectedWarehouse",selectedWarehouse);
-      setStore('customer',customer);
-      if(this.StockInType =='1') {
-        this.$router.push( "StockIn/form");
+    useSupplier(
+      customer,
+      selectedStockOutType,
+      StockOutType,
+      selectedWarehouse
+    ) {
+      setStore("StockOutType", StockOutType);
+      setStore("selectedStockOutType", selectedStockOutType);
+      setStore("selectedWarehouse", selectedWarehouse);
+      setStore("customer", customer);
+      if (this.StockInType == "1") {
+        this.$router.push("StockIn/form");
       }
-      if(this.StockOutType == '1'){
-         this.$router.push('/stock/out/form');
+      if (this.StockOutType == "1") {
+        this.$router.push("/stock/out/form");
       }
-     
     },
-    
-    onTitleClickLeft(StockInType,StockOutType) {
+
+    onTitleClickLeft(StockInType, StockOutType) {
       // 返回
-      setStore("StockOutType",StockOutType);
-      setStore("StockInType",StockInType);
+      setStore("StockOutType", StockOutType);
+      setStore("StockInType", StockInType);
       this.$router.go(-1);
     },
-    onClickSearch(StockInType,StockOutType,selectedStockOutType){
-      setStore("selectedStockOutType",selectedStockOutType);
-      setStore("StockOutType",StockOutType);
-      setStore("StockInType",StockInType);
+    onClickSearch(StockInType, StockOutType, selectedStockOutType) {
+      setStore("selectedStockOutType", selectedStockOutType);
+      setStore("StockOutType", StockOutType);
+      setStore("StockInType", StockInType);
       this.$router.push({
-        name: "CustomerSearch",
-      })
-    },
+        name: "CustomerSearch"
+      });
+    }
   },
   computed: {
     ...mapGetters(["fid"])
   },
   filters: {
     statusFilter(value) {
-      let realVal = '';
-        if(value == '0'){
-          realVal = '未使用';
-        }else if(value == '1'){
-          realVal = '使用';
-        }else if(value == '3'){
-          realVal = '封闭使用中';
-        }
-        return realVal;
-    },
-   
+      let realVal = "";
+      if (value == "0") {
+        realVal = "未使用";
+      } else if (value == "1") {
+        realVal = "使用";
+      } else if (value == "3") {
+        realVal = "封闭使用中";
+      }
+      return realVal;
+    }
   }
 };
 </script>
@@ -262,7 +262,7 @@ export default {
   color: #4a4a4a;
   font-size: 0.13rem;
   line-height: 0.28rem;
-  text-align: left
+  text-align: left;
 }
 .content .confirm {
   margin-left: 0.6rem;

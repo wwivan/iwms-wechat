@@ -2,43 +2,43 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 Vue.use(Vuex);
-const state ={
-  isshow:false,
-  toshow:false,
-  fid: '42dd7498-b9d3-43b3-b736-3e9844f03ff5',
-  openid:""
-}
+const state = {
+  isshow: false,
+  toshow: false,
+  fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+  openid: ""
+};
 const mutations = {
   resIsshow(state) {
-    return state.isshow = true
+    return (state.isshow = true);
   },
   stockInIsshow(state) {
-    return state.isshow = false
+    return (state.isshow = false);
   },
-  toshowOpen(state){
-    return state.toshow =true
+  toshowOpen(state) {
+    return (state.toshow = true);
   },
-  toshowClose(state){
-    return state.toshow = false
+  toshowClose(state) {
+    return (state.toshow = false);
   }
-}
-const getters={
-  isshow: state =>{
-    return state.isshow
+};
+const getters = {
+  isshow: state => {
+    return state.isshow;
   },
-  toshow: state =>{
-    return state.isshow
+  toshow: state => {
+    return state.isshow;
   },
-  openid: state =>{
-    return state.openid
+  openid: state => {
+    return state.openid;
   },
   fid: state => {
     return state.fid;
-  },
-}
+  }
+};
 const vuex = new Vuex.Store({
   state,
   mutations,
-  getters,
+  getters
 });
-export default vuex
+export default vuex;

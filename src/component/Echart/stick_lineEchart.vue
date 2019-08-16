@@ -47,13 +47,13 @@ export default {
   methods: {
     initData() {
       let names = this.items.map(e => {
-        return e.name
+        return e.name;
       });
       let stockInValues = this.items.map(e => {
-        return e.stockInValue
+        return e.stockInValue;
       });
       let stockOutValues = this.items.map(e => {
-        return  e.stockOutValue
+        return e.stockOutValue;
       });
       this.names = names;
       this.stockInValues = stockInValues;
@@ -91,7 +91,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data:this.names
+            data: this.names
           }
         ],
         yAxis: [
@@ -106,7 +106,7 @@ export default {
             data: this.stockOutValues,
             itemStyle: {
               color: "#4181FF"
-            },
+            }
             // itemStyle: {
             //   normal: {
             //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
@@ -145,7 +145,7 @@ export default {
             data: this.stockInValues,
             itemStyle: {
               color: "#F6617B"
-            },
+            }
             // markPoint: {
             //   data: [
             //     { type: "max", name: "最大值" },
@@ -155,8 +155,7 @@ export default {
             // markLine: {
             //   data: [{ type: "average", name: "平均值" }]
             // }
-          },
-          
+          }
         ]
       });
     }

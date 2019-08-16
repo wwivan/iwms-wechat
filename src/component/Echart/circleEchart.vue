@@ -3,7 +3,7 @@
 </template>
 <script>
 import echarts from "echarts";
-import { totalmem } from 'os';
+import { totalmem } from "os";
 export default {
   props: {
     items: {
@@ -56,20 +56,20 @@ export default {
   },
   methods: {
     initChart() {
-      var i =0
+      var i = 0;
       var colors = [
-                // "#F6617B",
-                // "#4181FF",
-                "#F7C77F",
-                "#749f83",
-                "#c23531",
-                "#2f4554",
-                "#ca8622",
-                "#bda29a",
-                "#6e7074",
-                "#546570",
-                "#c4ccd3"
-              ]
+        // "#F6617B",
+        // "#4181FF",
+        "#F7C77F",
+        "#749f83",
+        "#c23531",
+        "#2f4554",
+        "#ca8622",
+        "#bda29a",
+        "#6e7074",
+        "#546570",
+        "#c4ccd3"
+      ];
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
@@ -78,7 +78,7 @@ export default {
           x: "left",
           y: "top",
           textStyle: {
-            bottom:"0rem",
+            bottom: "0rem",
             color: "#FF9860"
           }
           // subtext: "纯属虚构"
@@ -91,7 +91,7 @@ export default {
           //导航栏
           orient: "vertical",
           x: "left",
-          y:"center",
+          y: "center",
           data: this.items
         },
         toolbox: {
@@ -124,7 +124,6 @@ export default {
             type: "pie",
             radius: ["30%", "60%"],
             itemStyle: {
-              
               normal: {
                 color: function() {
                   return colors[i++];

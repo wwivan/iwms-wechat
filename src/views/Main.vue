@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link tag="div" to="/authorize" class="text-white ml-3" style="width:0.4rem;height:0.64rem;line-height:0.40rem">
+      <router-link
+        tag="div"
+        to="/authorize"
+        class="text-white ml-3"
+        style="width:0.4rem;height:0.64rem;line-height:0.40rem"
+      >
         <img src="../assets/images/logo1.png" class="w-100" style="margin-top:0" alt />
       </router-link>
       <div class="text-white fs-xl">江苏东志信有限公司</div>
@@ -11,7 +16,11 @@
           class="iconfont icon-canguanyuyue"
           style="font-size:0.2rem;color:white"
         ></span>
-        <img style="width:0.25rem;height:0.25rem" v-show="this.userInfo.headimgurl" :src="userInfo.headimgurl" />
+        <img
+          style="width:0.25rem;height:0.25rem"
+          v-show="this.userInfo.headimgurl"
+          :src="userInfo.headimgurl"
+        />
       </div>
     </div>
     <!-- <div class="nav bg-orange d-flex jc-between ai-center">
@@ -30,7 +39,7 @@
       <router-view></router-view>
     </div>
     <div style="height:0.57rem;width:100%"></div>
-    <div class="tabbar d-flex jc-around w-100 ">
+    <div class="tabbar d-flex jc-around w-100">
       <router-link tag="div" to="/home" class="w-25 border-right">
         <div class="box">
           <span
@@ -39,7 +48,7 @@
             :class="this.tab1?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm " :class="this.tab1?'active':''">首页</div>
+        <div class="text fs-sm" :class="this.tab1?'active':''">首页</div>
       </router-link>
       <router-link tag="div" to="/StockIn" class="w-25 border-right">
         <div class="box">
@@ -49,19 +58,19 @@
             :class="this.tab2?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm  " :class="this.tab2?'active':''">入库</div>
+        <div class="text fs-sm" :class="this.tab2?'active':''">入库</div>
       </router-link>
       <router-link tag="div" to="/StockOut" class="w-25 border-right">
         <div class="box">
           <span class="iconfont icon-daichuku" @click="tab3Active" :class="this.tab3?'active':''"></span>
         </div>
-        <div class="text fs-sm " :class="this.tab3?'active':''">出库</div>
+        <div class="text fs-sm" :class="this.tab3?'active':''">出库</div>
       </router-link>
       <router-link tag="div" to="/search/page" class="w-25 border-right">
         <div class="box">
           <span class="iconfont icon-query1" @click="tab4Active" :class="this.tab4?'active':''"></span>
         </div>
-        <div class="text fs-sm " :class="this.tab4==1?'active':''">查询</div>
+        <div class="text fs-sm" :class="this.tab4==1?'active':''">查询</div>
       </router-link>
       <router-link tag="div" to="/check/account" class="w-25">
         <div class="box">
@@ -71,19 +80,19 @@
             :class="this.tab5?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm " :class="this.tab5?'active':''">对账</div>
+        <div class="text fs-sm" :class="this.tab5?'active':''">对账</div>
       </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import ScrollY from "../component/scrollY";
-import { mapGetters, mapMutations } from "vuex";
+// import ScrollY from "../component/scrollY";
+import { mapGetters } from "vuex";
 import { stockDetailList } from "@/api/api";
 import axios from "axios";
 export default {
-  components: { ScrollY },
+  // components: { ScrollY },
   data() {
     return {
       userInfo: {
@@ -109,7 +118,7 @@ export default {
       navName: "功能",
       pulldown: true,
       appID: "wx08c444d8f0255f63",
-      code: "",
+      code: undefined,
       appserect: "ee2d5ba41eabb66b7b39229d4405db75",
       params: {
         pageNumber: 1,
@@ -137,7 +146,7 @@ export default {
   },
   created() {
     this.params.fid = this.fid;
-    console.log(this.params.fid);
+    // console.log(this.params.fid);
     this.confirmStatus();
     // this.stockDetailList();
     this.getCode();
@@ -156,13 +165,13 @@ export default {
       } else {
         this.code = null;
       }
-      console.log(this.code);
+      // console.log(this.code);
     },
     async getUserInfo() {
       if (this.code != null) {
         const res = await axios.get(`http://49.235.41.147:3000/${this.code}`);
         this.userInfo = res.data;
-        console.log(this.userInfo);
+        // console.log(this.userInfo);
       } else {
         return;
       }
@@ -189,22 +198,22 @@ export default {
     },
 
     system() {
-      console.log("我的");
+      // console.log("我的");
     },
     stockDetailList() {
-      console.log(11111111);
+      // console.log(11111111);
       stockDetailList(this.params).then(res => {
-        console.log(res.data);
+        // console.log(res.data);
       });
     },
     loadData() {
-      console.log("下拉刷新");
+      // console.log("下拉刷新");
     },
     changeIsshow() {
       this.isshow = !this.isshow;
     },
     changeToshow() {
-      console.log(1111111);
+      // console.log(1111111);
       this.toshow = false;
     },
     operation() {

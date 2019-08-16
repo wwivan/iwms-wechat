@@ -7,7 +7,7 @@
       <van-button slot="right"  @click="onClickSearch">
         <van-icon name="search" size="1.5em"/>
       </van-button>
-    </van-nav-bar>    -->
+    </van-nav-bar>-->
     <!-- <div class="top-bar">
       <div style="height:0.2rem"></div>
       <div class="stock-out-header">
@@ -29,10 +29,15 @@
           ></span>
         </div>
       </div>
-    </div> -->
+    </div>-->
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
-        <div v-for="(item, index) in records" :key="index" class="stock-out" :class="(index < (records.length-1))?'bottom':''">
+        <div
+          v-for="(item, index) in records"
+          :key="index"
+          class="stock-out"
+          :class="(index < (records.length-1))?'bottom':''"
+        >
           <div class="header">
             <span
               v-show="item.status == 3"
@@ -50,19 +55,32 @@
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
 
-            <span style="font-size:0.13rem;color:#4181FF">{{item.stockTake==undefined? '':item.stockTake.orderNo}}</span>
+            <span
+              style="font-size:0.13rem;color:#4181FF"
+            >{{item.stockTake==undefined? '':item.stockTake.orderNo}}</span>
           </div>
           <div class="content">
             <div>
-            <div>物料条码:{{item.materielSku==undefined? '':item.materielSku.barcode }}</div>
-            <div>物料名称: {{item.materielSku==undefined? '':item.materielSku.name }}</div>
-            <div>所在货位: {{item.cell==undefined? '':item.cell.code }}</div>
-            <div>原库存: {{item.stockNum }}</div>
-            <div>
-              <van-field v-if="result==records" clearable label="实际库存" v-model="item.takeStockNumber" type="number" onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )" style="background-color:#F4F4F4;"></van-field>
-            </div>
-            <!-- <div v-if="result==records" style="background-color:#F4F4F4;">实际库存: {{item.takeStockNumber }}</div> -->
-            <div v-if="result==records" style="background-color:green;">差异: {{item.takeStockNumber-item.stockNum }}</div>
+              <div>物料条码:{{item.materielSku==undefined? '':item.materielSku.barcode }}</div>
+              <div>物料名称: {{item.materielSku==undefined? '':item.materielSku.name }}</div>
+              <div>所在货位: {{item.cell==undefined? '':item.cell.code }}</div>
+              <div>原库存: {{item.stockNum }}</div>
+              <div>
+                <van-field
+                  v-if="result==records"
+                  clearable
+                  label="实际库存"
+                  v-model="item.takeStockNumber"
+                  type="number"
+                  onkeypress="return( /[\d]/.test(String.fromCharCode(event.keyCode) ) )"
+                  style="background-color:#F4F4F4;"
+                ></van-field>
+              </div>
+              <!-- <div v-if="result==records" style="background-color:#F4F4F4;">实际库存: {{item.takeStockNumber }}</div> -->
+              <div
+                v-if="result==records"
+                style="background-color:green;"
+              >差异: {{item.takeStockNumber-item.stockNum }}</div>
 
               <div style="margin-bottom:0.05rem"></div>
             </div>
@@ -78,19 +96,25 @@
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockOutDetail(item)"
               >查看明细</div>
-            </div> -->
+            </div>-->
           </div>
         </div>
-       </van-list>
-        <div v-if="status=='1'" class="mt-3 text-grey fs-xl">还未盘点</div>
-       <van-row type="flex" justify="center" gutter="15">
-          <!-- <van-col>
+      </van-list>
+      <div v-if="status=='1'" class="mt-3 text-grey fs-xl">还未盘点</div>
+      <van-row type="flex" justify="center" gutter="15">
+        <!-- <van-col>
             <van-button v-if="status=='1'" @click="inventoryMore" type="primary" style="height:0.35rem;width:1rem;line-height:0.35rem;font-size:0.15rem;background: linear-gradient(135deg, #4181ff, #2360ef);border:none;color:white" :text="'等待盘点'"></van-button>
-          </van-col> -->
-          <van-col>
-            <van-button v-if="result==records" @click="add" type="primary" style="height:0.35rem;line-height:0.32rem" :text="'调整库存'"></van-button>
-          </van-col>
-        </van-row>
+        </van-col>-->
+        <van-col>
+          <van-button
+            v-if="result==records"
+            @click="add"
+            type="primary"
+            style="height:0.35rem;line-height:0.32rem"
+            :text="'调整库存'"
+          ></van-button>
+        </van-col>
+      </van-row>
 
       <div class="van-list__loading">
         <div
@@ -102,174 +126,163 @@
         </div>
       </div>
     </van-pull-refresh>
-
   </div>
 </template>
 
 <script>
-  import Vue from "vue";
-  import {
-    Toast
-  } from "vant";
-  import {
-    mapGetters
-  } from "vuex";
-  import {
-    findStockTakeItems,
-    getStockLogsByTrays,
-    findTraysByRfids,
-    getStockTakeItem,
-    saveStockTakeItem
-  } from "@/api/api";
-  import {
-    setStore,
-    getStore,
-    formatFen2Yuan,
-    removeStore
-  } from "@/util/util";
-  import { Dialog } from "vant";
-  export default {
-    data() {
-      return {
-        loading: false,
-        finished: false,
-        show: false,
-        records: [],
-        item:{},
-        result: [],
-        status: undefined,
-        takeStockNumber:"",
-        type: '',
-        stockTake:{},
-        searchParams: {},
-        params: {
-          takeStockNumber: "",
-          trayId: undefined,
-          rfid: undefined,
-          stockTakeId: undefined,
-          stockTakeItemId:undefined,
-          pageNumber: 1,
-          pageSize: 99,
-          sortType: "auto",
-          fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
-          searchParams: {}
-        }
-      };
-    },
-    mounted() {
-      this.params.fid = this.fid;
-      let temps = getStore("StockTakeDetailParams");
-      let StockTakeDetailParams = JSON.parse(temps);
-      this.stockTake = StockTakeDetailParams;
-      this.type = this.stockTake.type;
-      let item = getStore("StockTakeItemSearchParams");
-      if (item) {
+import Vue from "vue";
+import { Toast } from "vant";
+import { mapGetters } from "vuex";
+import {
+  findStockTakeItems,
+  getStockLogsByTrays,
+  findTraysByRfids,
+  getStockTakeItem,
+  saveStockTakeItem
+} from "@/api/api";
+import { setStore, getStore, formatFen2Yuan, removeStore } from "@/util/util";
+import { Dialog } from "vant";
+export default {
+  data() {
+    return {
+      loading: false,
+      finished: false,
+      show: false,
+      records: [],
+      item: {},
+      result: [],
+      status: undefined,
+      takeStockNumber: "",
+      type: "",
+      stockTake: {},
+      searchParams: {},
+      params: {
+        takeStockNumber: "",
+        trayId: undefined,
+        rfid: undefined,
+        stockTakeId: undefined,
+        stockTakeItemId: undefined,
+        pageNumber: 1,
+        pageSize: 99,
+        sortType: "auto",
+        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+        searchParams: {}
+      }
+    };
+  },
+  mounted() {
+    this.params.fid = this.fid;
+    let temps = getStore("StockTakeDetailParams");
+    let StockTakeDetailParams = JSON.parse(temps);
+    this.stockTake = StockTakeDetailParams;
+    this.type = this.stockTake.type;
+    let item = getStore("StockTakeItemSearchParams");
+    if (item) {
       removeStore("StockTakeItemSearchParams");
       this.searchParams = JSON.parse(item);
-      }else{
-        this.searchParams = {};
-      }
-      this.params.stockTakeId = StockTakeDetailParams.id;
-      this.status=StockTakeDetailParams.status;
-      console.log(this.status);
+    } else {
+      this.searchParams = {};
+    }
+    this.params.stockTakeId = StockTakeDetailParams.id;
+    this.status = StockTakeDetailParams.status;
+    console.log(this.status);
+  },
+  // created() {
+  //   this.$parent.setComponent(this);
+  // },
+  methods: {
+    onRefreshList() {
+      // 刷新
+      this.records = [];
+      this.findStockTakeItems();
     },
-    // created() {
-    //   this.$parent.setComponent(this);
-    // },
-    methods: {
-      onRefreshList() {
-        // 刷新
-        this.records = [];
-        this.findStockTakeItems();
-      },
-      onLoadMore() {
-        console.log(this.params.pageNumber)
-        this.findStockTakeItems();
-      },
-      findStockTakeItems() {
-        //this.params.searchParams = this.searchParams;
-        this.params.searchParams["EQ_stockTake.status"] = "1";
+    onLoadMore() {
+      console.log(this.params.pageNumber);
+      this.findStockTakeItems();
+    },
+    findStockTakeItems() {
+      //this.params.searchParams = this.searchParams;
+      this.params.searchParams["EQ_stockTake.status"] = "1";
 
-        // 获取记录
-        findStockTakeItems(this.params)
-          .then(res => {
-             this.loading = false;
-              this.finished = res.data.last;
-              console.log(JSON.stringify(res));
-              this.records.push(...res.data.content);
-          })
-          .catch(error => {
-            this.finished = true;
-            this.loading = false;
-            console.log(JSON.stringify(error));
-            Toast(JSON.stringify(error.message));
-          });
-      },
-      inventoryMore() {
-        // 请求参数
-        //this.findTraysByRfids('1432');
-        let params = {
-          action: 'inventoryMore',
-          range: 30 //rfid功率 10最小 2-3厘米
+      // 获取记录
+      findStockTakeItems(this.params)
+        .then(res => {
+          this.loading = false;
+          this.finished = res.data.last;
+          console.log(JSON.stringify(res));
+          this.records.push(...res.data.content);
+        })
+        .catch(error => {
+          this.finished = true;
+          this.loading = false;
+          console.log(JSON.stringify(error));
+          Toast(JSON.stringify(error.message));
+        });
+    },
+    inventoryMore() {
+      // 请求参数
+      //this.findTraysByRfids('1432');
+      let params = {
+        action: "inventoryMore",
+        range: 30 //rfid功率 10最小 2-3厘米
+      };
+      window.android.callAndroid(JSON.stringify(params));
+    },
+    onNetiveCallback(response) {
+      if (response.action === "inventoryMore") {
+        let temp = JSON.parse(response.result);
+        let rfid = "";
+        for (let item in temp) {
+          rfid += temp[item] + ",";
         }
-        window.android.callAndroid(JSON.stringify(params));
-      },
-      onNetiveCallback(response) {
-        if(response.action === 'inventoryMore'){
-            let temp = JSON.parse(response.result);
-            let rfid="";
-            for(let item in temp) {
-              rfid+=temp[item]+',';
-            }
-            this.findTraysByRfids(rfid);
+        this.findTraysByRfids(rfid);
+      }
+    },
+    findTraysByRfids(rfid) {
+      Toast(rfid);
+      this.params.rfid = rfid;
+      findTraysByRfids(this.params)
+        .then(res => {
+          console.log(res.data);
+          let items = res.data;
+          console.log(items);
+          let result = "";
+          for (let item of items) {
+            result += item.id + ",";
           }
-      },
-       findTraysByRfids(rfid) {
-         Toast(rfid);
-        this.params.rfid = rfid;
-         findTraysByRfids(this.params)
-          .then(res => {
-            console.log(res.data);
-            let items=res.data;
-            console.log(items);
-            let result = "";
-            for(let item of items) {
-              result+=item.id+",";
-            }
-            this.getStockTakeItem(result);
-
-          })
-          .catch(error => {
-            console.log(JSON.stringify(error));
-            Toast("请求错误");
-          });
-      },
-      getStockTakeItem(id){
-        this.params.trayId = id;
-        let ids = "";
-        for(let item of this.records) {
-          ids+= item.id+",";
-        }
-        let dis= ids.substring(0,ids.length-1);
-        this.params.stockTakeItemId = dis;
-         getStockTakeItem(this.params)
-          .then(res => {
-            this.result=res.data;
-            this.records = this.result;
-          })
-          .catch(error => {
-            console.log(JSON.stringify(error));
-            Toast.fail("请求错误");
-          });
-      },
-     add() {
+          this.getStockTakeItem(result);
+        })
+        .catch(error => {
+          console.log(JSON.stringify(error));
+          Toast("请求错误");
+        });
+    },
+    getStockTakeItem(id) {
+      this.params.trayId = id;
+      let ids = "";
+      for (let item of this.records) {
+        ids += item.id + ",";
+      }
+      let dis = ids.substring(0, ids.length - 1);
+      this.params.stockTakeItemId = dis;
+      getStockTakeItem(this.params)
+        .then(res => {
+          this.result = res.data;
+          this.records = this.result;
+        })
+        .catch(error => {
+          console.log(JSON.stringify(error));
+          Toast.fail("请求错误");
+        });
+    },
+    add() {
       let req = "";
       let id = "";
-      let stockTakeId ="";
-      for(let item of this.records) {
-        req+=item.takeStockNumber+",";
-        id+= item.id+",";
-        stockTakeId+= item.stockTake.id+",";
+      let stockTakeId = "";
+      for (let item of this.records) {
+        req += item.takeStockNumber + ",";
+        id += item.id + ",";
+        stockTakeId += item.stockTake.id + ",";
       }
       this.params.stockTakeItemId = id;
       this.params.takeStockNumber = req;
@@ -284,35 +297,35 @@
           console.log(JSON.stringify(error));
           Toast.fail(JSON.stringify(error.message));
         });
-     },
-     
-      onClickForm(StockTake) {
-       setStore("StockTake",StockTake);
-       this.$router.push({
+    },
+
+    onClickForm(StockTake) {
+      setStore("StockTake", StockTake);
+      this.$router.push({
         name: "StockTakeItemForm"
       });
     },
-      onTitleClickLeft() {
-        // 返回
-        this.$router.go(-1);
-      },
-      onClickSearch() {
+    onTitleClickLeft() {
+      // 返回
+      this.$router.go(-1);
+    },
+    onClickSearch() {
       // 查询
       this.$router.push({
         name: "StockTakeItemSearch"
       });
-    },
-    },
-    computed: {
-      ...mapGetters(["fid"])
-    },
-    filters: {
-      numFilter(value) {
-        let realVal = formatFen2Yuan(value);
-        return realVal;
-      },
     }
-  };
+  },
+  computed: {
+    ...mapGetters(["fid"])
+  },
+  filters: {
+    numFilter(value) {
+      let realVal = formatFen2Yuan(value);
+      return realVal;
+    }
+  }
+};
 </script>
 
 <style scoped>

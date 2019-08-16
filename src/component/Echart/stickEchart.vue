@@ -91,7 +91,7 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: [1,2,3,4,5,6,7,8,9,10]
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
           }
         ],
         yAxis: [
@@ -116,7 +116,7 @@ export default {
             markLine: {
               data: [{ type: "average", name: "平均值" }]
             }
-          },
+          }
           // {
           //   name: "出库量",
           //   type: "bar",

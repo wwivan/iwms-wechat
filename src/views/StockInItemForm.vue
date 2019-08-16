@@ -195,7 +195,7 @@ export default {
   color: #333333;
   font-size: 0.13rem;
 }
-.confirm{
+.confirm {
   margin-left: 0.2rem;
   line-height: 0.32rem;
   width: 0.8rem;

@@ -1,15 +1,13 @@
 // 引入 axios
-import axios from 'axios';
-import {
-  Toast
-} from 'vant';
-import router from '@/router';
+import axios from "axios";
+import { Toast } from "vant";
+import router from "@/router";
 
 // 环境的切换
-if (process.env.NODE_ENV == 'development') {
-  axios.defaults.baseURL = 'http://47.111.87.217:2080/iwms-api/api';
+if (process.env.NODE_ENV == "development") {
+  axios.defaults.baseURL = "http://47.111.87.217:2080/iwms-api/api";
 } else {
-  axios.defaults.baseURL = 'http://47.111.87.217:2080/iwms-api/api';
+  axios.defaults.baseURL = "http://47.111.87.217:2080/iwms-api/api";
 }
 // 请求拦截
 // axios.interceptors.request.use(function (config) {
@@ -40,7 +38,7 @@ axios.interceptors.response.use(
       switch (error.response.status) {
         case 401:
           router.replace({
-            path: '/login',
+            path: "/login",
             query: {
               redirect: router.currentRoute.fullPath
             }
@@ -48,7 +46,7 @@ axios.interceptors.response.use(
           break;
         case 404:
           Toast({
-            message: '网络请求不存在',
+            message: "网络请求不存在",
             duration: 1500,
             forbidClick: true
           });
@@ -86,10 +84,10 @@ export function post(url, params) {
   return new Promise((resolve, reject) => {
     axios
       .post(url, {
-        "resquestParam": params,
-        "signature": "7447D0441882CAA7070646C0DA7646E7AA854778",
-        "sysParam": {
-          "appId": "5032022018001"
+        resquestParam: params,
+        signature: "7447D0441882CAA7070646C0DA7646E7AA854778",
+        sysParam: {
+          appId: "5032022018001"
         }
       })
       .then(res => {
@@ -121,12 +119,12 @@ export function post(url, params) {
           reject({
             code: -1,
             message: "网络请求超时"
-          })
+          });
         } else {
           reject({
             code: -1,
             message: "数据解析失败"
-          })
+          });
         }
       });
   });
@@ -136,6 +134,7 @@ let isDebug = process.env.NODE_ENV === "development";
 
 function log(content) {
   if (isDebug) {
+    // eslint-disable-next-line no-console
     console.log(content);
   }
 }

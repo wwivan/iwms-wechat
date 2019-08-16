@@ -3,7 +3,13 @@
     <div class="login">
       <h1>欢迎使用龙猫云驿wms</h1>
       <van-cell-group class="login-from">
-        <van-field v-model="getVcodeParmas.mobileNo" clearable border label="手机号" placeholder="请输入手机号" />
+        <van-field
+          v-model="getVcodeParmas.mobileNo"
+          clearable
+          border
+          label="手机号"
+          placeholder="请输入手机号"
+        />
         <!-- <van-field
           v-model="password"
           clearable
@@ -47,7 +53,6 @@ import { setStore, getStore, removeStore } from "@/util/util";
 import { Toast } from "vant";
 import { setInterval, clearInterval } from "timers";
 // Vue.use(Toast).use(Cell).use(CellGroup).use(Button).use(Col).use(Row);
-
 export default {
   data() {
     return {
@@ -82,7 +87,6 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-
     if (this.redirect) {
       Toast({
         position: "bottom",
@@ -99,15 +103,13 @@ export default {
         return;
       } else {
         this.time = 60;
-        
         setInterval(() => {
           this.time--;
-          this.isfalse = true
+          this.isfalse = true;
           if (this.time < 0) {
             this.time = undefined;
           }
         }, 1000);
-        
         getVcode(this.getVcodeParmas).then(res => {
           console.log(res.data);
         });
@@ -162,7 +164,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
 .login {
   width: 100%;
@@ -182,8 +183,8 @@ export default {
   text-align: center;
   padding: 0.1rem;
   margin: 0 auto;
-  box-shadow: 0 0.02rem 0.04rem 0 rgba(0, 0, 0, 0.2), 0 0.03rem 0.08rem 0 rgba(0, 0, 0, 0.19);
-
+  box-shadow: 0 0.02rem 0.04rem 0 rgba(0, 0, 0, 0.2),
+    0 0.03rem 0.08rem 0 rgba(0, 0, 0, 0.19);
   .btn {
     text-align: center;
     margin-top: 0.1rem;
@@ -193,7 +194,6 @@ export default {
 .slide-leave-active {
   transition: all 0.5s;
 }
-
 .slide-enter,
 .slide-leave-to {
   opacity: 0;

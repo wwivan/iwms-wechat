@@ -20,15 +20,15 @@
         <span style="margin-left:0" class="title">供应商</span>
         <span class="message">{{params.supplierName}}</span>
         <van-button
-        v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
-        size="small"
-        @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
-        style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
-      >选择</van-button>
+          v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
+          size="small"
+          @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
+          style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
+        >选择</van-button>
       </div>
       <div class="row">
         <date-select-cell
-        class="text-left"
+          class="text-left"
           style="margin-left:-0.15rem;"
           :title="'起始时间'"
           :placeholder="'请输入起始时间'"
@@ -37,7 +37,7 @@
       </div>
       <div class="row">
         <date-select-cell
-        class="text-left"
+          class="text-left"
           style="margin-left:-0.15rem;"
           :title="'结束时间'"
           :placeholder="'请输入结束时间'"
@@ -126,7 +126,7 @@ export default {
         id: "",
         name: ""
       },
-       // 选择的对账类型
+      // 选择的对账类型
       selectedAccountType: {
         id: "",
         name: ""

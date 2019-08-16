@@ -1,6 +1,6 @@
 <template>
-    <div>
-        logout
-        <!-- 登出按钮 -->
-    </div>
+  <div>
+    logout
+    <!-- 登出按钮 -->
+  </div>
 </template>

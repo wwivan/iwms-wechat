@@ -1,6 +1,6 @@
 <template>
-    <div class="reserve">
-        <div class="tab">
+  <div class="reserve">
+    <div class="tab">
       <div :class="isshow?'tab-active':'tab-normal'" @click="$store.commit('resIsshow')">预约入库</div>
       <div :class="!isshow?'tab-active':'tab-normal'" @click="$store.commit('stockInIsshow')">预约出库</div>
     </div>
@@ -61,7 +61,7 @@
             </div>
           </van-list>
         </div>
-      </van-pull-refresh> -->
+      </van-pull-refresh>-->
     </div>
     <div
       class="bg-primary d-flex"
@@ -79,7 +79,7 @@
         @click="stockInSearch"
       >搜索</button>
     </div>
-    </div>
+  </div>
 </template>
 <script>
 import reserveOrder from "@/views/ReserveOrder";
@@ -87,12 +87,10 @@ import reserveOut from "@/views/ReserveOutOrder";
 import { mapGetters, mapMutations } from "vuex";
 import { setStore, getStore, removeStore } from "@/util/util";
 export default {
-  components: { reserveOrder,reserveOut},
-  data(){
-    return{
-      
-    }
+  components: { reserveOrder, reserveOut },
+  data() {
+    return {};
   }
-}
+};
 </script>
 

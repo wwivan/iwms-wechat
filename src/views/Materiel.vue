@@ -43,7 +43,6 @@
           class="stock-in-detail"
           :class="(index < (records.length-1))?'bottom':'' "
         >
-          
           <div class="content" style="justify-content:space-between">
             <div>
               <div>物料名称: {{item.name}}</div>
@@ -55,9 +54,8 @@
                 v-if="StockInType"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
-              >选择入库</div> -->
+              >选择入库</div>-->
               <div
-                
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
               >选择</div>
@@ -162,8 +160,8 @@ export default {
       if (this.isshow == true) {
         this.$router.push("/reserve/order/detail/form");
       } else if (this.isshow == false) {
-        this.initStatus()
-        this.$router.push('/stockIn/item/form');
+        this.initStatus();
+        this.$router.push("/stockIn/item/form");
       }
     },
 
@@ -230,7 +228,7 @@ export default {
   color: #4a4a4a;
   font-size: 0.13rem;
   line-height: 0.28rem;
-  text-align: left
+  text-align: left;
 }
 .content .confirm {
   margin-left: 0.6rem;
