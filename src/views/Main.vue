@@ -1,13 +1,17 @@
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link tag="div" to="/authorize" class="text-white w-20">
-        <img src="../assets/images/logo1.png" class="w-60" alt />
+      <router-link tag="div" to="/authorize" class="text-white ml-3" style="width:0.4rem;height:0.64rem;line-height:0.40rem">
+        <img src="../assets/images/logo1.png" class="w-100" style="margin-top:0" alt />
       </router-link>
       <div class="text-white fs-xl">江苏东志信有限公司</div>
-      <div class="text-white mr-3" style="width:25px;height:25px">
-        <span v-show="!this.userInfo.headimgurl" class="iconfont icon-canguanyuyue" style="font-size:20px;color:white"></span>
-        <img class="w-100" v-show="this.userInfo.headimgurl" :src="userInfo.headimgurl">
+      <div class="text-white mr-3" style="width:0.4rem;height:0.64rem;line-height:0.25rem">
+        <span
+          v-show="!this.userInfo.headimgurl"
+          class="iconfont icon-canguanyuyue"
+          style="font-size:0.2rem;color:white"
+        ></span>
+        <img style="width:0.25rem;height:0.25rem" v-show="this.userInfo.headimgurl" :src="userInfo.headimgurl" />
       </div>
     </div>
     <!-- <div class="nav bg-orange d-flex jc-between ai-center">
@@ -25,49 +29,49 @@
     <div class="main bg-white">
       <router-view></router-view>
     </div>
-    <div style="height:57px;width:100%"></div>
-    <div class="tabbar d-flex jc-around w-100 ai-center">
+    <div style="height:0.57rem;width:100%"></div>
+    <div class="tabbar d-flex jc-around w-100 ">
       <router-link tag="div" to="/home" class="w-25 border-right">
-        <div class="mt-2">
+        <div class="box">
           <span
             class="iconfont icon-gongnengguanli"
             @click="tab1Active"
             :class="this.tab1?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab1?'active':''">首页</div>
+        <div class="text fs-sm " :class="this.tab1?'active':''">首页</div>
       </router-link>
       <router-link tag="div" to="/StockIn" class="w-25 border-right">
-        <div class="mt-2">
+        <div class="box">
           <span
             class="iconfont icon-canguanyuyue"
             @click="tab2Active"
             :class="this.tab2?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab2?'active':''">入库</div>
+        <div class="text fs-sm  " :class="this.tab2?'active':''">入库</div>
       </router-link>
       <router-link tag="div" to="/StockOut" class="w-25 border-right">
-        <div class="mt-2">
+        <div class="box">
           <span class="iconfont icon-daichuku" @click="tab3Active" :class="this.tab3?'active':''"></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab3?'active':''">出库</div>
+        <div class="text fs-sm " :class="this.tab3?'active':''">出库</div>
       </router-link>
       <router-link tag="div" to="/search/page" class="w-25 border-right">
-        <div class="mt-2">
+        <div class="box">
           <span class="iconfont icon-query1" @click="tab4Active" :class="this.tab4?'active':''"></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab4==1?'active':''">查询</div>
+        <div class="text fs-sm " :class="this.tab4==1?'active':''">查询</div>
       </router-link>
       <router-link tag="div" to="/check/account" class="w-25">
-        <div class="mt-2">
+        <div class="box">
           <span
             class="iconfont icon-shuxingliebiaoxiangqing"
             @click="tab5Active"
             :class="this.tab5?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm mt-1" :class="this.tab5?'active':''">对账</div>
+        <div class="text fs-sm " :class="this.tab5?'active':''">对账</div>
       </router-link>
     </div>
   </div>
@@ -138,8 +142,8 @@ export default {
     // this.stockDetailList();
     this.getCode();
   },
-  mounted(){
-    this.getUserInfo()
+  mounted() {
+    this.getUserInfo();
   },
   methods: {
     getCode() {
@@ -156,9 +160,7 @@ export default {
     },
     async getUserInfo() {
       if (this.code != null) {
-        const res = await axios.get(
-          `http://49.235.41.147:3000/${this.code}`
-        );
+        const res = await axios.get(`http://49.235.41.147:3000/${this.code}`);
         this.userInfo = res.data;
         console.log(this.userInfo);
       } else {
@@ -276,15 +278,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 0;
+  background: #f1f1f1;
+}
 .tabbar {
-  height: 57px;
+  height: 0.57rem;
   position: fixed;
   bottom: 0;
-  border-top: 1px solid #f0f0f0;
+  border-top: 0.01rem solid #f0f0f0;
   background: white;
+  .box {
+    line-height: 0;
+    // margin-top: 0.1rem
+    // // align-items: center;
+    // // height: 0.3rem;
+  }
 }
 .iconfont {
-  font-size: 30px;
+  width: 0.3rem;
+  height: 0.3rem;
+  line-height: 0.3rem;
+  font-size: 0.3rem;
   color: grey;
 }
 .text {
@@ -292,17 +310,17 @@ export default {
 }
 .header {
   width: 100%;
-  height: 64px;
+  height: 0.64rem;
   position: sticky;
   top: 0;
   z-index: 999;
 }
 .nav {
   position: sticky;
-  top: 64px;
+  top: 0.64rem;
   z-index: 999;
   width: 100%;
-  height: 40px;
+  height: 0.4rem;
 }
 .active {
   color: #ff9860;
@@ -312,19 +330,19 @@ export default {
 }
 .menu {
   z-index: 999;
-  width: 20px;
-  height: 80px;
-  right: -13px;
+  width: 0.2rem;
+  height: 0.8rem;
+  right: -0.13rem;
 }
 .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .square {
-  height: 40px;
-  border-bottom: 1px solid rgb(199, 198, 198);
+  height: 0.4rem;
+  border-bottom: 0.01rem solid rgb(199, 198, 198);
 }
 </style>
 

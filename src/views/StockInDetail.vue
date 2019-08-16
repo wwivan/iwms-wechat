@@ -10,21 +10,21 @@
       </van-button>
     </van-nav-bar>-->
     <!-- <div class="top-bar">
-      <div style="height:20px"></div>
+      <div style="height:0.2rem"></div>
       <div class="stock-in-header">
         <div @click="onTitleClickLeft">
-          <span style="font-size:24px;color:#3F7FFE"
+          <span style="font-size:0.24rem;color:#3F7FFE"
                 class="iconfont icon-ai207"></span>
         </div>
-        <div style="margin-left:45px;">
+        <div style="margin-left:0.45rem;">
           <span style="text-algin:center;color:#030303">入库明细记录</span>
         </div>
         <div>
           <span v-if="StockInType == 1"
-                style="margin-left:20px;font-size:20px;color:#4A4A4A "
+                style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
                 class="iconfont icon-icon-test"
                 @click="onClickForm(stockIn,StockInType)"></span>
-          <span style="margin-left:20px;font-size:20px;color:#4A4A4A "
+          <span style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
                 class="iconfont icon-iconset0157"
                 @click="onClickSearch"></span>
         </div>
@@ -62,16 +62,16 @@
               <div>未理数量: {{item.qty - item.checkedInQty}}</div>
               <div>物料条码: {{item.materielSku.barcode}}</div>
               <div>物料名称: {{item.materielSku.name}}</div>
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
               <!-- <div v-if="item.status == 0 || item.status == 1"
-                   style="width:80px;height:33px;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                   style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                    @click="findTrayList(item)">理货</div>
-              <div v-if="item.status == '1'||item.status == '2'" style="height:20px;"></div>-->
+              <div v-if="item.status == '1'||item.status == '2'" style="height:0.2rem;"></div>-->
               <div
                 v-if="item.status == '1'||item.status == '2'"
-                style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="toCell(item.materielSku)"
               >上架</div>
             </div>
@@ -82,7 +82,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findStockInItemList"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -90,17 +90,17 @@
     </van-pull-refresh>
     <div
       class="bg-primary d-flex"
-      style="position:fixed;bottom:40px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
+      style="position:fixed;bottom:0.4rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
     >
       <button
         class="bg-peach-red-dark text-white"
-        style="width:45px;height:30px;border:none"
+        style="width:0.45rem;height:0.3rem;border:none"
         @click="stockInItemForm"
       >新建</button>
-      <div class="bg-white" style="width:2px;height:30px"></div>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
       <button
         class="bg-peach-red text-white"
-        style="width:45px;height:30px;border:none"
+        style="width:0.45rem;height:0.3rem;border:none"
         @click="stockInItemSearch"
       >搜索</button>
     </div>
@@ -347,64 +347,64 @@ console.log("查询")
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  box-shadow: 0 10px 50px rgba(168, 168, 168, 0.25);
+  height: 0.7rem;
+  box-shadow: 0 0.1rem 0.5rem rgba(168, 168, 168, 0.25);
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .stock-in-detail {
-  margin-left: 12px;
-  margin-top: 22px;
-  margin-right: 12px;
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
 }
 .stock-in-detail .header {
-  margin-top: 25px;
+  margin-top: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 13px;
-  margin-right: 12px;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
 }
 .header .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .header .context {
   text-align: left;
-  margin-left: 7px;
+  margin-left: 0.07rem;
   flex: 1;
-  font-size: 12px;
+  font-size: 0.12rem;
   color: #3f7ffe;
 }
 .header .icon {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
 }
 .content {
   text-align: left;
-  margin-top: 16px;
-  margin-left: 13px;
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
   display: flex;
   align-items: center;
 }
 .content div div {
   font-family: PingFangSC-Regular;
   color: #4a4a4a;
-  font-size: 13px;
-  line-height: 28px;
+  font-size: 0.13rem;
+  line-height: 0.28rem;
 }
 .content .confirm {
-  margin-left: 60px;
+  margin-left: 0.6rem;
 }
 
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

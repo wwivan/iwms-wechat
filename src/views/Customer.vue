@@ -1,6 +1,6 @@
 <template>
     <div>
-           <van-pull-refresh v-model="loading" @refresh="onRefreshList">
+           <!-- <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel
           v-for="(item, index) in records"
@@ -13,7 +13,7 @@
             <div>联系人电话: {{item.contactPhone}}</div>
             <van-row type="flex" justify="end" gutter="12">
               <van-col>
-                 <van-button @click="useSupplier(item,selectedStockOutType,StockOutType,selectedWarehouse)" type="primary" style="height:35px;line-height:32px" :text="'选择'"></van-button>
+                 <van-button @click="useSupplier(item,selectedStockOutType,StockOutType,selectedWarehouse)" type="primary" style="height:0.35rem;line-height:0.32rem" :text="'选择'"></van-button>
               </van-col>
             </van-row>
           </div>
@@ -24,7 +24,48 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findCustomerList"
-          style="height: 1000px"
+          style="height: 10rem"
+        >
+          <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
+        </div>
+      </div>
+    </van-pull-refresh> -->
+
+    <van-pull-refresh v-model="loading" @refresh="onRefreshList">
+      <van-list v-model="loading" :finished="finished" @load="onLoadMore">
+        <div
+          v-for="(item, index) in records"
+          :key="index"
+          class="stock-in-detail"
+          :class="(index < (records.length-1))?'bottom':'' "
+        >
+          
+          <div class="content" style="justify-content:space-between">
+            <div>
+             <div>客户名称: {{item.name}}</div>
+            <div>联系人名称: {{item.contactName}}</div>
+            <div>联系人电话: {{item.contactPhone}}</div>
+              <div style="margin-bottom:0.05rem"></div>
+            </div>
+            <div class="confirm">
+              <!-- <div
+                v-if="StockInType"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                @click="useMateriel(item)"
+              >选择入库</div> -->
+              <div
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                @click="useSupplier(item,selectedStockOutType,StockOutType,selectedWarehouse)"
+              >选择</div>
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <div class="van-list__loading">
+        <div
+          v-if="!loading && records.length === 0"
+          @click="findMaterielList"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -177,3 +218,58 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.stock-in-detail {
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
+  /* display: flex;
+     justify-content: space-between; */
+}
+.stock-in-detail .header {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
+}
+.header .bot {
+  width: 0.11rem;
+  height: 0.11rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+.header .context {
+  margin-left: 0.07rem;
+  flex: 1;
+  font-size: 0.12rem;
+  color: #3f7ffe;
+}
+.header .icon {
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
+}
+.content {
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
+  display: flex;
+  align-items: center;
+}
+.content div div {
+  font-family: PingFangSC-Regular;
+  color: #4a4a4a;
+  font-size: 0.13rem;
+  line-height: 0.28rem;
+  text-align: left
+}
+.content .confirm {
+  margin-left: 0.6rem;
+}
+.bottom {
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
+}
+</style>
+
+

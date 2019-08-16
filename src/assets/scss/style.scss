@@ -5,37 +5,37 @@
   box-sizing: border-box;
   outline: none
 }
-html {
-  font-size: 13px;
-}
+// html {
+//   font-size: 13px;
+// }
 
 body {
   padding: 0;
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  line-height: 1.2em;
+  // line-height: 0;
   background: #f1f1f1;
 }
-// @media screen and (max-width: 414px){
-//   html {
-//     font-size: 14.352px;
-//   }
-// }
-// @media screen and (max-width: 375px){
-//   html {
-//     font-size: 13px;
-//   }
-// }
-// @media screen and (max-width: 360px){
-//   html {
-//     font-size: 13px;
-//   }
-// }
-// @media screen and (max-width: 320px){
-//   html {
-//     font-size: 11px;
-//   }
-// }
+@media screen and (max-width: 414px){
+  html {
+    font-size: 690%;
+  }
+}
+@media screen and (max-width: 375px){
+  html {
+    font-size: 625%;
+  }
+}
+@media screen and (max-width: 360px){
+  html {
+    font-size: 600%;
+  }
+}
+@media screen and (max-width: 320px){
+  html {
+    font-size: 530.3%;
+  }
+}
 
 
 a {
@@ -43,7 +43,7 @@ a {
 }
 
 p {
-  line-height: 1.5em
+  line-height: 0.195rem
 }
 
 @each $colorKey,

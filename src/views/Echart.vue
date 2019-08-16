@@ -14,7 +14,7 @@
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
             <!-- <div class="fs-xl text-white">{{store.danger}} 项</div> -->
-            <marquee class="text-left text-white" width="55px">{{store.skuWaringMsg}}</marquee>
+            <marquee class="text-left text-white" width="0.55rem">{{store.skuWaringMsg}}</marquee>
             <div class="text-left text-white mt-1">库存预警</div>
           </div>
         </div>
@@ -162,18 +162,18 @@ export default {
   width: 95%;
   margin: 0 auto;
   .col {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     width: 100%;
     .row {
-      border-radius: 10px;
+      border-radius: 0.1rem;
       background: rgb(192, 192, 192);
-      border-left: 3px solid white;
-      border-right: 3px solid white;
+      border-left: 0.03rem solid white;
+      border-right: 0.03rem solid white;
       width: 33.3%;
-      padding: 6px;
+      padding: 0.06rem;
       justify-content: space-between;
       span {
-        font-size: 30px;
+        font-size: 0.3rem;
         color: white;
       }
       div {
@@ -185,11 +185,11 @@ export default {
   }
 }
 .circleEchart {
-  margin: 10px auto;
+  margin: 0.1rem auto;
   width: 80%;
 }
 .stickEchart {
-  margin: 10px auto;
+  margin: 0.1rem auto;
   width: 80%;
 }
 </style>

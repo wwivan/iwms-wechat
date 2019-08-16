@@ -9,21 +9,21 @@
       </van-button>
     </van-nav-bar>    -->
     <!-- <div class="top-bar">
-      <div style="height:20px"></div>
+      <div style="height:0.2rem"></div>
       <div class="stock-out-header">
         <div @click="onTitleClickLeft">
-          <span style="font-size:24px;color:#3F7FFE" class="iconfont icon-ai207"></span>
+          <span style="font-size:0.24rem;color:#3F7FFE" class="iconfont icon-ai207"></span>
         </div>
-        <div style="margin-left:48px;">
+        <div style="margin-left:0.48rem;">
           <span style="text-algin:center;color:#030303">盘点明细记录</span>
         </div>
         <div>
           <span
-          style="margin-left:20px;font-size:20px;color:#4A4A4A "
+          style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
           class="iconfont icon-icon-test" @click="onClickForm"
         ></span>
           <span
-            style="margin-left:20px;font-size:20px;color:#4A4A4A "
+            style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
             class="iconfont icon-iconset0157"
             @click="onClickSearch"
           ></span>
@@ -50,7 +50,7 @@
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
 
-            <span style="font-size:13px;color:#4181FF">{{item.stockTake==undefined? '':item.stockTake.orderNo}}</span>
+            <span style="font-size:0.13rem;color:#4181FF">{{item.stockTake==undefined? '':item.stockTake.orderNo}}</span>
           </div>
           <div class="content">
             <div>
@@ -64,18 +64,18 @@
             <!-- <div v-if="result==records" style="background-color:#F4F4F4;">实际库存: {{item.takeStockNumber }}</div> -->
             <div v-if="result==records" style="background-color:green;">差异: {{item.takeStockNumber-item.stockNum }}</div>
 
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
 
             <!-- <div class="confirm">
               <div
               v-if="StockOutType == 1"
-                style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockOutDetail(item)"
               >详情</div>
               <div
               v-if="StockOutType == 3"
-                style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockOutDetail(item)"
               >查看明细</div>
             </div> -->
@@ -85,10 +85,10 @@
         <div v-if="status=='1'" class="mt-3 text-grey fs-xl">还未盘点</div>
        <van-row type="flex" justify="center" gutter="15">
           <!-- <van-col>
-            <van-button v-if="status=='1'" @click="inventoryMore" type="primary" style="height:35px;width:100px;line-height:35px;font-size:15px;background: linear-gradient(135deg, #4181ff, #2360ef);border:none;color:white" :text="'等待盘点'"></van-button>
+            <van-button v-if="status=='1'" @click="inventoryMore" type="primary" style="height:0.35rem;width:1rem;line-height:0.35rem;font-size:0.15rem;background: linear-gradient(135deg, #4181ff, #2360ef);border:none;color:white" :text="'等待盘点'"></van-button>
           </van-col> -->
           <van-col>
-            <van-button v-if="result==records" @click="add" type="primary" style="height:35px;line-height:32px" :text="'调整库存'"></van-button>
+            <van-button v-if="result==records" @click="add" type="primary" style="height:0.35rem;line-height:0.32rem" :text="'调整库存'"></van-button>
           </van-col>
         </van-row>
 
@@ -96,7 +96,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findStockTakeItems"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -321,63 +321,63 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25);
+  height: 0.7rem;
+  box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25);
 }
 .stock-out-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .stock-out {
-  margin-left: 12px;
-  margin-top: 22px;
-  margin-right: 12px;
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
 }
 .stock-out .header {
-  margin-top: 25px;
+  margin-top: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 13px;
-  margin-right: 12px;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
 }
 .header .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .header .context {
-  margin-left: 7px;
+  margin-left: 0.07rem;
   flex: 1;
-  font-size: 12px;
+  font-size: 0.12rem;
   color: #3f7ffe;
 }
 .header .icon {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
 }
 .content {
-  margin-top: 16px;
-  margin-left: 13px;
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
   display: flex;
   align-items: center;
 }
 .content div div {
   font-family: PingFangSC-Regular;
   color: #4a4a4a;
-  font-size: 13px;
-  line-height: 28px;
+  font-size: 0.13rem;
+  line-height: 0.28rem;
 }
 .content .confirm {
-  margin-left: 60px;
+  margin-left: 0.6rem;
 }
 .van-tabbar {
-  border-top: 1px solid rgba(0, 0, 0, 0.25);
-  height: 57px !important;
+  border-top: 0.01rem solid rgba(0, 0, 0, 0.25);
+  height: 0.57rem !important;
 }
 .van-tabbar-item {
   -webkit-box-flex: 1;
@@ -387,7 +387,7 @@
   display: -ms-flexbox;
   display: flex;
   line-height: 1;
-  font-size: 11px;
+  font-size: 0.11rem;
   color: #7d7e80;
   -webkit-box-align: center;
   -ms-flex-align: center;

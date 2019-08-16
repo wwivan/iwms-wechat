@@ -39,7 +39,7 @@
           v-if="records.length>0&&status=='0'"
           @click="confirm()"
           type="primary"
-          style="height:35px;line-height:32px;margin:0px 100px;"
+          style="height:0.35rem;line-height:0.32rem;margin:0rem 1rem;"
           :text="'确认收货'"
         ></van-button>
       </van-list>
@@ -48,7 +48,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findReserveOrderItemList"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>

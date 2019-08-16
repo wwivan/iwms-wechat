@@ -157,7 +157,7 @@ export const getStockTakeItem = params => post('/storage/stockTake/getStockTakeI
 export const saveStockTakeItem = params => post('/storage/stockTake/saveStockTakeItem', params);
 // 通过托盘去找封盘的数量
 export const getCheckInItemByTray = params => post('/storage/checkIn/getCheckInItemByTray', params);
-// 获取已入库数量
-export const getCheckedInQty = params => post('/storage/stockIn/getCheckedInQty', params);
-// 配货单
-export const findToLocationList = params => post('/storage/toLocation/findToLocationList', params);
+// // 获取已入库数量
+// export const getCheckedInQty = params => post('/storage/stockIn/getCheckedInQty', params);
+// // 配货单
+// export const findToLocationList = params => post('/storage/toLocation/findToLocationList', params);

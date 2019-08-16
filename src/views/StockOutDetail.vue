@@ -19,7 +19,7 @@
             <span v-show="item.status == 5"
                   class="bot"
                   style="background: linear-gradient(135deg, #F7C77F, #FF9860);"></span>
-            <span style="font-size:13px;color:#4181FF;margin-left:6px">{{item.stockOut==undefined? '':item.stockOut.orderNo}}</span>
+            <span style="font-size:0.13rem;color:#4181FF;margin-left:0.06rem">{{item.stockOut==undefined? '':item.stockOut.orderNo}}</span>
           </div>
           <div class="content">
             <div>
@@ -28,24 +28,24 @@
               <div>出库数量: {{item.qty}}</div>
               <div>总库存: {{stockUseNum}}</div>
               <div>仓库: {{item.stockOut.wareHouse==undefined? '':item.stockOut.wareHouse.name}}</div>
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
           </div>
           <div class="confirm"
-               style="margin-left:135px">
+               style="margin-left:1.35rem">
             <div v-if="item.status != '1'"
-                 style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                  @click="findStockOutItemDetail(item)">查看详情</div>
             <div v-if="item.status == '1'"
                  @click="toLocation(item)"
-                 style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px">开始配货</div>
+                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem">开始配货</div>
           </div>
         </div>
       </van-list>
       <div class="van-list__loading">
         <div v-if="!loading && records.length === 0"
              @click="findStockOutItemList"
-             style="height: 1000px">
+             style="height: 10rem">
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
       </div>
@@ -247,72 +247,72 @@
 
 <style scoped>
   .bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
   }
   .top-bar {
     background: white;
     position: sticky;
     top: 0;
     z-index: 999;
-    height: 70px;
-    box-shadow: 0 10px 50px rgba(168, 168, 168, 0.25);
+    height: 0.7rem;
+    box-shadow: 0 0.1rem 0.5rem rgba(168, 168, 168, 0.25);
   }
   .stock-out-header {
     display: flex;
-    height: 46px;
+    height: 0.46rem;
     justify-content: space-around;
     align-items: center;
   }
   .stock-out {
-    margin-left: 12px;
-    margin-top: 22px;
-    margin-right: 12px;
+    margin-left: 0.12rem;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
   }
   .stock-out .header {
-    margin-top: 25px;
+    margin-top: 0.25rem;
     display: flex;
     align-items: center;
     justify-content: start;
-    margin-left: 13px;
-    margin-right: 12px;
+    margin-left: 0.13rem;
+    margin-right: 0.12rem;
   }
   .header .bot {
-    width: 11px;
-    height: 11px;
+    width: 0.11rem;
+    height: 0.11rem;
     border-radius: 50%;
     display: inline-block;
   }
   .header .context {
       text-align: left;
-    margin-left: 7px;
+    margin-left: 0.07rem;
     flex: 1;
-    font-size: 12px;
+    font-size: 0.12rem;
     color: #3f7ffe;
   }
   .header .icon {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
+    margin-right: 0.1rem;
+    width: 0.18rem;
+    height: 0.18rem;
   }
   .content {
       text-align: left;
-    margin-top: 16px;
-    margin-left: 13px;
+    margin-top: 0.16rem;
+    margin-left: 0.13rem;
     display: flex;
     align-items: center;
   }
   .content div div {
     font-family: PingFangSC-Regular;
     color: #4a4a4a;
-    font-size: 13px;
-    line-height: 28px;
+    font-size: 0.13rem;
+    line-height: 0.28rem;
   }
   .content .confirm {
-    margin-left: 60px;
+    margin-left: 0.6rem;
   }
   .van-tabbar {
-    border-top: 1px solid rgba(0, 0, 0, 0.25);
-    height: 57px !important;
+    border-top: 0.01rem solid rgba(0, 0, 0, 0.25);
+    height: 0.57rem !important;
   }
   .van-tabbar-item {
     -webkit-box-flex: 1;
@@ -322,7 +322,7 @@
     display: -ms-flexbox;
     display: flex;
     line-height: 1;
-    font-size: 11px;
+    font-size: 0.11rem;
     color: #7d7e80;
     -webkit-box-align: center;
     -ms-flex-align: center;

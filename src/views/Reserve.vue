@@ -56,7 +56,7 @@
                 <div>仓库：{{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
                 <div>入库类型：{{item.inType | inTypeValue}}</div>
                 <div>物料信息：{{item.skuMessage==undefined?"":item.skuMessage}}</div>
-                <div style="margin-bottom:5px"></div>
+                <div style="margin-bottom:0.05rem"></div>
               </div>
             </div>
           </van-list>
@@ -65,17 +65,17 @@
     </div>
     <div
       class="bg-primary d-flex"
-      style="position:fixed;bottom:40px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden"
+      style="position:fixed;bottom:0.4rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
     >
       <button
         class="bg-peach-red-dark text-white"
-        style="width:45px;height:30px;border:none"
+        style="width:0.45rem;height:0.3rem;border:none"
         @click="stockInCreate"
       >新建</button>
-      <div class="bg-white" style="width:2px;height:30px"></div>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
       <button
         class="bg-peach-red text-white"
-        style="width:45px;height:30px;border:none"
+        style="width:0.45rem;height:0.3rem;border:none"
         @click="stockInSearch"
       >搜索</button>
     </div>

@@ -1,16 +1,16 @@
 <template>
   <div>
     <!-- <div class="top-bar">
-      <div style="height:20px"></div>
+      <div style="height:0.2rem"></div>
       <div class="stock-in-header">
         <div @click="onTitleClickLeft">
-          <span style="font-size:24px;color:#3F7FFE" class="iconfont icon-ai207"></span>
+          <span style="font-size:0.24rem;color:#3F7FFE" class="iconfont icon-ai207"></span>
         </div>
-        <div style="margin-left:30px;">
+        <div style="margin-left:0.3rem;">
           <span style="text-algin:center;color:#030303">明细登记</span>
         </div>
         <div>
-          <span style="margin-left:20px;font-size:14px;color:#4181FF " @click="onTitleClickRight">确认</span>
+          <span style="margin-left:0.2rem;font-size:0.14rem;color:#4181FF " @click="onTitleClickRight">确认</span>
         </div>
       </div>
     </div>-->
@@ -30,13 +30,13 @@
       <van-button
         size="small"
         @click="selectMaterielSku"
-        style="border-radius:5px;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:20px;margin-left:27px;"
+        style="border-radius:0.05rem;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:0.2rem;margin-left:0.27rem;"
       >选择</van-button>
       <div class="row">
         <span style="margin-left:0" class="title">入库数量</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入 入库数量'"
           v-model="stockInItem.qty"
         />
@@ -44,7 +44,7 @@
       <div class="row">
         <date-select-cell
           class="text-left"
-          style="margin-left:-15px;"
+          style="margin-left:-0.15rem;"
           :title="'生产时间'"
           :placeholder="'请输入 生产时间'"
           :value.sync="stockInItem.productionDateVO"
@@ -52,8 +52,8 @@
       </div>
     </div>
     <div
-      class="confirm"
-      style="border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+      class="confirm fs-md"
+      style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitleClickRight"
     >确认</div>
   </div>
@@ -169,19 +169,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+  height: 0.7rem;
+  /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
@@ -189,20 +189,20 @@ export default {
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .confirm{
-  margin-left: 20px;
-  line-height: 32px;
-  width: 80px;
-  height: 32px;
+  margin-left: 0.2rem;
+  line-height: 0.32rem;
+  width: 0.8rem;
+  height: 0.32rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>
 

@@ -7,18 +7,18 @@
         <a :href="item.url"> <img class="w-100" :src="item.image" alt=""/></a>
         </swiper-slide>-->
         <swiper-slide v-for="(item,index) in news" :key="index">
-          <span class="iconfont icon-xiaolaba">
+          <span class="iconfont icon-xiaolaba" style="height:0.39rem;line-height:0.39rem;" >
            
           </span>
-          <span class="ml-3" style="height:39px;line-height:39px;">{{item.title}}</span>
-          <span class="ml-3" style="height:39px;line-height:39px;">{{item.context}}</span>
+          <span class="ml-3 fs-md" style="height:0.39rem;line-height:0.39rem;">{{item.title}}</span>
+          <span class="ml-3 fs-md" style="height:0.39rem;line-height:0.39rem;">{{item.context}}</span>
         </swiper-slide>
         <!-- <swiper-slide v-for="(item,index) in news" :key="index" v-show="(index % 2) != 0">
           <span>
             <img src alt />公告
           </span>
-          <span class="ml-3" style="height:39px;line-height:39px;">{{item.title}}</span>
-          <span class="ml-3" style="height:39px;line-height:39px;">{{item.context}}</span>
+          <span class="ml-3" style="height:0.39rem;line-height:0.39rem;">{{item.title}}</span>
+          <span class="ml-3" style="height:0.39rem;line-height:0.39rem;">{{item.context}}</span>
         </swiper-slide> -->
       </swiper>
     </div>
@@ -43,8 +43,8 @@
         <div class="row d-flex ai-center" @click="checkDanger">
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
-            <!-- <div class="fs-xl text-white">{{store.danger}} 项</div> -->
-            <marquee class="text-left text-white" width="55px">{{store.skuWaringMsg}}</marquee>
+            <div class="fs-xl text-white">{{store.danger}} 项</div>
+            <!-- <marquee class="text-left text-white" width="0.55rem">{{store.skuWaringMsg}}</marquee> -->
             <div class="text-left text-white mt-1">本月入库</div>
           </div>
         </div>
@@ -276,47 +276,49 @@ export default {
 </script>
 <style lang="scss" scoped>
 .square {
-  height: 40px;
+  height: 0.4rem;
   position: sticky;
-  top:64px;
+  top:0.64rem;
   z-index: 999;
-  // border-bottom-left-radius: 10px;
-  // border-bottom-right-radius: 10px;
-  // border-bottom: 1px solid rgb(199, 198, 198);
+  line-height: 0.6rem;
+  // border-bottom-left-radius: 0.1rem;
+  // border-bottom-right-radius: 0.1rem;
+  // border-bottom: 0.01rem solid rgb(199, 198, 198);
 }
 .taskView {
   width: 95%;
   margin: 0 auto;
   .col {
-    margin-top: 10px;
+    margin-top: 0.1rem;
     width: 100%;
     .row {
-      border-radius: 10px;
+      border-radius: 0.1rem;
       background: rgb(192, 192, 192);
-      border-left: 3px solid white;
-      border-right: 3px solid white;
+      border-left: 0.03rem solid white;
+      border-right: 0.03rem solid white;
       width: 33.3%;
-      padding: 6px;
+      padding: 0.06rem;
       justify-content: space-between;
       span {
-        font-size: 30px;
+        font-size: 0.3rem;
         color: white;
       }
       div {
         div {
           text-align: right;
+          font-size: 0.13rem
         }
       }
     }
   }
 }
 .circleEchart {
-  margin: 10px auto;
+  margin: 0.1rem auto;
   width: 80%;
   
 }
 .stickEchart {
-  margin: 10px auto;
+  margin: 0.1rem auto;
   width: 80%;
 }
 </style>

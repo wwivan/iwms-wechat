@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :id="id" :style="{height:'200px',width:'350px'}" ref="myEchart"></div>
+  <div :class="className" :id="id" :style="{height:'2rem',width:'3.5rem'}" ref="myEchart"></div>
 </template>
 <script>
 import echarts from "echarts";
@@ -29,11 +29,11 @@ export default {
     },
     width: {
       type: String,
-      default: "350px"
+      default: "3.5rem"
     },
     height: {
       type: String,
-      default: "350px"
+      default: "3.5rem"
     }
   },
   data() {
@@ -78,7 +78,7 @@ export default {
           x: "left",
           y: "top",
           textStyle: {
-            bottom:"0px",
+            bottom:"0rem",
             color: "#FF9860"
           }
           // subtext: "纯属虚构"
@@ -99,7 +99,7 @@ export default {
           show: true,
           feature: {
             mark: { show: true },
-            dataView: { show: true, readOnly: false },
+            // dataView: { show: true, readOnly: false },
             magicType: {
               show: true,
               type: ["pie", "funnel"],

@@ -16,11 +16,11 @@ export default {
     },
     width: {
       type: String,
-      default: "350px"
+      default: "3.5rem"
     },
     height: {
       type: String,
-      default: "280px"
+      default: "2.8rem"
     }
   },
   data() {
@@ -81,7 +81,7 @@ export default {
           show: true,
           feature: {
             mark: { show: true },
-            dataView: { show: true, readOnly: false },
+            // dataView: { show: true, readOnly: false },
             // magicType: { show: true, type: ["line", "bar"] },
             restore: { show: true },
             saveAsImage: { show: true }

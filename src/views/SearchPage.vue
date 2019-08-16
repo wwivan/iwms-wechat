@@ -51,24 +51,25 @@ export default {
   div {
       background: grey;
       text-align: center;
-      line-height: 30px;
+      line-height: 0.3rem;
+      font-size: 0.13rem;
       color: white;
       width: 33%;
-      height: 30px;
+      height: 0.3rem;
   }
   .active{
       background:#FF9860;
       color: white
   }
   .materiel-search {
-      border-bottom-left-radius: 5px;
-      border-top-left-radius: 5px
+      border-bottom-left-radius: 0.05rem;
+      border-top-left-radius: 0.05rem
   }
 //   .supplier-search {
 //   }
   .customer-search {
-      border-bottom-right-radius: 5px;
-      border-top-right-radius: 5px
+      border-bottom-right-radius: 0.05rem;
+      border-top-right-radius: 0.05rem
   }
 }
 </style>

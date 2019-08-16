@@ -1,5 +1,5 @@
 <template>
-  <div :class="className" :id="id" :style="{height:'300px',width:'300px'}" ref="myEchart">
+  <div :class="className" :id="id" :style="{height:'3rem',width:'3rem'}" ref="myEchart">
   </div>
 </template>
 <script>
@@ -22,11 +22,11 @@ export default {
     },
     width: {
       type: String,
-      default: '300px'
+      default: '3rem'
     },
     height: {
       type: String,
-      default: '300px'
+      default: '3rem'
     }
   },
   data() {

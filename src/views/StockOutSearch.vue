@@ -1,16 +1,16 @@
 <template>
   <div>
     <!-- <div class="top-bar">
-      <div style="height:20px"></div>
+      <div style="height:0.2rem"></div>
       <div class="stock-in-header">
         <div @click="onTitleClickLeft">
-          <span style="font-size:24px;color:#3F7FFE" class="iconfont icon-ai207"></span>
+          <span style="font-size:0.24rem;color:#3F7FFE" class="iconfont icon-ai207"></span>
         </div>
-        <div style="margin-left:30px;">
+        <div style="margin-left:0.3rem;">
           <span style="text-algin:center;color:#030303;">出库记录查询</span>
         </div>
         <div>
-          <span style="margin-left:20px;font-size:14px;color:#4181FF " @click="onTitileClickRight">确认</span>
+          <span style="margin-left:0.2rem;font-size:0.14rem;color:#4181FF " @click="onTitileClickRight">确认</span>
         </div>
       </div>
     </div>-->
@@ -19,14 +19,14 @@
         <span style="margin-left:0" class="title">出库单号</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入出库单号'"
           v-model="params.EQ_orderNo"
         />
       </div>
       <picker-popup
         class="text-left"
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         :title="'出库类型'"
         :placeholder="'请选择出库类型'"
         :selectedItem.sync="selectedStockOutType"
@@ -34,7 +34,7 @@
       />
       <picker-popup
         class="text-left"
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         :title="'仓库'"
         :placeholder="'请选择仓库'"
         :selectedItem.sync="selectedWarehouse"
@@ -43,7 +43,7 @@
       <div class="row">
         <date-select-cell
           class="text-left"
-          style="margin-left:-15px;"
+          style="margin-left:-0.15rem;"
           :title="'开始日期'"
           :placeholder="'请输入开始日期'"
           :value.sync="params.GTEDATE_outTime"
@@ -51,8 +51,8 @@
       </div>
     </div>
     <div
-      class="confirm"
-      style="border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+      class="confirm fs-md"
+      style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
     >确认</div>
   </div>
@@ -212,19 +212,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+  height: 0.7rem;
+  /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
@@ -232,19 +232,19 @@ export default {
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .confirm {
-  margin-left: 280px;
-  line-height: 32px;
-  width: 80px;
-  height: 32px;
+  margin-left: 2.8rem;
+  line-height: 0.32rem;
+  width: 0.8rem;
+  height: 0.32rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

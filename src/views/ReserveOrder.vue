@@ -41,12 +41,12 @@
               <div>入库仓库: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
               <div>供应商: {{item.supplier == undefined? "":item.supplier.name}}</div>
               <div>送货单号:{{item.deliveryNumber}}</div>
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
 
             <div class="confirm">
               <div
-                style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findReserveOrderItem(item)"
               >确认收货</div>
             </div>
@@ -58,7 +58,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findReserveOrderList"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -222,7 +222,7 @@ export default {
 <style scoped>
 .reserve-order-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
@@ -230,79 +230,79 @@ export default {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 50px;
+  height: 0.5rem;
 }
 .reserve-order .tab .tab-active {
-  font-size: 13px;
+  font-size: 0.13rem;
   color: #3f7ffe;
   font-weight: 500;
 }
 .reserve-order .tab .tab-normal {
-  font-size: 13px;
+  font-size: 0.13rem;
   color: #4a4a4a;
 }
 .reserve-order .tab_line_left {
-  width: 20px;
-  height: 3px;
+  width: 0.2rem;
+  height: 0.03rem;
   background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -10px;
-  margin-left: 84px;
+  margin-top: -0.1rem;
+  margin-left: 0.84rem;
 }
 .reserve-order .tab_line_right {
-  width: 20px;
-  height: 3px;
+  width: 0.2rem;
+  height: 0.03rem;
   background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -10px;
-  margin-left: 272px;
+  margin-top: -0.1rem;
+  margin-left: 2.72rem;
 }
 .reserve-order-detail {
-  margin-left: 12px;
-  margin-top: 22px;
-  margin-right: 12px;
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
 }
 .reserve-order-detail .header {
-  margin-top: 25px;
+  margin-top: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 13px;
-  margin-right: 12px;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
 }
 .header .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .header .context {
   text-align: left;
-  margin-left: 7px;
+  margin-left: 0.07rem;
   flex: 1;
-  font-size: 12px;
+  font-size: 0.12rem;
   color: #3f7ffe;
 }
 .header .icon {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
 }
 .content {
   text-align: left;
-  margin-top: 16px;
-  margin-left: 13px;
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
   display: flex;
   align-items: center;
 }
 .content div div {
   font-family: PingFangSC-Regular;
   color: #4a4a4a;
-  font-size: 13px;
-  line-height: 28px;
+  font-size: 0.13rem;
+  line-height: 0.28rem;
 }
 .content .confirm {
-  margin-left: 135px;
+  margin-left: 1.35rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

@@ -22,7 +22,7 @@ $colors:("primary":#3F7FFE,
 $border-color:map-get($colors, black);
 
 //font-size
-$base-font-size:1rem;
+$base-font-size:0.13rem;
 $font-sizes:(xs:0.7692, //10px
   sm:0.9231, //12px
   md:1, //13px
@@ -62,7 +62,7 @@ $spacing-direction:(t:top,
   r:right,
   b:bottom,
   l:left);
-$spacing-base-size:1rem;
+$spacing-base-size:0.13rem;
 $spacing-sizes:(0:0,
   1:0.25,
   2:0.5,

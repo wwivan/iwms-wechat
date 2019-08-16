@@ -48,7 +48,7 @@
         </router-link>
         <!-- <div class="item" @click="onStockOutToCell">
             <div>
-              <van-icon color="#1d8afa" name="gift-card-o" size="40px" />
+              <van-icon color="#1d8afa" name="gift-card-o" size="0.4rem" />
             </div>
             下架
         </div>-->
@@ -77,7 +77,7 @@
       <scroll-y
         v-show="toshow"
         class="wrapper"
-        style="height:440px;overflow:hidden"
+        style="height:4.4rem;overflow:hidden"
         :data="news"
         :pulldown="pulldown"
         @pulldown="loadData"
@@ -87,7 +87,7 @@
             v-for="(item,index) in news"
             :key="index"
             class="d-flex jc-start ai-center"
-            style="height:30px;"
+            style="height:0.3rem;"
           >
             <span class="bot ml-4" style="background: linear-gradient(135deg, #FF9779, #F6617B);"></span>
             <span class="ml-4 text-grey-1">{{item.title}}</span>
@@ -282,17 +282,17 @@ export default {
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  height: 64px;
+  height: 0.64rem;
   position: sticky;
   top: 0;
   z-index: 999;
 }
 .nav {
   position: sticky;
-  top: 64px;
+  top: 0.64rem;
   z-index: 999;
   width: 100%;
-  height: 40px;
+  height: 0.4rem;
 }
 .active {
   display: block;
@@ -302,34 +302,34 @@ export default {
 }
 .menu {
   z-index: 999;
-  width: 20px;
-  height: 80px;
-  right: -13px;
+  width: 0.2rem;
+  height: 0.8rem;
+  right: -0.13rem;
 }
 .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .square {
-  height: 120px;
-  padding-top: 20px;
-  border-bottom: 1px solid rgb(192, 192, 192);
+  height: 1.2rem;
+  padding-top: 0.2rem;
+  border-bottom: 0.01rem solid rgb(192, 192, 192);
   .item {
-    line-height: 35px;
-    height: 90px;
+    line-height: 0.35rem;
+    height: 0.9rem;
     .icon-container {
-      width: 55.0004px;
-      height: 55.0004px;
+      width: 0.55rem;
+      height: 0.55rem;
       border-radius: 50%;
       position: relative;
       .icon {
         position: absolute;
-        width: 32px;
-        height: 32px;
-        margin-left: 12px;
-        margin-top: 12px;
+        width: 0.32rem;
+        height: 0.32rem;
+        margin-left: 0.12rem;
+        margin-top: 0.12rem;
       }
     }
   }

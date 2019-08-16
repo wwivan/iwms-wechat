@@ -7,7 +7,7 @@
       </div>
       <picker-popup 
       class="text-left"
-      style="margin-left:12px"
+      style="margin-left:0.12rem"
         :title="'出库类型'"
         :placeholder="'请选择出库类型'"
         :selectedItem.sync="selectedStockOutType"
@@ -20,7 +20,7 @@
         <span style="margin-left:0" class="title">客户</span>
         <span class="message">{{params.customerName}}</span>
         <van-button
-          style="border-radius:5px;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
+          style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
           v-if="selectedStockOutType.id == '1' || selectedStockOutType.id == '2' || selectedStockOutType.id == '4'"
           size="small"
           @click="selectSupplier(selectedStockOutType)"
@@ -30,7 +30,7 @@
       <div class="row">
         <date-select-cell
         class="text-left"
-          style="margin-left:-15px;"
+          style="margin-left:-0.15rem;"
           v-if="selectedStockOutType.id == '3' || selectedStockOutType.id == '5'"
           :title="'出库时间'"
           required
@@ -65,19 +65,19 @@
         plain
         hairline
         size="normal"
-        style="margin:5px 27px;border-radius:8px; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
+        style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
         @click="back(StockOutType)"
       >确认返回</van-button>
       <van-button
         plain
         hairline
         size="normal"
-        style="margin:5px 27px;border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+        style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
         @click="addItem(StockOutType)"
       >添加明细</van-button>
     </div>
 
-    <div style="height:57px;width:375px;"></div>
+    <div style="height:0.57rem;width:3.75rem;"></div>
   </div>
 </template>
 
@@ -313,19 +313,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+  height: 0.7rem;
+  /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
@@ -333,13 +333,13 @@ export default {
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

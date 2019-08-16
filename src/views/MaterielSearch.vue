@@ -6,7 +6,7 @@
      <div class="content">
        <div class="row">
         <span style="margin-left:0" class="title">物料名称</span>
-        <input
+        <input class="ipt fs-sm"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入物料名称'"
@@ -15,7 +15,7 @@
       </div>
       <div class="row">
         <span style="margin-left:0" class="title">物料型号</span>
-        <input
+        <input class="ipt fs-sm"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入物料型号'"
@@ -24,8 +24,8 @@
       </div>
      </div>
       <div
-      class="confirm"
-      style="border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+      class="confirm fs-md"
+      style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
     >确认</div>
   </div>
@@ -76,26 +76,30 @@
 
 <style lang="scss" scoped>
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
   align-items: center;
+  .ipt{
+    width: 1.68rem;
+    height: 0.17rem;
+  }
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .confirm {
-  margin-left: 280px;
-  line-height: 32px;
-  width: 80px;
-  height: 32px;
+  margin-left: 2.8rem;
+  line-height: 0.32rem;
+  width: 0.8rem;
+  height: 0.32rem;
 }
 </style>

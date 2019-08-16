@@ -28,10 +28,10 @@
               <div>盘点类型: {{item.type | typeFilter}}</div>
               <div>状态: {{item.status | formatStockTakeStatus}}</div>
               <div>创建时间: {{item.createTime}}</div>
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
-              <div style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+              <div style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                    @click="findStockTakeDetail(item)">详情</div>
             </div>
           </div>
@@ -40,20 +40,20 @@
       <div class="van-list__loading">
         <div v-if="!loading && records.length === 0"
              @click="findStockTakeList"
-             style="height: 1000px">
+             style="height: 10rem">
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
       </div>
     </van-pull-refresh>
-    <div class="bg-primary d-flex"
-         style="position:fixed;bottom:80px;right:40px;width:92px;height:30px;border-radius:30px;overflow:hidden">
+    <div class="btn d-flex"
+         style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden">
       <button class="bg-peach-red-dark text-white"
-              style="width:45px;height:30px;border:none"
+              style="width:0.45rem;height:0.3rem;border:none"
               @click="checkAccountCreate"><span class="iconfont icon-xinjian"></span></button>
       <div class="bg-white"
-           style="width:2px;height:30px"></div>
+           style="width:0.02rem;height:0.3rem"></div>
       <button class="bg-peach-red text-white"
-              style="width:45px;height:30px;border:none"
+              style="width:0.45rem;height:0.3rem;border:none"
               @click="checkAccountSearch"><span class="iconfont icon-sousuo"></span></button>
     </div>
   </div>
@@ -193,39 +193,39 @@
 
 <style lang="scss" scoped>
   .stock-take {
-    margin-left: 12px;
-    margin-top: 22px;
-    margin-right: 12px;
+    margin-left: 0.12rem;
+    margin-top: 0.22rem;
+    margin-right: 0.12rem;
   }
   .stock-take .header {
-    margin-top: 25px;
+    margin-top: 0.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-left: 13px;
-    margin-right: 12px;
+    margin-left: 0.13rem;
+    margin-right: 0.12rem;
   }
   .header .bot {
-    width: 11px;
-    height: 11px;
+    width: 0.11rem;
+    height: 0.11rem;
     border-radius: 50%;
     display: inline-block;
   }
   .header .context {
-    margin-left: 7px;
+    margin-left: 0.07rem;
     flex: 1;
-    font-size: 12px;
+    font-size: 0.12rem;
     color: #3f7ffe;
     text-align: left;
   }
   .header .icon {
-    margin-right: 10px;
-    width: 18px;
-    height: 18px;
+    margin-right: 0.1rem;
+    width: 0.18rem;
+    height: 0.18rem;
   }
   .content {
-    margin-top: 16px;
-    margin-left: 13px;
+    margin-top: 0.16rem;
+    margin-left: 0.13rem;
     display: flex;
     align-items: center;
     text-align: left;
@@ -233,13 +233,18 @@
   .content div div {
     font-family: PingFangSC-Regular;
     color: #4a4a4a;
-    font-size: 13px;
-    line-height: 28px;
+    font-size: 0.13rem;
+    line-height: 0.28rem;
   }
   .content .confirm {
-    margin-left: 60px;
+    margin-left: 0.6rem;
   }
   .bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
+  }
+  .btn{
+    .iocnfont{
+      font-size: 0.13rem;
+    }
   }
 </style>

@@ -8,7 +8,7 @@
         <span class="message">{{params.reserveOrderNo}}</span>
       </div>
       <div class="row">
-        <date-select-cell style="margin-left:-15px;"
+        <date-select-cell style="margin-left:-0.15rem;"
         class="text-left"
                           :title="'送货时间'"
                           :placeholder="'请选择送货时间'"
@@ -21,12 +21,12 @@
       </div>
       <van-button size="small"
                   @click="selectSupplier()"
-                  style="border-radius:5px;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:20px;margin-left:27px;">选择</van-button>
+                  style="border-radius:0.05rem;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:0.2rem;margin-left:0.27rem;">选择</van-button>
       <div class="row">
         <span style="margin-left:0"
               class="title">送货单号</span>
         <input type="text"
-               style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+               style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
                :placeholder="'请输入送货单号'"
                v-model="params.deliveryNumber" />
       </div>
@@ -34,7 +34,7 @@
         <span style="margin-left:0"
               class="title">备注</span>
         <input type="text"
-               style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+               style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
                :placeholder="'请输入备注'"
                v-model="params.remark" />
       </div>
@@ -42,12 +42,12 @@
     <van-button plain
                 hairline
                 size="normal"
-                style="margin:5px 27px;border-radius:8px; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
+                style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
                 @click="back">确认返回</van-button>
     <van-button plain
                 hairline
                 size="normal"
-                style="margin:5px 27px;border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+                style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
                 @click="addItem">添加明细</van-button>
     <!-- <van-tabbar v-model="active" @change="onTabChange">
       <van-tabbar-item icon="home-o">主页</van-tabbar-item>
@@ -216,19 +216,19 @@
     position: sticky;
     top: 0;
     z-index: 999;
-    height: 70px;
-    /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+    height: 0.7rem;
+    /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
   }
   .stock-in-header {
     display: flex;
-    height: 46px;
+    height: 0.46rem;
     justify-content: space-around;
     align-items: center;
   }
   .content .row {
-    width: 326px;
-    height: 52px;
-    margin-left: 27px;
+    width: 3.26rem;
+    height: 0.52rem;
+    margin-left: 0.27rem;
     display: flex;
     /* justify-content: space-around; */
     justify-content: space-between;
@@ -236,14 +236,14 @@
   }
   .content .row .title {
     color: #333333;
-    font-size: 14.5px;
+    font-size: 0.145rem;
   }
   .content .row .message {
     color: #333333;
-    font-size: 13px;
+    font-size: 0.13rem;
   }
 
   .bottom {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
   }
 </style>

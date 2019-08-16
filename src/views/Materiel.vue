@@ -16,7 +16,7 @@
                 <van-button
                   @click="useMateriel(item)"
                   type="primary"
-                  style="height:35px;line-height:32px"
+                  style="height:0.35rem;line-height:0.32rem"
                   :text="'选择'"
                 ></van-button>
               </van-col>
@@ -29,7 +29,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findMaterielList"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -48,17 +48,17 @@
             <div>
               <div>物料名称: {{item.name}}</div>
               <div>物料型号: {{item.model}}</div>
-              <div style="margin-bottom:5px"></div>
+              <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
               <!-- <div
                 v-if="StockInType"
-                style="width:80px;height:33px;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
               >选择入库</div> -->
               <div
-                v-show="StockInType"
-                style="width:80px;height:33px;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:33px;color:white;border-radius:3px;font-size:15px"
+                
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="useMateriel(item)"
               >选择</div>
             </div>
@@ -69,7 +69,7 @@
         <div
           v-if="!loading && records.length === 0"
           @click="findMaterielList"
-          style="height: 1000px"
+          style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
         </div>
@@ -188,55 +188,55 @@ export default {
 </script>
 <style lang="scss" scoped>
 .stock-in-detail {
-  margin-left: 12px;
-  margin-top: 22px;
-  margin-right: 12px;
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
   /* display: flex;
      justify-content: space-between; */
 }
 .stock-in-detail .header {
-  margin-top: 25px;
+  margin-top: 0.25rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 13px;
-  margin-right: 12px;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
 }
 .header .bot {
-  width: 11px;
-  height: 11px;
+  width: 0.11rem;
+  height: 0.11rem;
   border-radius: 50%;
   display: inline-block;
 }
 .header .context {
-  margin-left: 7px;
+  margin-left: 0.07rem;
   flex: 1;
-  font-size: 12px;
+  font-size: 0.12rem;
   color: #3f7ffe;
 }
 .header .icon {
-  margin-right: 10px;
-  width: 18px;
-  height: 18px;
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
 }
 .content {
-  margin-top: 16px;
-  margin-left: 13px;
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
   display: flex;
   align-items: center;
 }
 .content div div {
   font-family: PingFangSC-Regular;
   color: #4a4a4a;
-  font-size: 13px;
-  line-height: 28px;
+  font-size: 0.13rem;
+  line-height: 0.28rem;
   text-align: left
 }
 .content .confirm {
-  margin-left: 60px;
+  margin-left: 0.6rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>
 

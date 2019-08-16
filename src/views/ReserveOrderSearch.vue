@@ -5,13 +5,13 @@
         <span style="margin-left:0" class="title">送货单号</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输送货单号'"
           v-model="params.EQ_deliveryNumber"
         />
       </div>
       <picker-popup
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         class="text-left"
         :title="'仓库'"
         :placeholder="'请选择仓库'"
@@ -19,7 +19,7 @@
         :columns="sarehouses"
       />
       <picker-popup
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         class="text-left"
         :title="'状态'"
         :placeholder="'请选择状态'"
@@ -29,7 +29,7 @@
     </div>
     <div
       class="confirm"
-      style="border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+      style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
     >确认</div>
 
@@ -230,19 +230,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+  height: 0.7rem;
+  /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
@@ -250,19 +250,19 @@ export default {
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .confirm {
-  margin-left: 280px;
-  line-height: 32px;
-  width: 80px;
-  height: 32px;
+  margin-left: 2.8rem;
+  line-height: 0.32rem;
+  width: 0.8rem;
+  height: 0.32rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

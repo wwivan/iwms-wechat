@@ -7,7 +7,7 @@
       </div>
       <picker-popup
       class="text-left"
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         :title="'仓库'"
         :placeholder="'请选提仓库'"
         :selectedItem.sync="selectedWarehouse"
@@ -15,7 +15,7 @@
       />
       <picker-popup
       class="text-left"
-        style="margin-left:12px"
+        style="margin-left:0.12rem"
         :title="'入库类型'"
         :placeholder="'请选提入库类型'"
         :selectedItem.sync="selectedStockInType"
@@ -24,7 +24,7 @@
       <div class="row">
         <date-select-cell
         class="text-left"
-          style="margin-left:-15px;"
+          style="margin-left:-0.15rem;"
           :title="'入库时间'"
           :placeholder="'请输入入库时间'"
           :value.sync="params.purchaseDateVO"
@@ -40,7 +40,7 @@
         v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
         size="small"
         @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
-        style="border-radius:5px;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
+        style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
       >选择</van-button>
       </div>
       
@@ -48,7 +48,7 @@
         <span style="margin-left:0" class="title">送货单号</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入送货单号'"
           v-model="params.deliveryNumber"
         />
@@ -57,7 +57,7 @@
         <span style="margin-left:0" class="title">采购单号</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入采购单号'"
           v-model="params.purchaseNo"
         />
@@ -66,7 +66,7 @@
         <span style="margin-left:0" class="title">提交人</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入提交人'"
           v-model="params.operatorUser"
         />
@@ -75,7 +75,7 @@
         <span style="margin-left:0" class="title">备注</span>
         <input
           type="text"
-          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:13px"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
           :placeholder="'请输入备注'"
           v-model="params.remark"
         />
@@ -85,14 +85,14 @@
       plain
       hairline
       size="normal"
-      style="margin:5px 27px;border-radius:8px; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
+      style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
       @click="back"
     >确认返回</van-button>
     <van-button
       plain
       hairline
       size="normal"
-      style="margin:5px 27px;border-radius:8px; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
+      style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="addItem"
     >添加明细</van-button>
   </div>
@@ -360,19 +360,19 @@ export default {
   position: sticky;
   top: 0;
   z-index: 999;
-  height: 70px;
-  /* box-shadow: 0 10px 50px rgba(85, 82, 82, 0.25); */
+  height: 0.7rem;
+  /* box-shadow: 0 0.1rem 0.5rem rgba(85, 82, 82, 0.25); */
 }
 .stock-in-header {
   display: flex;
-  height: 46px;
+  height: 0.46rem;
   justify-content: space-around;
   align-items: center;
 }
 .content .row {
-  width: 326px;
-  height: 52px;
-  margin-left: 27px;
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
   display: flex;
   /* justify-content: space-around; */
   justify-content: space-between;
@@ -380,13 +380,13 @@ export default {
 }
 .content .row .title {
   color: #333333;
-  font-size: 14.5px;
+  font-size: 0.145rem;
 }
 .content .row .message {
   color: #333333;
-  font-size: 13px;
+  font-size: 0.13rem;
 }
 .bottom {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>

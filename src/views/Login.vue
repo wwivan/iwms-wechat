@@ -16,7 +16,7 @@
         <button
           @click="getVcode"
           class="bg-primary text-white"
-          style="height:30px;border:none"
+          style="height:0.3rem;border:none"
         >{{!time?"点击获取验证码":time}}</button>
         <van-field
           v-model="params.vcode"
@@ -180,13 +180,13 @@ export default {
 .login-from {
   width: 80%;
   text-align: center;
-  padding: 10px;
+  padding: 0.1rem;
   margin: 0 auto;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 0.02rem 0.04rem 0 rgba(0, 0, 0, 0.2), 0 0.03rem 0.08rem 0 rgba(0, 0, 0, 0.19);
 
   .btn {
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0.1rem;
   }
 }
 .slide-enter-active,
