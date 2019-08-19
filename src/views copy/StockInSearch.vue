@@ -1,47 +1,89 @@
 <template>
   <div>
+    <!-- <div class="top-bar">
+      <div style="height:0.2rem"></div>
+      <div class="stock-in-header">
+        <div @click="onTitleClickLeft">
+          <span style="font-size:0.24rem;color:#3F7FFE" class="iconfont icon-ai207"></span>
+        </div>
+        <div style="margin-left:0.3rem;">
+          <span style="text-algin:center;color:#030303">入库记录查询</span>
+        </div>
+        <div>
+          <span
+            style="margin-left:0.2rem;font-size:0.14rem;color:#4181FF "
+            @click="onTitileClickRight"
+          >确定</span>
+        </div>
+      </div>
+    </div>-->
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">送货单号</span>
         <input
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
-          :placeholder="'请输送货单号'"
+          :placeholder="'请输入送货单号'"
           v-model="params.EQ_deliveryNumber"
         />
       </div>
       <picker-popup
-        style="margin-left:0.12rem"
         class="text-left"
-        :title="'仓库'"
-        :placeholder="'请选择仓库'"
+        style="margin-left:0.12rem"
+        :title="'入库类型'"
+        :placeholder="'请选提入库类型'"
         :selectedItem.sync="selectedWarehouse"
         :columns="sarehouses"
       />
       <picker-popup
-        style="margin-left:0.12rem"
         class="text-left"
+        style="margin-left:0.12rem"
+        :title="'仓库'"
+        :placeholder="'请选择仓库'"
+        :selectedItem.sync="selectedStockInType"
+        :columns="stockInTypes"
+      />
+      <picker-popup
+        class="text-left"
+        style="margin-left:0.12rem"
         :title="'状态'"
         :placeholder="'请选择状态'"
         :selectedItem.sync="selectedStatus"
         :columns="statuss"
       />
+      <picker-popup
+        class="text-left"
+        style="margin-left:0.12rem"
+        :title="'供应商'"
+        :placeholder="'请选择供应商'"
+        :selectedItem.sync="selectedSupplier"
+        :columns="suppliers"
+      />
+
+      <div class="row">
+        <date-select-cell
+          class="text-left"
+          style="margin-left:-0.15rem;"
+          :title="'开始日期'"
+          :placeholder="'请输入开始日期'"
+          :value.sync="params.GTEDATE_purchaseDate"
+        ></date-select-cell>
+      </div>
+      <div class="row">
+        <date-select-cell
+          class="text-left"
+          style="margin-left:-0.15rem;"
+          :title="'截止日期'"
+          :placeholder="'请输入截止日期'"
+          :value.sync="params.LTEDATE_purchaseDate"
+        ></date-select-cell>
+      </div>
     </div>
     <div
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
     >确认</div>
-
-    <!-- <van-tabbar v-model="active" @change="onTabChange">
-      <van-tabbar-item icon="home-o">主页</van-tabbar-item>
-      <van-tabbar-item icon="orders-o">新增入库单</van-tabbar-item>
-      <van-tabbar-item icon="apps-o">选择入库单</van-tabbar-item>
-    </van-tabbar>-->
-
-    <!-- <picker-popup :title="'供应商'" :placeholder="'请选择供应商'" :selectedItem.sync="selectedSupplier" :columns="suppliers" /> -->
-    <!-- <date-select-cell :title="'开始日期'" :placeholder="'请输入开始日期'" :value.sync="params.GTEDATE_purchaseDate"></date-select-cell>
-    <date-select-cell :title="'截止日期'" :placeholder="'请输入截止日期'" :value.sync="params.LTEDATE_purchaseDate"></date-select-cell>-->
     <!-- <van-field :border="false" is-link readonly @click="onInStockerClick" :placeholder="'请选择收货库管员'" :label="'收货库管员'"
     :value="inStocker"></van-field>-->
     <!-- <van-field :border="false" is-link readonly @click="onBuyerClick" :placeholder="'请选择采购员'" :label="'采购员'" :value="buyer"></van-field> -->
@@ -64,9 +106,9 @@ export default {
         EQ_inType: undefined, // 入库类型 1一般采购入库 2退货入库 3内部生产入库 4取消订单入库
         "EQ_wareHouse.id": undefined, //仓库
         "EQ_supplier.id": undefined, //供应仓
-        EQ_status: undefined
-        // GTEDATE_purchaseDate: undefined,
-        // LTEDATE_purchaseDate: undefined,
+        EQ_status: undefined,
+        GTEDATE_purchaseDate: undefined,
+        LTEDATE_purchaseDate: undefined
       },
       findWareHouseListParams: {
         pageNumber: 1,
@@ -148,11 +190,23 @@ export default {
         },
         {
           id: "0",
-          name: "未确认"
+          name: "收货"
         },
         {
           id: "1",
-          name: "已确认"
+          name: "理货中"
+        },
+        {
+          id: "2",
+          name: "理货完成"
+        },
+        {
+          id: "3",
+          name: "上架中"
+        },
+        {
+          id: "4",
+          name: "上架完成"
         }
       ]
     };
@@ -161,7 +215,7 @@ export default {
     this.findWareHouseListParams.fid = this.fid;
     this.findSupplierListParams.fid = this.fid;
     this.findWareHouseList();
-    // this.findSupplierList();
+    this.findSupplierList();
   },
   methods: {
     findWareHouseList() {
@@ -197,11 +251,11 @@ export default {
     onTitileClickRight() {
       // 确定
       console.log(this.params);
-      // this.params.EQ_inType = this.selectedStockInType.id;
+      this.params.EQ_inType = this.selectedStockInType.id;
       this.params["EQ_wareHouse.id"] = this.selectedWarehouse.id;
       // this.params["EQ_supplier.id"] = this.selectedSupplier.id;
       this.params.EQ_status = this.selectedStatus.id;
-      setStore("ReserveSearchParam", this.params);
+      setStore("stockInSearchParams", this.params);
       this.$router.go(-1);
     },
     onInStockerClick() {
@@ -215,8 +269,8 @@ export default {
     ...mapGetters(["fid"])
   },
   components: {
-    PickerPopup
-    // DateSelectCell
+    PickerPopup,
+    DateSelectCell
   }
 };
 </script>
