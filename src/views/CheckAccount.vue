@@ -261,6 +261,7 @@ export default {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 .btn {
+  z-index: 999;
   .iocnfont {
     font-size: 0.13rem;
   }

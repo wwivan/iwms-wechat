@@ -1,6 +1,51 @@
 <template>
   <div class="home">
-    <div class="square d-flex jc-around bg-orange text-white" @click="detailNews">
+    <!-- 顶部按钮 -->
+    <div class="nav_btn d-flex jc-around">
+      <router-link class="item fs-xs text-grey" tag="div" to="/warehouse/management">
+        <div class="icon-container" style="background:linear-gradient(135deg, #FF9779, #F6617B)">
+          <div class="icon">
+            <img src="../assets/images/入库登记@2x.png" style="width:100%" alt />
+          </div>
+        </div>仓储管理
+      </router-link>
+      <router-link class="item fs-xs text-grey" tag="div" to="/sale/and/purchase">
+        <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
+          <div class="icon">
+            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
+          </div>
+        </div>销售采购
+      </router-link>
+      <router-link class="item fs-xs text-grey" tag="div" to="/materiel/search">
+        <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
+          <div class="icon">
+            <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
+          </div>
+        </div>对账管理
+      </router-link>
+      <!-- <div class="item" @click="onStockOutToCell">
+            <div>
+              <van-icon color="#1d8afa" name="gift-card-o" size="0.4rem" />
+            </div>
+            下架
+      </div>-->
+      <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
+        <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
+          <div class="icon">
+            <img src="../assets/images/盘点操作@2x.png" style="width:100%" alt />
+          </div>
+        </div>查 询
+      </router-link>
+      <router-link class="item fs-xs text-grey" tag="div" to="/stockOut">
+        <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
+          <div class="icon">
+            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
+          </div>
+        </div>报 表
+      </router-link>
+    </div>
+    <!-- 滚动栏 -->
+    <div class="square  d-flex jc-around text-white" @click="detailNews">
       <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
         <!-- <swiper-slide v-for="(item, i) in images" :key="i">
@@ -230,8 +275,7 @@ export default {
     // this.getTask()
   },
   methods: {
-    detailNews() {
-    },
+    detailNews() {},
     // dangerStorage() {
     //   dangerStorage(this.params).then(res => {
     //   });
@@ -248,7 +292,7 @@ export default {
     },
     checkDanger() {
       this.dangerStorage();
-    },
+    }
     // log() {
     //   let items2 = this.items1.map(Element => {
     //     return {
@@ -261,11 +305,41 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.nav_btn {
+  width: 90%;
+  margin: 0 auto;
+  height: 1rem;
+  padding-top: 0.16rem;
+  // border-bottom: 0.01rem solid rgb(192, 192, 192);
+  .item {
+    line-height: 0.35rem;
+    height: 0.8rem;
+    .icon-container {
+      width: 0.44rem;
+      height: 0.44rem;
+      border-radius: 50%;
+      position: relative;
+      margin: 0 auto;
+      .icon {
+        position: absolute;
+        width: 0.25rem;
+        height: 0.25rem;
+        margin-left: 0.09rem;
+        margin-top: 0.09rem;
+      }
+    }
+  }
+}
 .square {
+  // background: rgba(116, 116, 116, 0.2);
+  width: 94%;
+  border-radius: 8px;
+  margin: 0 auto;
+  background: rgba(255, 150, 121, 0.6);
   height: 0.4rem;
-  position: sticky;
-  top: 0.64rem;
-  z-index: 999;
+  // position: sticky;
+  // top: 0.64rem;
+  // z-index: 999;
   line-height: 0.6rem;
   // border-bottom-left-radius: 0.1rem;
   // border-bottom-right-radius: 0.1rem;
@@ -279,7 +353,8 @@ export default {
     width: 100%;
     .row {
       border-radius: 0.1rem;
-      background: rgb(192, 192, 192);
+      // background: rgb(192, 192, 192);
+      background:rgba(65, 128, 255, 0.6);
       border-left: 0.03rem solid white;
       border-right: 0.03rem solid white;
       width: 33.3%;

@@ -72,7 +72,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findMaterielList"
+          @click="findSupplierList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -94,7 +94,7 @@ export default {
       show: false,
       loading: false,
       finished: false,
-      act: undefined,
+      stockType: undefined,
       selectedStockInType: [],
       selectedWarehouse: [],
       deliveryNumber: undefined,
@@ -128,14 +128,14 @@ export default {
       console.log(this.selectedStockInType);
     }
 
-    let act = getStore("active");
-    if (act) {
-      removeStore("act");
-      console.log(act);
-      this.act = act;
-      console.log(this.act);
-    }
-
+    // let act = getStore("active");
+    // if (act) {
+    //   removeStore("act");
+    //   console.log(act);
+    //   this.act = act;
+    //   console.log(this.act);
+    // }
+    this.stockType = getStore("stockType")
     let Warehouse = getStore("selectedWarehouse");
     if (Warehouse) {
       removeStore("selectedWarehouse");
@@ -202,9 +202,9 @@ export default {
       setStore("selectedWarehouse", selectedWarehouse);
       setStore("supplier", supplier);
       console.log(selectedStockInType.length);
-      if (this.isshow == true) {
+      if (this.stockType == "0") {
         this.$router.push("/reserve/order/form");
-      } else if (this.isshow == false) {
+      } else if (this.stockType == "1") {
         this.$router.push("/stockIn/form");
       }
     },

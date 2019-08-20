@@ -1,14 +1,15 @@
 <template>
   <div class="stock-in">
-    <!-- <div class="tab">
+    <div class="tab">
       <div :class="isshow?'tab-active':'tab-normal'" @click="$store.commit('resIsshow')">预约登记</div>
       <div :class="!isshow?'tab-active':'tab-normal'" @click="$store.commit('stockInIsshow')">入库登记</div>
     </div>
     <div style="display:flex;justify-content:space-around">
       <div :class="isshow?'tab_line_left':'tab_line_right'"></div>
       <div :class="!isshow?'tab_line_left':'tab_line_right'"></div>
-    </div> -->
+    </div>
     <div class="container">
+      <reserve-order v-show="isshow"></reserve-order>
       <van-pull-refresh v-model="loading" @refresh="onRefreshList">
         <div v-show="!isshow">
           <van-list v-model="loading" :finished="finished">
@@ -61,7 +62,26 @@
         </div>
       </van-pull-refresh>
     </div>
-    
+    <div
+      class="btn d-flex"
+      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="stockInCreate"
+      >
+        <span class="iconfont icon-xinjian"></span>
+      </button>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:0.45rem;height:0.3rem;border:none;"
+        @click="stockInSearch"
+      >
+        <span class="iconfont icon-sousuo"></span>
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -116,6 +136,24 @@ export default {
   methods: {
     initStatus() {
       setStore("StockInType", "1");
+    },
+    stockInCreate() {
+      if (this.isshow == false) {
+        console.log("新建入库单");
+        this.$router.push("/stockIn/form");
+      } else if (this.isshow == true) {
+        console.log("新建预约单");
+        this.$router.push("/reserve/order/form");
+      }
+    },
+    stockInSearch() {
+      if (this.isshow == false) {
+        console.log("搜索入库单");
+        this.$router.push("/stockIn/search");
+      } else if (this.isshow == true) {
+        console.log("搜索预约单");
+        this.$router.push("/reserve/order/search");
+      }
     },
     onRefreshList() {
       // 刷新
@@ -335,5 +373,11 @@ export default {
   font-size: 0.13rem;
   line-height: 0.28rem;
   text-align: left;
+}
+.btn {
+  z-index: 999;
+  .iocnfont {
+    font-size: 0.13rem;
+  }
 }
 </style>

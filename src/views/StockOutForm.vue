@@ -41,6 +41,7 @@
       <div class="row" v-if="selectedStockOutType.id == '1'">
         <span style="margin-left:0" class="title">送货单号</span>
         <input
+        class="fs-md"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入送货单号'"

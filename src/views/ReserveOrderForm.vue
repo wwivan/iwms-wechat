@@ -19,11 +19,11 @@
         <span style="margin-left:0" class="title">供应商</span>
         <span class="message">{{params.supplierName}}</span>
       </div>
-      <van-button
-        size="small"
+      <div
         @click="selectSupplier()"
-        style="border-radius:0.05rem;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:0.2rem;margin-left:0.27rem;"
-      >选择</van-button>
+        class="fs-sm "
+        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;">选择
+      </div>
       <div class="row">
         <span style="margin-left:0" class="title">送货单号</span>
         <input
@@ -77,7 +77,7 @@ export default {
     return {
       active: 1,
       act: undefined,
-      StockInType: undefined,
+      StockType: undefined,
       params: {
         reserveOrderNo: undefined, // 入库单号
         deliveryNumber: undefined,
@@ -115,28 +115,28 @@ export default {
       // this.params.supplierName = temps.name;
       // this.params.supplier.id = temps.id;
     }
-
-    let active = getStore("active");
-    this.act = active;
-    console.log(this.act);
+    this.StockType = getStore("stockType")
+    // let active = getStore("active");
+    // this.act = active;
+    // console.log(this.act);
   },
   methods: {
-    onTabChange(active) {
-      if (active == "0") {
-        this.$router.push({
-          name: "Main"
-        });
-      } else if (active == "1") {
-        this.$router.push({
-          name: "Statistics"
-        });
-      } else if (active == "2") {
-        this.$router.push({
-          name: "Mine"
-        });
-      }
-      // Toast("2");
-    },
+    // onTabChange(active) {
+    //   if (active == "0") {
+    //     this.$router.push({
+    //       name: "Main"
+    //     });
+    //   } else if (active == "1") {
+    //     this.$router.push({
+    //       name: "Statistics"
+    //     });
+    //   } else if (active == "2") {
+    //     this.$router.push({
+    //       name: "Mine"
+    //     });
+    //   }
+    //   // Toast("2");
+    // },
     findWareHouseList() {
       // 仓库列表
       findWareHouseList(this.findWareHouseListParams)
@@ -173,7 +173,7 @@ export default {
         });
     },
     selectSupplier() {
-      setStore("active", this.act);
+      setStore("stockType", this.StockType);
       this.$router.push("/supplier");
     },
     addItem() {
@@ -193,10 +193,10 @@ export default {
         name: "Main"
       });
     },
-    selectCustomer(StockInType, selectedWarehouse) {
+    selectCustomer(StockType, selectedWarehouse) {
       setStore("selectedWarehouse", selectedWarehouse);
-      setStore("StockInType", StockInType);
-      console.log(StockInType);
+      setStore("StockType", StockType);
+      console.log(StockType);
       this.$router.push({
         name: "Customer"
       });

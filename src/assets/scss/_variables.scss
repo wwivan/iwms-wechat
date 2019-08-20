@@ -23,7 +23,8 @@ $border-color:map-get($colors, black);
 
 //font-size
 $base-font-size:0.13rem;
-$font-sizes:(xs:0.7692, //10px
+$font-sizes:(
+  xs:0.4615, //6px
   sm:0.9231, //12px
   md:1, //13px
   lg:1.0769, //14px

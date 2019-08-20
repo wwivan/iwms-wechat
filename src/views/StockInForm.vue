@@ -18,8 +18,8 @@
         style="margin-left:0.12rem"
         :title="'入库类型'"
         :placeholder="'请选提入库类型'"
-        :selectedItem.sync="selectedStockInType"
-        :columns="stockInTypes"
+        :selectedItem.sync="selectedStockType"
+        :columns="stockTypes"
       />
       <div class="row">
         <date-select-cell
@@ -32,14 +32,14 @@
       </div>
       <div
         class="row d-flex ai-center"
-        v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
+        v-if="selectedStockType.id == '1'|| selectedStockType.id == '3' || selectedStockType.id == '4' || selectedStockType.id == '2'"
       >
         <span style="margin-left:0" class="title">供应商</span>
         <span class="message">{{params.supplierName}}</span>
         <van-button
-          v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
+          v-if="selectedStockType.id == '1'|| selectedStockType.id == '3' || selectedStockType.id == '4' || selectedStockType.id == '2'"
           size="small"
-          @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
+          @click="selectSupplier(selectedStockType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
           style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
         >选择</van-button>
       </div>
@@ -62,7 +62,7 @@
           v-model="params.purchaseNo"
         />
       </div>
-      <div class="row" v-if="selectedStockInType.id == '6'">
+      <div class="row" v-if="selectedStockType.id == '6'">
         <span style="margin-left:0" class="title">提交人</span>
         <input
           type="text"
@@ -110,7 +110,7 @@ export default {
   data() {
     return {
       active: 1,
-      StockInType: undefined,
+      StockType: undefined,
       params: {
         orderNo: undefined, // 入库单号
         inType: undefined,
@@ -147,7 +147,7 @@ export default {
         searchParams: {}
       },
       // 选择的入库类型
-      selectedStockInType: {
+      selectedStockType: {
         id: "",
         name: ""
       },
@@ -157,7 +157,7 @@ export default {
         name: ""
       },
       // 入库类型候选项
-      stockInTypes: [
+      stockTypes: [
         {
           id: "1",
           name: "采购入库"
@@ -209,13 +209,13 @@ export default {
       // this.params.supplier.id = temps.id;
     }
 
-    let items = getStore("selectedStockInType");
+    let items = getStore("selectedStockType");
     if (items) {
-      removeStore("selectedStockInType");
+      removeStore("selectedStockType");
       let item = JSON.parse(items);
       console.log(item.id);
-      this.selectedStockInType.id = item.id;
-      this.selectedStockInType.name = item.name;
+      this.selectedStockType.id = item.id;
+      this.selectedStockType.name = item.name;
     }
     let selectedWarehouse = getStore("selectedWarehouse");
     if (selectedWarehouse) {
@@ -241,9 +241,9 @@ export default {
       this.params.purchaseNo = "";
     }
 
-    let StockInType = getStore("StockInType");
-    this.StockInType = StockInType;
-    console.log(this.StockInType);
+    let StockType = getStore("StockType");
+    this.StockType = StockType;
+    console.log(this.StockType);
   },
   methods: {
     // onTabChange(active) {
@@ -289,7 +289,7 @@ export default {
     },
     back() {
       this.params.wareHouse.id = this.selectedWarehouse.id;
-      this.params.inType = this.selectedStockInType.id;
+      this.params.inType = this.selectedStockType.id;
       saveStockIn(this.params)
         .then(res => {
           Toast("保存成功!");
@@ -301,7 +301,7 @@ export default {
         });
     },
     selectSupplier(
-      selectedStockInType,
+      selectedStockType,
       selectedWarehouse,
       deliveryNumber,
       purchaseNo
@@ -309,13 +309,13 @@ export default {
       setStore("deliveryNumber", deliveryNumber);
       setStore("purchaseNo", purchaseNo);
       setStore("selectedWarehouse", selectedWarehouse);
-      setStore("selectedStockInType", selectedStockInType);
+      setStore("selectedStockType", selectedStockType);
       console.log(selectedWarehouse);
       this.$router.push("/supplier");
     },
     addItem() {
       this.params.wareHouse.id = this.selectedWarehouse.id;
-      this.params.inType = this.selectedStockInType.id;
+      this.params.inType = this.selectedStockType.id;
       saveStockIn(this.params)
         .then(res => {
           Toast("保存成功!");
@@ -332,10 +332,10 @@ export default {
         name: "/"
       });
     },
-    selectCustomer(StockInType, selectedWarehouse) {
+    selectCustomer(StockType, selectedWarehouse) {
       setStore("selectedWarehouse", selectedWarehouse);
-      setStore("StockInType", StockInType);
-      console.log(StockInType);
+      setStore("StockType", StockType);
+      console.log(StockType);
       //  this.$router.push({
       //     name: "Customer"
       //   });

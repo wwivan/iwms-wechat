@@ -50,7 +50,7 @@
         </div>
         <div class="text fs-sm" :class="this.tab1?'active':''">首页</div>
       </router-link>
-      <router-link tag="div" to="/StockIn" class="w-25 border-right">
+      <router-link tag="div" to="/warehouse/management" class="w-25 border-right">
         <div class="box">
           <span
             class="iconfont icon-canguanyuyue"
@@ -58,7 +58,7 @@
             :class="this.tab2?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm" :class="this.tab2?'active':''">入库</div>
+        <div class="text fs-sm" :class="this.tab2?'active':''">仓储管理</div>
       </router-link>
       <router-link tag="div" to="/StockOut" class="w-25 border-right">
         <div class="box">
