@@ -7,7 +7,7 @@
     <div style="display:flex;justify-content:space-around">
       <div :class="isshow?'tab_line_left':'tab_line_right'"></div>
       <div :class="!isshow?'tab_line_left':'tab_line_right'"></div>
-    </div> -->
+    </div>-->
     <div class="container">
       <van-pull-refresh v-model="loading" @refresh="onRefreshList">
         <div v-show="!isshow">
@@ -16,52 +16,53 @@
               v-for="(item, index) in records"
               :key="index"
               class="stock-in-detail"
-              :class="(index < (records.length-1))?'bottom':'' "
+              :class="(index < (records.length-1))?'bottom':''"
             >
-              <div class="header">
-                <span
-                  v-show="item.status==0"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==1"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==2"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==3"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==4"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-                ></span>
-                <span class="context">{{item.status | statusFilter}}</span>
-                <span class="icon" @click="findStockInDetail(item)">
-                  <img style="width:100%" src="../assets/images/入库登记-编辑@2x.png" alt />
-                </span>
-              </div>
-              <div class="content">
-                <div>供应商：{{item.supplier == undefined? "":item.supplier.name}}</div>
-                <div>仓库：{{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-                <div>入库类型：{{item.inType | inTypeValue}}</div>
-                <div>物料信息：{{item.skuMessage==undefined?"":item.skuMessage}}</div>
-                <div style="margin-bottom:0.05rem"></div>
-              </div>
+              <!-- <div :class="judgeStatus(item)"> -->
+                <div class="header">
+                  <span
+                    v-show="item.status==0"
+                    class="bot"
+                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                  ></span>
+                  <span
+                    v-show="item.status==1"
+                    class="bot"
+                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                  ></span>
+                  <span
+                    v-show="item.status==2"
+                    class="bot"
+                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                  ></span>
+                  <span
+                    v-show="item.status==3"
+                    class="bot"
+                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                  ></span>
+                  <span
+                    v-show="item.status==4"
+                    class="bot"
+                    style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+                  ></span>
+                  <span class="context">{{item.status | statusFilter}}</span>
+                  <span class="icon" @click="findStockInDetail(item)">
+                    <img style="width:100%" src="../assets/images/入库登记-编辑@2x.png" alt />
+                  </span>
+                </div>
+                <div class="content">
+                  <div>供应商：{{item.supplier == undefined? "":item.supplier.name}}</div>
+                  <div>仓库：{{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
+                  <div>入库类型：{{item.inType | inTypeValue}}</div>
+                  <div>物料信息：{{item.skuMessage==undefined?"":item.skuMessage}}</div>
+                  <div style="margin-bottom:0.05rem"></div>
+                </div>
+              <!-- </div> -->
             </div>
           </van-list>
         </div>
       </van-pull-refresh>
     </div>
-    
   </div>
 </template>
 <script>
@@ -114,6 +115,11 @@ export default {
     // this.onRefreshList();
   },
   methods: {
+    // judgeStatus(item){
+    //   if(item.status == 0){
+    //     return "bg-yellow"
+    //   }
+    // },
     initStatus() {
       setStore("StockInType", "1");
     },
