@@ -48,39 +48,39 @@
             :class="this.tab1?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm" :class="this.tab1?'active':''">首页</div>
+        <div class="text fs-xs" :class="this.tab1?'active':''">首页</div>
       </router-link>
       <router-link tag="div" to="/warehouse/management" class="w-25 border-right">
         <div class="box">
           <span
-            class="iconfont icon-canguanyuyue"
+            class="iconfont icon-chuku"
             @click="tab2Active"
             :class="this.tab2?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm" :class="this.tab2?'active':''">仓储管理</div>
+        <div class="text fs-xs" :class="this.tab2?'active':''">仓储管理</div>
       </router-link>
-      <router-link tag="div" to="/StockOut" class="w-25 border-right">
+      <router-link tag="div" to="/sale/and/purchase" class="w-25 border-right">
         <div class="box">
-          <span class="iconfont icon-daichuku" @click="tab3Active" :class="this.tab3?'active':''"></span>
+          <span class="iconfont icon-rukuliucheng" @click="tab3Active" :class="this.tab3?'active':''"></span>
         </div>
-        <div class="text fs-sm" :class="this.tab3?'active':''">出库</div>
+        <div class="text fs-xs" :class="this.tab3?'active':''">销售采购</div>
       </router-link>
-      <router-link tag="div" to="/search/page" class="w-25 border-right">
+      <!-- <router-link tag="div" to="/search/page" class="w-25 border-right">
         <div class="box"  @click="tab4Active">
           <span class="iconfont icon-query1" :class="this.tab4?'active':''"></span>
         </div>
         <div class="text fs-sm" :class="this.tab4==1?'active':''">查询</div>
-      </router-link>
+      </router-link> -->
       <router-link tag="div" to="/check/account" class="w-25">
         <div class="box">
           <span
-            class="iconfont icon-shuxingliebiaoxiangqing"
+            class="iconfont icon-shezhi"
             @click="tab5Active"
             :class="this.tab5?'active':''"
           ></span>
         </div>
-        <div class="text fs-sm" :class="this.tab5?'active':''">对账</div>
+        <div class="text fs-xs" :class="this.tab5?'active':''">设置</div>
       </router-link>
     </div>
   </div>

@@ -101,8 +101,8 @@
 <script>
 // import Home from "@/views/Main/Home/Home"
 import { Toast } from "vant";
-import PickerPopup from "../component/PickerPopup";
-import DateSelectCell from "../component/DateSelectCell";
+import PickerPopup from "@/component/PickerPopup";
+import DateSelectCell from "@/component/DateSelectCell";
 import { findWareHouseList, getStockInOrderNo, saveStockIn } from "@/api/api";
 import { mapGetters } from "vuex";
 import { setStore, getStore, removeStore } from "@/util/util";

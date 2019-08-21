@@ -5,21 +5,21 @@
       <router-link class="item fs-xs text-grey" tag="div" to="/warehouse/management">
         <div class="icon-container" style="background:linear-gradient(135deg, #FF9779, #F6617B)">
           <div class="icon">
-            <img src="../assets/icons/仓储管理.png" style="width:100%" alt />
+            <img src="../assets/images/入库登记@2x.png" style="width:100%" alt />
           </div>
         </div>仓储管理
       </router-link>
       <router-link class="item fs-xs text-grey" tag="div" to="/sale/and/purchase">
         <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
           <div class="icon">
-            <img src="../assets/icons/销售采购.png" style="width:100%" alt />
+            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
           </div>
         </div>销售采购
       </router-link>
       <router-link class="item fs-xs text-grey" tag="div" to="/materiel/search">
         <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
           <div class="icon">
-            <img src="../assets/icons/对账管理.png" style="width:100%" alt />
+            <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
           </div>
         </div>对账管理
       </router-link>
@@ -32,24 +32,24 @@
       <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
         <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
           <div class="icon">
-            <img src="../assets/icons/查询.png" style="width:100%" alt />
+            <img src="../assets/images/盘点操作@2x.png" style="width:100%" alt />
           </div>
         </div>查 询
       </router-link>
       <router-link class="item fs-xs text-grey" tag="div" to="/stockOut">
         <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
           <div class="icon">
-            <img src="../assets/icons/报表.png" style="width:100%" alt />
+            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
           </div>
         </div>报 表
       </router-link>
     </div>
     <!-- 滚动栏 -->
-    <div class="square d-flex jc-around text-white" @click="detailNews">
+    <div class="square  d-flex jc-around text-white" @click="detailNews">
       <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
         <!-- <swiper-slide v-for="(item, i) in images" :key="i">
-        <a :href="item.url"> <img class="w-100" :src="item.image" alt=""/></a>      
+        <a :href="item.url"> <img class="w-100" :src="item.image" alt=""/></a>
         </swiper-slide>-->
         <swiper-slide v-for="(item,index) in news" :key="index">
           <span class="iconfont icon-xiaolaba" style="height:0.39rem;line-height:0.39rem;"></span>
@@ -322,10 +322,10 @@ export default {
       margin: 0 auto;
       .icon {
         position: absolute;
-        width: 0.44rem;
-        height: 0.44rem;
-        // margin-left: 0.09rem;
-        // margin-top: 0.09rem;
+        width: 0.25rem;
+        height: 0.25rem;
+        margin-left: 0.09rem;
+        margin-top: 0.09rem;
       }
     }
   }
@@ -354,7 +354,7 @@ export default {
     .row {
       border-radius: 0.1rem;
       // background: rgb(192, 192, 192);
-      background: rgba(65, 128, 255, 0.6);
+      background:rgba(65, 128, 255, 0.6);
       border-left: 0.03rem solid white;
       border-right: 0.03rem solid white;
       width: 33.3%;

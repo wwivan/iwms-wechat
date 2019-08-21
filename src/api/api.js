@@ -31,6 +31,17 @@ export const createOrder = params => post("createOrder", params);
 export const getGoodById = params => post("getGoodById", params);
 export const listMessage = params => post("listMessage", params);
 export const messageDetail = params => post("messageDetail", params);
+
+//采购模块
+//所有采购计划单
+export const purchasePlanOrderList = params =>
+  post("purchase/purchaseOrder/findPurchaseOrderList", params);
+//所有采购订单
+export const purchaseOrderList = params =>
+  post("purchase/purchasePlanOrder/findPurchasePlanOrderList", params);
+//采购计划单审核
+export const purchaseOrderPass = params =>
+  post("purchase/purchaseOrder/savePurchaseOrderPass", params);
 //库存预警
 export const dangerStorage = params =>
   post("/order/stockUseNumLTMinStock", params);

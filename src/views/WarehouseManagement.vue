@@ -50,9 +50,9 @@
 
 <script>
 import { getStore, setStore } from "@/util/util";
-import reserveOrder from "@/views/ReserveOrder.vue";
-import stockIn from "@/views/StockIn.vue";
-import stockOut from "@/views/StockOut.vue"
+import reserveOrder from "@/views/WarehouseManagement/ReserveOrder.vue";
+import stockIn from "@/views/WarehouseManagement/StockIn.vue";
+import stockOut from "@/views/WarehouseManagement/StockOut.vue"
 export default {
   components: { reserveOrder, stockIn , stockOut },
   data() {

@@ -24,14 +24,19 @@
         >采购订单</div>
       </div>
     </div>
-    <div class="main"></div>
+    <div class="main">
+      <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order>
+      <purchase-order v-show="this.orderType == '3'"></purchase-order>
+    </div>
   </div>
 </template>
 
 <script>
 import { getStore, setStore } from "@/util/util";
+import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
+import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
 export default {
-  components: {},
+  components: { purchasePlanOrder ,purchaseOrder},
   data() {
     return {
       orderType: "0"

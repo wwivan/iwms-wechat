@@ -1,5 +1,5 @@
 <template>
-  <div class="sale_plan_order">
+  <div class="purchase_plan_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
         <div
@@ -14,44 +14,36 @@
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
-            <span
-              v-show="item.status==1"
-              class="bot"
-              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-            ></span>
-            <span
-              v-show="item.status==2"
-              class="bot"
-              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
-            ></span>
-            <span
-              v-show="item.status==3"
-              class="bot"
-              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
-            ></span>
-            <span
-              v-show="item.status==4"
-              class="bot"
-              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>
-            <span
-              v-show="item.status==5"
-              class="bot"
-              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>
-            <span
-              v-show="item.status==6"
-              class="bot"
-              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>
+            <!-- <span
+                  v-show="item.status==1"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #FF9779, #F6617B);"
+                ></span>
+                <span
+                  v-show="item.status==2"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                ></span>
+                <span
+                  v-show="item.status==3"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+                ></span>
+                <span
+                  v-show="item.status==4"
+                  class="bot"
+                  style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>-->
             <span class="context">{{item.status | statusFilter}}</span>
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>客户名称: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>总金额: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>销售量: {{item.deliveryNumber}}</div>
-              <div>创建时间: {{item.deliveryNumber}}</div>
+              <div>物料名称: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
+              <div>物料型号: {{item.supplier == undefined? "":item.supplier.name}}</div>
+              <div>订单需求量: {{item.deliveryNumber}}</div>
+              <div>实际采购量: {{item.deliveryNumber}}</div>
+              <div>库存数量: {{item.deliveryNumber}}</div>
+              <div>价格小计: {{item.deliveryNumber}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
 
@@ -59,19 +51,7 @@
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findReserveOrderItem(item)"
-              >查看详情</div>
-            </div>
-            <div class="confirm">
-              <div
-                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findReserveOrderItem(item)"
-              >审核通过</div>
-            </div>
-            <div class="confirm">
-              <div
-                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findReserveOrderItem(item)"
-              >审核驳回</div>
+              >查看供应商</div>
             </div>
           </div>
         </div>
@@ -215,19 +195,11 @@ export default {
     statusFilter(value) {
       let realVal = "";
       if (value == 0) {
-        realVal = "等待审核";
+        realVal = "等待确认";
       } else if (value == 1) {
-        realVal = "未审核";
+        realVal = "已确认";
       } else if (value == 2) {
-        realVal = "审核通过";
-      } else if (value == 3) {
-        realVal = "已审核";
-      } else if (value == 4) {
-        realVal = "审核未通过";
-      } else if (value == 5) {
-        realVal = "已驳回";
-      } else if (value == 6) {
-        realVal = "订单已发布";
+        realVal = "已拒绝";
       }
       return realVal;
     },
@@ -331,6 +303,7 @@ export default {
   font-size: 0.13rem;
   line-height: 0.28rem;
 }
+
 .bottom {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }

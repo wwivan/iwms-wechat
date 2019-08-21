@@ -47,7 +47,7 @@
                   ></span>
                   <span class="context">{{item.status | statusFilter}}</span>
                   <span class="icon" @click="findStockInDetail(item)">
-                    <img style="width:100%" src="../assets/images/入库登记-编辑@2x.png" alt />
+                    <img style="width:100%" src="../../assets/images/入库登记-编辑@2x.png" alt />
                   </span>
                 </div>
                 <div class="content">
@@ -66,14 +66,12 @@
   </div>
 </template>
 <script>
-import reserveOrder from "@/views/ReserveOrder";
 import { mapGetters, mapMutations } from "vuex";
 import { Toast } from "vant";
 import { findStockInList, doToCell, findReserveOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
-  components: { reserveOrder },
   data() {
     return {
       // tab_active: 0,

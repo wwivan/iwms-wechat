@@ -9,46 +9,47 @@
           :class="(index < (records.length-1))?'bottom':''"
         >
           <div class="header">
+            <!-- 未收货 -->
             <span
               v-show="item.status==0"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
+            <!-- 收获完成 -->
+            <span
+              v-show="item.status==1"
+              class="bot"
+              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
+            ></span>
             <!-- <span
-                  v-show="item.status==1"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #FF9779, #F6617B);"
-                ></span>
-                <span
-                  v-show="item.status==2"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==3"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==4"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+              v-show="item.status==2"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-show="item.status==3"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-show="item.status==4"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>-->
             <span class="context">{{item.status | statusFilter}}</span>
           </div>
-          <div class="content">
+          <div class="content d-flex jc-between">
             <div>
-              <div>入库仓库: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>供应商: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>送货单号:{{item.deliveryNumber}}</div>
+              <div>供应商: {{item.supplier}}</div>
+              <div>总金额: {{item.amount}}</div>
+              <div>采购计划单号: {{item.orderNo}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-
             <div class="confirm">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findReserveOrderItem(item)"
-              >确认收货</div>
+                @click="findPurchaseOrderItem(item)"
+              >查看详情</div>
             </div>
           </div>
         </div>
@@ -57,7 +58,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findReserveOrderList"
+          @click="purchaseOrderList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -70,7 +71,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { findReserveOrderList } from "@/api/api";
+import { purchaseOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -86,8 +87,8 @@ export default {
       params: {
         pageNumber: 1,
         pageSize: 30,
-        sortType: "auto",
-        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        userType: "0",
+        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
         searchParams: {}
       }
     };
@@ -97,41 +98,42 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    let StockInType = getStore("StockInType");
-    this.StockInType = StockInType;
-    // console.log(this.StockInType);
+    // let StockInType = getStore("StockInType");
+    // this.StockInType = StockInType;
+    // // console.log(this.StockInType);
 
-    let active = getStore("active");
-    this.act = active;
-    // console.log(this.act);
-    let temp = getStore("ReserveSearchParam");
-    if (temp) {
-      removeStore("ReserveSearchParam");
-      this.searchParams = JSON.parse(temp);
-    } else {
-      this.searchParams = {};
-    }
+    // let active = getStore("active");
+    // this.act = active;
+    // // console.log(this.act);
+    // let temp = getStore("ReserveSearchParam");
+    // if (temp) {
+    //   removeStore("ReserveSearchParam");
+    //   this.searchParams = JSON.parse(temp);
+    // } else {
+    //   this.searchParams = {};
+    // }
   },
   methods: {
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.findReserveOrderList();
+      this.purchaseOrderList();
     },
     // onLoadMore() {
     //   this.findReserveOrderList();
     // },
-    findReserveOrderList() {
+    purchaseOrderList() {
       this.params.searchParams = this.searchParams;
       this.params.searchParams["EQ_status"] = "0";
       // 获取记录
-      findReserveOrderList(this.params)
+      purchaseOrderList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
+          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
@@ -140,49 +142,49 @@ export default {
           Toast("请求错误");
         });
     },
-    onTitleClickLeft() {
-      // 返回
-      this.$router.push({
-        name: "Main"
-      });
-    },
-    onTitileClickRight() {
-      // 查询
-      this.$router.push({
-        name: "StockInSearch"
-      });
-    },
-    onClickForm() {
-      this.$router.push({
-        name: "ReserveOrderForm"
-      });
-    },
-    onClickSearch() {
-      this.$router.push({
-        name: "StockInSearch"
-      });
-    },
-    onTabChange(active) {
-      if (active == "0") {
-        this.$router.push({
-          name: "Main"
-        });
-      } else if (active == "1") {
-        this.$router.push({
-          name: "Statistics"
-        });
-      } else if (active == "2") {
-        this.$router.push({
-          name: "Mine"
-        });
-      }
-    },
-    findReserveOrderItem(ReserveOrderItemParams) {
+    // onTitleClickLeft() {
+    //   // 返回
+    //   this.$router.push({
+    //     name: "Main"
+    //   });
+    // },
+    // onTitileClickRight() {
+    //   // 查询
+    //   this.$router.push({
+    //     name: "StockInSearch"
+    //   });
+    // },
+    // onClickForm() {
+    //   this.$router.push({
+    //     name: "ReserveOrderForm"
+    //   });
+    // },
+    // onClickSearch() {
+    //   this.$router.push({
+    //     name: "StockInSearch"
+    //   });
+    // },
+    // onTabChange(active) {
+    //   if (active == "0") {
+    //     this.$router.push({
+    //       name: "Main"
+    //     });
+    //   } else if (active == "1") {
+    //     this.$router.push({
+    //       name: "Statistics"
+    //     });
+    //   } else if (active == "2") {
+    //     this.$router.push({
+    //       name: "Mine"
+    //     });
+    //   }
+    // },
+    findPurchaseOrderItem(PurchaseOrderItemParams) {
       //获取单个入库单详细
-      setStore("StockInType", this.StockInType);
-      setStore("act", this.act);
-      setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push("/reserve/order/detail");
+      // setStore("StockInType", this.StockInType);
+      // setStore("act", this.act);
+      setStore("PurchaseOrderItemParams", PurchaseOrderItemParams);
+      // this.$router.push("/reserve/order/detail");
     }
   },
   computed: {
@@ -290,6 +292,7 @@ export default {
   text-align: left;
   margin-top: 0.16rem;
   margin-left: 0.13rem;
+  margin-right: 0.13rem;
   display: flex;
   align-items: center;
 }
@@ -299,9 +302,7 @@ export default {
   font-size: 0.13rem;
   line-height: 0.28rem;
 }
-.content .confirm {
-  margin-left: 1.35rem;
-}
+
 .bottom {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
