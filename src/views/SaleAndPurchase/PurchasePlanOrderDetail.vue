@@ -14,44 +14,58 @@
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
-            <!-- <span
-                  v-show="item.status==1"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #FF9779, #F6617B);"
-                ></span>
-                <span
-                  v-show="item.status==2"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==3"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                ></span>
-                <span
-                  v-show="item.status==4"
-                  class="bot"
-                  style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>-->
-            <span class="context">{{item.status | statusFilter}}</span>
+            <span
+              v-show="item.status==1"
+              class="bot"
+              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
+            ></span>
+            <span
+              v-show="item.status==2"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-show="item.status==3"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-show="item.status==4"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>
+            <span class="context">{{item.purchasePlanOrder.orderNo}}</span>
+            <span class="context text-right">{{item.status | statusFilter}}</span>
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>物料名称: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>物料型号: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>订单需求量: {{item.deliveryNumber}}</div>
-              <div>实际采购量: {{item.deliveryNumber}}</div>
-              <div>库存数量: {{item.deliveryNumber}}</div>
-              <div>价格小计: {{item.deliveryNumber}}</div>
+              <div>物料名称: {{item.materielSku.name}}</div>
+              <div>物料型号: {{item.materielSku.model}}</div>
+              <div>订单需求量: {{item.demandNum}} 个</div>
+              <div>实际采购量: {{item.actualNum}} 个</div>
+              <div>库存数量: {{item.materielSku.stockUseNum}} 个</div>
+              <div>价格小计: {{item.materielSku.price}} 元</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-
-            <div class="confirm">
-              <div
-                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findReserveOrderItem(item)"
-              >查看供应商</div>
+            <div style="width:0.8rem">
+              <div class="confirm">
+                <div
+                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                  @click="purchasePlanOrderSupplier(item)"
+                >查看详情</div>
+              </div>
+              <div class="confirm mt-3">
+                <div
+                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                  @click="purchaseOrderPass()"
+                >审核通过</div>
+              </div>
+              <div class="confirm mt-3">
+                <div
+                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                  @click="purchaseOrderPass()"
+                >审核驳回</div>
+              </div>
             </div>
           </div>
         </div>
@@ -60,7 +74,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findReserveOrderList"
+          @click="purchasePlanOrderList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -73,7 +87,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { findReserveOrderList } from "@/api/api";
+import { purchasePlanOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -87,11 +101,25 @@ export default {
       records: [],
       searchParams: {},
       params: {
-        pageNumber: 1,
-        pageSize: 30,
-        sortType: "auto",
-        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        page: 1,
+        pageSize: 10,
+        purchasePlanOrderId: "",
         searchParams: {}
+      },
+      detailParams:{
+        page: 1,
+        pageSize: 10,
+        purchasePlanOrderItemId: "87eebe08-bd2a-429e-a717-0f24e2a369a3",
+        searchParams: {
+        }
+      },
+      passParams: {
+        "id":"233e3",
+        "status":"2"
+      },
+      unPassParams: {
+        "id":"233e3",
+        "status":"3"
       }
     };
   },
@@ -100,41 +128,45 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    let StockInType = getStore("StockInType");
-    this.StockInType = StockInType;
-    // console.log(this.StockInType);
+    this.params.purchasePlanOrderId = getStore("purchasePlanOrderId");
+    this.detailParams.PurchasePlanOrderItem = getStore("purchasePlanOrderId");
+    this.passParams.id = getStore("id")
+    // let StockInType = getStore("StockInType");
+    // this.StockInType = StockInType;
+    // // console.log(this.StockInType);
 
-    let active = getStore("active");
-    this.act = active;
+    // let active = getStore("active");
+    // this.act = active;
     // console.log(this.act);
-    let temp = getStore("ReserveSearchParam");
-    if (temp) {
-      removeStore("ReserveSearchParam");
-      this.searchParams = JSON.parse(temp);
-    } else {
-      this.searchParams = {};
-    }
+    // let temp = getStore("ReserveSearchParam");
+    // if (temp) {
+    //   removeStore("ReserveSearchParam");
+    //   this.searchParams = JSON.parse(temp);
+    // } else {
+    //   this.searchParams = {};
+    // }
   },
   methods: {
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.findReserveOrderList();
+      this.purchasePlanOrderList();
     },
     // onLoadMore() {
     //   this.findReserveOrderList();
     // },
-    findReserveOrderList() {
+    purchasePlanOrderList() {
       this.params.searchParams = this.searchParams;
       this.params.searchParams["EQ_status"] = "0";
       // 获取记录
-      findReserveOrderList(this.params)
+      purchasePlanOrderList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
+          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
@@ -143,49 +175,49 @@ export default {
           Toast("请求错误");
         });
     },
-    onTitleClickLeft() {
-      // 返回
-      this.$router.push({
-        name: "Main"
-      });
-    },
-    onTitileClickRight() {
-      // 查询
-      this.$router.push({
-        name: "StockInSearch"
-      });
-    },
-    onClickForm() {
-      this.$router.push({
-        name: "ReserveOrderForm"
-      });
-    },
-    onClickSearch() {
-      this.$router.push({
-        name: "StockInSearch"
-      });
-    },
-    onTabChange(active) {
-      if (active == "0") {
-        this.$router.push({
-          name: "Main"
-        });
-      } else if (active == "1") {
-        this.$router.push({
-          name: "Statistics"
-        });
-      } else if (active == "2") {
-        this.$router.push({
-          name: "Mine"
-        });
-      }
-    },
-    findReserveOrderItem(ReserveOrderItemParams) {
+    // onTitleClickLeft() {
+    //   // 返回
+    //   this.$router.push({
+    //     name: "Main"
+    //   });
+    // },
+    // onTitileClickRight() {
+    //   // 查询
+    //   this.$router.push({
+    //     name: "StockInSearch"
+    //   });
+    // },
+    // onClickForm() {
+    //   this.$router.push({
+    //     name: "ReserveOrderForm"
+    //   });
+    // },
+    // onClickSearch() {
+    //   this.$router.push({
+    //     name: "StockInSearch"
+    //   });
+    // },
+    // onTabChange(active) {
+    //   if (active == "0") {
+    //     this.$router.push({
+    //       name: "Main"
+    //     });
+    //   } else if (active == "1") {
+    //     this.$router.push({
+    //       name: "Statistics"
+    //     });
+    //   } else if (active == "2") {
+    //     this.$router.push({
+    //       name: "Mine"
+    //     });
+    //   }
+    // },
+    purchasePlanOrderSupplier(PurchasePlanOrderItem) {
       //获取单个入库单详细
-      setStore("StockInType", this.StockInType);
-      setStore("act", this.act);
-      setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push("/reserve/order/detail");
+      // setStore("StockInType", this.StockInType);
+      // setStore("act", this.act);
+      setStore("PurchasePlanOrderItem", PurchasePlanOrderItem);
+      // this.$router.push("/reserve/order/detail");
     }
   },
   computed: {
@@ -195,26 +227,11 @@ export default {
     statusFilter(value) {
       let realVal = "";
       if (value == 0) {
-        realVal = "等待确认";
+        realVal = "未审核";
       } else if (value == 1) {
-        realVal = "已确认";
+        realVal = "已审核";
       } else if (value == 2) {
         realVal = "已拒绝";
-      }
-      return realVal;
-    },
-    inTypeValue(value) {
-      let realVal = "";
-      if (value == 1) {
-        realVal = "采购入库";
-      } else if (value == 2) {
-        realVal = "退货入库";
-      } else if (value == 3) {
-        realVal = "外协入库";
-      } else if (value == 4) {
-        realVal = "借用入库";
-      } else if (value == 5) {
-        realVal = "废品入库";
       }
       return realVal;
     }

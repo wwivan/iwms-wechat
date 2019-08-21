@@ -35,10 +35,16 @@ export const messageDetail = params => post("messageDetail", params);
 //采购模块
 //所有采购计划单
 export const purchasePlanOrderList = params =>
-  post("purchase/purchaseOrder/findPurchaseOrderList", params);
+  post("purchase/purchasePlanOrder/findPurchasePlanOrderItemList", params);
 //所有采购订单
 export const purchaseOrderList = params =>
   post("purchase/purchasePlanOrder/findPurchasePlanOrderList", params);
+//查看供应商
+export const purchasePlanOrderSupplier = params =>
+  post(
+    "purchase/purchasePlanOrder/findPurchasePlanOrderItemDistributeList",
+    params
+  );
 //采购计划单审核
 export const purchaseOrderPass = params =>
   post("purchase/purchaseOrder/savePurchaseOrderPass", params);

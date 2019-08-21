@@ -36,6 +36,7 @@ import WarehouseManagement from "./views/WarehouseManagement";
 import SaleAndPurchase from "./views/SaleAndPurchase";
 //销售、采购部分
 import PurchasePlanOrder from "./views/SaleAndPurchase/PurchasePlanOrder";
+import PurchasePlanOrderDetail from "./views/SaleAndPurchase/PurchasePlanOrderDetail";
 import PurchaseOrder from "./views/SaleAndPurchase/PurchaseOrder";
 Vue.use(Router);
 
@@ -98,6 +99,10 @@ export default new Router({
         { path: "/stock/take/detail", component: StockTakeDetail },
         //销售采购部分
         { path: "/purchase/plan/order", component: PurchasePlanOrder },
+        {
+          path: "/purchase/plan/order/detail",
+          component: PurchasePlanOrderDetail
+        },
         { path: "/purchase/order", component: PurchaseOrder }
       ]
     }

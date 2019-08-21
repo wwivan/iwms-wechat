@@ -34,13 +34,13 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{item.orderNo}}</span>
-            <span class="context">{{item.status | statusFilter}}</span>
+            <span class="context">{{item.purchasePlanOrder.orderNo}}</span>
+            <span class="context text-right">{{item.status | statusFilter}}</span>
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>原销售单: {{item.saleOrder}}</div>
-              <div>采购总价: {{item.amount}}</div>
+              <div>采购量: {{item.actualNum}} 个</div>
+              <div>采购总价: {{item.amount}} 元</div>
               <div>创建日期: {{item.createTime}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
@@ -99,8 +99,7 @@ export default {
       params: {
         page: 1,
         pageSize: 10,
-        sortType: "auto",
-        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+        // purchasePlanOrderId: "dd080d60-5018-456e-9d54-ed8c4680cd92",
         searchParams: {}
       }
     };
@@ -195,8 +194,9 @@ export default {
       //获取单个入库单详细
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
-      setStore("PurchasePlanOrderItemParams", PurchasePlanOrderItemParams);
-      // this.$router.push("/reserve/order/detail");
+      setStore("purchasePlanOrderId", PurchasePlanOrderItemParams.purchasePlanOrder.id);
+      setStore("id",PurchasePlanOrderItemParams.id)
+      this.$router.push("/purchase/plan/order/detail");
     }
   },
   computed: {
