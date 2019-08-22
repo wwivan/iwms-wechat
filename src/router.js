@@ -38,6 +38,7 @@ import SaleAndPurchase from "./views/SaleAndPurchase";
 import PurchasePlanOrder from "./views/SaleAndPurchase/PurchasePlanOrder";
 import PurchasePlanOrderDetail from "./views/SaleAndPurchase/PurchasePlanOrderDetail";
 import PurchaseOrder from "./views/SaleAndPurchase/PurchaseOrder";
+import PurchasePlanDistributionDetail from "./views/SaleAndPurchase/PurchasePlanDistributionDetail";
 Vue.use(Router);
 
 export default new Router({
@@ -102,6 +103,10 @@ export default new Router({
         {
           path: "/purchase/plan/order/detail",
           component: PurchasePlanOrderDetail
+        },
+        {
+          path: "/purchase/plan/distribution/detail",
+          component: PurchasePlanDistributionDetail
         },
         { path: "/purchase/order", component: PurchaseOrder }
       ]

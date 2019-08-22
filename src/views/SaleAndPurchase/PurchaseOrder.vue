@@ -1,4 +1,5 @@
 <template>
+<!-- 采购订单 -->
   <div class="purchase_order">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">

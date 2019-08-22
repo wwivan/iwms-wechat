@@ -1,4 +1,5 @@
 <template>
+<!-- 多个采购计划订单 -->
   <div class="purchase_plan_order">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -195,7 +196,7 @@ export default {
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
       setStore("purchasePlanOrderId", PurchasePlanOrderItemParams.purchasePlanOrder.id);
-      setStore("id",PurchasePlanOrderItemParams.id)
+      setStore("planOrderId",PurchasePlanOrderItemParams.id)
       this.$router.push("/purchase/plan/order/detail");
     }
   },

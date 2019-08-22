@@ -1,4 +1,5 @@
 <template>
+<!-- 采购计划详情单 -->
   <div class="purchase_plan_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -54,7 +55,11 @@
                   @click="purchasePlanOrderSupplier(item)"
                 >查看详情</div>
               </div>
-              <div class="confirm mt-3">
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <div class="confirm mt-3">
                 <div
                   style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                   @click="purchaseOrderPass()"
@@ -63,14 +68,9 @@
               <div class="confirm mt-3">
                 <div
                   style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                  @click="purchaseOrderPass()"
+                  @click="purchaseOrderUnPass()"
                 >审核驳回</div>
               </div>
-            </div>
-          </div>
-        </div>
-      </van-list>
-
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -87,7 +87,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { purchasePlanOrderList } from "@/api/api";
+import { purchasePlanOrderList,purchaseOrderPass } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -128,9 +128,9 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    this.params.purchasePlanOrderId = getStore("purchasePlanOrderId");
-    this.detailParams.PurchasePlanOrderItem = getStore("purchasePlanOrderId");
-    this.passParams.id = getStore("id")
+    this.params.purchasePlanOrderId = getStore("purchasePlanId");
+    this.detailParams.PurchasePlanOrderItem = getStore("purchasePlanId");
+    this.passParams.id = getStore("purchasePlanId")
     // let StockInType = getStore("StockInType");
     // this.StockInType = StockInType;
     // // console.log(this.StockInType);
@@ -212,12 +212,27 @@ export default {
     //     });
     //   }
     // },
+    //查看供应商分配
     purchasePlanOrderSupplier(PurchasePlanOrderItem) {
-      //获取单个入库单详细
-      // setStore("StockInType", this.StockInType);
-      // setStore("act", this.act);
-      setStore("PurchasePlanOrderItem", PurchasePlanOrderItem);
-      // this.$router.push("/reserve/order/detail");
+      setStore("planOrderId", PurchasePlanOrderItem.id);
+      this.$router.push("/purchase/plan/distribution/detail");
+    },
+    //审核通过
+    purchaseOrderPass(){
+this.passParams.id = getStore("purchasePlanId")
+purchaseOrderPass(this.passParams)
+    },
+    // purchaseOrderPass1(){
+    //   
+    //   // purchaseOrderPass(this.passParams).then(res=>{
+
+    //   // })
+      
+    // }
+    //审核驳回
+    purchaseOrderUnPass(){
+      this.unPassParams.id = getStore("purchasePlanId")
+      purchaseOrderPass(this.unPassParams)
     }
   },
   computed: {

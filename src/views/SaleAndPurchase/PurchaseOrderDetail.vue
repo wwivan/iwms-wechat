@@ -1,4 +1,5 @@
 <template>
+<!-- 采购订单详情 -->
   <div class="purchase_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -182,10 +183,10 @@ export default {
       }
     },
     findReserveOrderItem(ReserveOrderItemParams) {
-      //获取单个入库单详细
-      setStore("StockInType", this.StockInType);
-      setStore("act", this.act);
-      setStore("ReserveOrderItemParams", ReserveOrderItemParams);
+      // //获取单个入库单详细
+      // setStore("StockInType", this.StockInType);
+      // setStore("act", this.act);
+      // setStore("ReserveOrderItemParams", ReserveOrderItemParams);
       this.$router.push("/reserve/order/detail");
     }
   },
