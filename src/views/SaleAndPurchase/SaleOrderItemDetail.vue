@@ -195,7 +195,7 @@ export default {
           name: "Mine"
         });
       }
-    },4t
+    },
     back() {
 
       this.$router.push("/sale/order");
