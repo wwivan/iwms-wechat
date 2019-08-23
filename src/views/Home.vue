@@ -29,7 +29,7 @@
             </div>
             下架
       </div>-->
-      <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
+      <router-link class="item fs-xs text-grey" tag="div" to="/search/page">
         <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
           <div class="icon">
             <img src="../assets/icons/查询.png" style="width:100%" alt />
