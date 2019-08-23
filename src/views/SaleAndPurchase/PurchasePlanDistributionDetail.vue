@@ -1,5 +1,5 @@
 <template>
-<!-- 供应商分配 -->
+  <!-- 供应商分配 -->
   <div class="purchase_plan_distribution_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -54,6 +54,12 @@
           </div>
         </div>
       </van-list>
+      <div class="confirm ml-4 mt-3">
+        <div
+          style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+          @click="goback"
+        >返回</div>
+      </div>
 
       <div class="van-list__loading">
         <div
@@ -94,13 +100,13 @@ export default {
   },
   created() {
     this.onRefreshList();
-    this.params.purchasePlanOrderItemId = getStore("planOrderId")
-    console.log(this.params.purchasePlanOrderItemId)
+    this.params.purchasePlanOrderItemId = getStore("planOrderId");
+    console.log(this.params.purchasePlanOrderItemId);
   },
   mounted() {
     this.params.fid = this.fid;
-    this.params.purchasePlanOrderItemId = getStore("planOrderId")
-    console.log(this.params.purchasePlanOrderItemId)
+    this.params.purchasePlanOrderItemId = getStore("planOrderId");
+    console.log(this.params.purchasePlanOrderItemId);
     // let StockInType = getStore("StockInType");
     // this.StockInType = StockInType;
     // // console.log(this.StockInType);
@@ -117,6 +123,10 @@ export default {
     // }
   },
   methods: {
+    goback() {
+      console.log('返回上一页')
+      this.$router.push("/purchase/plan/order/detail")
+    },
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
@@ -136,7 +146,7 @@ export default {
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
-          console.log(this.records)
+          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
@@ -181,7 +191,7 @@ export default {
           name: "Mine"
         });
       }
-    },
+    }
     // findReserveOrderItem(ReserveOrderItemParams) {
     //   //获取单个入库单详细
     //   setStore("StockInType", this.StockInType);

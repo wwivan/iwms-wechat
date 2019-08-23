@@ -59,7 +59,7 @@
           <div class="content">
             <div>
               <div>入库数量: {{item.qty}}</div>
-              <div>未理数量: {{item.qty - item.checkedInQty}}</div>
+              <!-- <div>未理数量: {{item.qty - item.checkedInQty}}</div> -->
               <div>物料条码: {{item.materielSku.barcode}}</div>
               <div>物料名称: {{item.materielSku.name}}</div>
               <div style="margin-bottom:0.05rem"></div>
@@ -202,16 +202,17 @@ export default {
           this.loading = false;
           this.finished = res.data.last;
           let items = res.data.content;
-          // console.log(items);
+          console.log(items);
           let result = "";
           for (let item of items) {
             result += item.id + ",";
           }
           console.log(result);
-          if (result != "") {
-            this.getCheckedInQty(result);
-          }
+          // if (result != "") {
+          //   this.getCheckedInQty(result);
+          // }
           this.records.push(...items);
+          console.log(this.records)
         })
         .catch(error => {
           this.finished = true;

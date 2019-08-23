@@ -26,8 +26,9 @@
     </div>
     <div class="main">
       <!-- <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order> -->
-      <purchase-order v-show="this.orderType == '3'"></purchase-order>
-      <purchase-plan v-show="this.orderType == '2'"></purchase-plan>
+      <sale-order v-if="this.orderType =='1'"></sale-order>
+      <purchase-order v-if="this.orderType == '3'"></purchase-order>
+      <purchase-plan v-if="this.orderType == '2'"></purchase-plan>
     </div>
   </div>
 </template>
@@ -37,11 +38,12 @@ import { getStore, setStore } from "@/util/util";
 import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
 import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan"
 import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
+import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue"
 export default {
-  components: { purchasePlanOrder ,purchaseOrder,purchasePlan},
+  components: { purchasePlanOrder ,purchaseOrder,purchasePlan,saleOrder},
   data() {
     return {
-      orderType: "0"
+      orderType: ""
     };
   },
   created() {
@@ -50,6 +52,9 @@ export default {
   methods: {
     initOrderType() {
       this.orderType = getStore("orderType");
+      if(this.orderType == undefined){
+        this.orderType = '1'
+      }
     },
     orderTypeActive(k) {
       setStore("orderType", k);

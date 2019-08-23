@@ -50,8 +50,18 @@ export const purchaseOrderPass = params =>
   post("purchase/purchaseOrder/savePurchaseOrderPass", params);
 //所有采购订单
 export const purchaseOrderList = params =>
-  post("purchase/purchasePlanOrder/findPurchasePlanOrderList", params);
+  post("purchase/purchaseOrder/findPurchaseOrderList", params);
+//采购订单明细
+export const purchaseOrderItemList = params =>
+  post("purchase/purchaseOrder/findPurchaseOrderItemList", params);
 
+//销售模块
+// 销售订单
+export const findSaleOrderList = params =>
+  post("saleOrder/findSaleOrderList", params);
+// 销售订单明细
+export const findSaleOrderItemList = params =>
+  post("saleOrder/findSaleOrderItemList", params);
 //库存预警
 export const dangerStorage = params =>
   post("/order/stockUseNumLTMinStock", params);

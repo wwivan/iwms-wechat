@@ -1,5 +1,5 @@
 <template>
-<!-- 采购计划详情单 -->
+  <!-- 采购计划详情单 -->
   <div class="purchase_plan_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -51,26 +51,29 @@
             <div style="width:0.8rem">
               <div class="confirm">
                 <div
-                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                  style="width:0.6rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                   @click="purchasePlanOrderSupplier(item)"
-                >查看详情</div>
+                >详情</div>
               </div>
             </div>
           </div>
         </div>
       </van-list>
-      <div class="confirm mt-3">
-                <div
-                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                  @click="purchaseOrderPass()"
-                >审核通过</div>
-              </div>
-              <div class="confirm mt-3">
-                <div
-                  style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                  @click="purchaseOrderUnPass()"
-                >审核驳回</div>
-              </div>
+      <div class="d-flex jc-around ml-3">
+        <div class="confirm mt-3">
+          <div
+            style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #F7C77F, #FF9860);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+            @click="purchaseOrderPass()"
+          >审核通过</div>
+        </div>
+        <div class="confirm mt-3">
+          <div
+            style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779 , #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+            @click="purchaseOrderUnPass()"
+          >审核驳回</div>
+        </div>
+      </div>
+
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -87,7 +90,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { purchasePlanOrderList,purchaseOrderPass } from "@/api/api";
+import { purchasePlanOrderList, purchaseOrderPass } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -106,20 +109,19 @@ export default {
         purchasePlanOrderId: "",
         searchParams: {}
       },
-      detailParams:{
+      detailParams: {
         page: 1,
         pageSize: 10,
         purchasePlanOrderItemId: "87eebe08-bd2a-429e-a717-0f24e2a369a3",
-        searchParams: {
-        }
+        searchParams: {}
       },
       passParams: {
-        "id":"233e3",
-        "status":"2"
+        id: "233e3",
+        status: "2"
       },
       unPassParams: {
-        "id":"233e3",
-        "status":"3"
+        id: "233e3",
+        status: "3"
       }
     };
   },
@@ -130,7 +132,7 @@ export default {
     this.params.fid = this.fid;
     this.params.purchasePlanOrderId = getStore("purchasePlanId");
     this.detailParams.PurchasePlanOrderItem = getStore("purchasePlanId");
-    this.passParams.id = getStore("purchasePlanId")
+    this.passParams.id = getStore("purchasePlanId");
     // let StockInType = getStore("StockInType");
     // this.StockInType = StockInType;
     // // console.log(this.StockInType);
@@ -218,21 +220,23 @@ export default {
       this.$router.push("/purchase/plan/distribution/detail");
     },
     //审核通过
-    purchaseOrderPass(){
-this.passParams.id = getStore("purchasePlanId")
-purchaseOrderPass(this.passParams)
+    purchaseOrderPass() {
+      this.passParams.id = getStore("purchasePlanId");
+      purchaseOrderPass(this.passParams);
+      this.$router.push("/sale/and/purchase");
     },
     // purchaseOrderPass1(){
-    //   
+    //
     //   // purchaseOrderPass(this.passParams).then(res=>{
 
     //   // })
-      
+
     // }
     //审核驳回
-    purchaseOrderUnPass(){
-      this.unPassParams.id = getStore("purchasePlanId")
-      purchaseOrderPass(this.unPassParams)
+    purchaseOrderUnPass() {
+      this.unPassParams.id = getStore("purchasePlanId");
+      purchaseOrderPass(this.unPassParams);
+      this.$router.push("/sale/and/purchase");
     }
   },
   computed: {

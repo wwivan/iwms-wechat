@@ -137,7 +137,7 @@ export default {
     // },
     purchasePlanOrder() {
       this.params.searchParams = this.searchParams;
-      this.params.searchParams["EQ_status"] = "0";
+      this.params.searchParams["EQ_status"] = "1";
       // 获取记录
       purchasePlanOrder(this.params)
         .then(res => {

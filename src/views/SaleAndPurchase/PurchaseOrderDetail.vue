@@ -1,5 +1,5 @@
 <template>
-<!-- 采购订单详情 -->
+  <!-- 采购订单详情 -->
   <div class="purchase_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
@@ -36,17 +36,18 @@
               v-show="item.status==4"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span> -->
+            ></span>-->
             <span class="context">{{item.status | statusFilter}}</span>
           </div>
           <div class="content">
             <div>
-              <div>物料名称: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>物料型号: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>采购数量: {{item.deliveryNumber}}</div>
-              <div>采购单价: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>金额小计: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>交付日期: {{item.deliveryNumber}}</div>
+              <div>物料名称: {{item.materielSku.name}}</div>
+              <div>物料型号: {{item.materielSku.model}}</div>
+              <div>采购数量: {{item.qty}}</div>
+              <div>已到货数量： {{item.arriveQty}}</div>
+              <div>采购单价: {{item.price}}</div>
+              <div>金额小计: {{item.amount}}</div>
+              <div>交付日期: {{item.orderTime}}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <!-- <div class="confirm">
@@ -54,7 +55,7 @@
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findReserveOrderItem(item)"
               >查看详情</div>
-            </div> -->
+            </div>-->
           </div>
         </div>
       </van-list>
@@ -62,7 +63,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findReserveOrderList"
+          @click="purchaseOrderItemList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -75,7 +76,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { findReserveOrderList } from "@/api/api";
+import { purchaseOrderItemList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -89,10 +90,9 @@ export default {
       records: [],
       searchParams: {},
       params: {
-        pageNumber: 1,
-        pageSize: 30,
-        sortType: "auto",
-        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        page: 1,
+        pageSize: 10,
+        purchaseOrderId: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
         searchParams: {}
       }
     };
@@ -102,41 +102,43 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    let StockInType = getStore("StockInType");
-    this.StockInType = StockInType;
-    // console.log(this.StockInType);
+    // let StockInType = getStore("StockInType");
+    // this.StockInType = StockInType;
+    // // console.log(this.StockInType);
 
-    let active = getStore("active");
-    this.act = active;
-    // console.log(this.act);
-    let temp = getStore("ReserveSearchParam");
-    if (temp) {
-      removeStore("ReserveSearchParam");
-      this.searchParams = JSON.parse(temp);
-    } else {
-      this.searchParams = {};
-    }
+    // let active = getStore("active");
+    // this.act = active;
+    // // console.log(this.act);
+    // let temp = getStore("ReserveSearchParam");
+    // if (temp) {
+    //   removeStore("ReserveSearchParam");
+    //   this.searchParams = JSON.parse(temp);
+    // } else {
+    //   this.searchParams = {};
+    // }
   },
   methods: {
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.findReserveOrderList();
+      this.purchaseOrderItemList();
     },
     // onLoadMore() {
     //   this.findReserveOrderList();
     // },
-    findReserveOrderList() {
+    purchaseOrderItemList() {
+      this.params.purchaseOrderId = getStore("PurchaseOrderId");
       this.params.searchParams = this.searchParams;
       this.params.searchParams["EQ_status"] = "0";
       // 获取记录
-      findReserveOrderList(this.params)
+      purchaseOrderItemList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
+          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
@@ -181,14 +183,14 @@ export default {
           name: "Mine"
         });
       }
-    },
-    findReserveOrderItem(ReserveOrderItemParams) {
-      // //获取单个入库单详细
-      // setStore("StockInType", this.StockInType);
-      // setStore("act", this.act);
-      // setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push("/reserve/order/detail");
     }
+    // findReserveOrderItem(ReserveOrderItemParams) {
+    //   // //获取单个入库单详细
+    //   // setStore("StockInType", this.StockInType);
+    //   // setStore("act", this.act);
+    //   // setStore("ReserveOrderItemParams", ReserveOrderItemParams);
+    //   this.$router.push("/reserve/order/detail");
+    // }
   },
   computed: {
     ...mapGetters(["fid"])
@@ -197,11 +199,11 @@ export default {
     statusFilter(value) {
       let realVal = "";
       if (value == 0) {
-        realVal = "等待确认";
+        realVal = "采购";
       } else if (value == 1) {
-        realVal = "已确认";
+        realVal = "退货";
       } else if (value == 2) {
-        realVal = "已拒绝";
+        realVal = "换货";
       }
       return realVal;
     },

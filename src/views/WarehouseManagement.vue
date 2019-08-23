@@ -66,6 +66,9 @@ export default {
   methods: {
     initStockType() {
       this.stockType = getStore("stockType");
+      if(this.stockType == undefined){
+        this.stockType = '1'
+      }
     },
     stockTypeActive(k) {
       setStore("stockType", k);

@@ -10,56 +10,63 @@
     </div>-->
     <div class="container">
       <van-pull-refresh v-model="loading" @refresh="onRefreshList">
-        <div v-show="!isshow">
-          <van-list v-model="loading" :finished="finished">
-            <div
-              v-for="(item, index) in records"
-              :key="index"
-              class="stock-in-detail"
-              :class="(index < (records.length-1))?'bottom':''"
-            >
-              <!-- <div :class="judgeStatus(item)"> -->
-                <div class="header">
-                  <span
-                    v-show="item.status==0"
-                    class="bot"
-                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                  ></span>
-                  <span
-                    v-show="item.status==1"
-                    class="bot"
-                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                  ></span>
-                  <span
-                    v-show="item.status==2"
-                    class="bot"
-                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                  ></span>
-                  <span
-                    v-show="item.status==3"
-                    class="bot"
-                    style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-                  ></span>
-                  <span
-                    v-show="item.status==4"
-                    class="bot"
-                    style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-                  ></span>
-                  <span class="context">{{item.status | statusFilter}}</span>
-                  <span class="icon" @click="findStockInDetail(item)">
-                    <img style="width:100%" src="../../assets/images/入库登记-编辑@2x.png" alt />
-                  </span>
-                </div>
-                <div class="content">
-                  <div>供应商：{{item.supplier == undefined? "":item.supplier.name}}</div>
-                  <div>仓库：{{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-                  <div>入库类型：{{item.inType | inTypeValue}}</div>
-                  <div>物料信息：{{item.skuMessage==undefined?"":item.skuMessage}}</div>
-                  <div style="margin-bottom:0.05rem"></div>
-                </div>
-              <!-- </div> -->
+        <van-list v-model="loading" :finished="finished">
+          <div
+            v-for="(item, index) in records"
+            :key="index"
+            class="stock-in-detail"
+            :class="(index < (records.length-1))?'bottom':''"
+          >
+            <!-- <div :class="judgeStatus(item)"> -->
+            <div class="header">
+              <span
+                v-show="item.status==0"
+                class="bot"
+                style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+              ></span>
+              <span
+                v-show="item.status==1"
+                class="bot"
+                style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+              ></span>
+              <span
+                v-show="item.status==2"
+                class="bot"
+                style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+              ></span>
+              <span
+                v-show="item.status==3"
+                class="bot"
+                style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+              ></span>
+              <span
+                v-show="item.status==4"
+                class="bot"
+                style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+              ></span>
+              <span class="context">{{item.status | statusFilter}}</span>
+              <span class="icon" @click="findStockInDetail(item)">
+                <img style="width:100%" src="../../assets/images/入库登记-编辑@2x.png" alt />
+              </span>
             </div>
-          </van-list>
+            <div class="content">
+              <div>供应商：{{item.supplier == undefined? "":item.supplier.name}}</div>
+              <div>仓库：{{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
+              <div>入库类型：{{item.inType | inTypeValue}}</div>
+              <div>物料信息：{{item.materielSkuVO==undefined?"":item.materielSkuVO}}</div>
+              <div style="margin-bottom:0.05rem"></div>
+            </div>
+            <!-- </div> -->
+          </div>
+        </van-list>
+        <div class="van-list__loading">
+          <div
+            v-if="!loading && records.length === 0"
+            @click="findStockInList"
+            style="height: 10rem"
+          >
+            <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
+          </div>
         </div>
       </van-pull-refresh>
     </div>
@@ -68,7 +75,7 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { Toast } from "vant";
-import { findStockInList, doToCell, findReserveOrderList } from "@/api/api";
+import { findStockInList, doToCell } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Dialog } from "vant";
 export default {
@@ -127,21 +134,21 @@ export default {
       this.records = [];
       this.findStockInList();
     },
-    // onLoadMore() {
-    //   console.log("############");
-    //   // this.params.pageNumber = this.params.pageNumber + 1;
-    //   // console.log(this.params.pageNumber)
-    //   this.findStockInList();
-    // },
+    onLoadMore() {
+      // console.log("############");
+      // // this.params.pageNumber = this.params.pageNumber + 1;
+      // // console.log(this.params.pageNumber)
+      this.findStockInList();
+    },
     findStockInList() {
       this.params.searchParams = this.searchParams;
-      if (this.isshow == false) {
-        //this.params.searchParams["EQ_status"] = "0";
-        console.log(this.isshow);
-      } else if (this.isshow == true) {
-        this.params.searchParams["IN_status"] = "0,1,2";
-        console.log(111122222211111);
-      }
+      // if (this.isshow == false) {
+      //   //this.params.searchParams["EQ_status"] = "0";
+      //   console.log(this.isshow);
+      // } else if (this.isshow == true) {
+      this.params.searchParams["IN_status"] = "0,1,2";
+      //   console.log(111122222211111);
+      // // }
 
       // 获取记录
       findStockInList(this.params)
@@ -151,6 +158,7 @@ export default {
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
+          console.log(this.records)
         })
         .catch(error => {
           this.finished = true;

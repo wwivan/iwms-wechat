@@ -1,0 +1,189 @@
+{
+    "code": 0,
+    "message": "success",
+    "data": {
+      "content": [
+        {
+          "id": "45adc547-0e3b-4474-89e8-2c4e43ca90db",
+          "orderNo": "CP201908230002",
+          "saleOrder": {
+            "id": "bda1ec24-86b6-49cf-ae0e-e745b9191491",
+            "orderNo": "XS201908230001",
+            "amount": 72600000,
+            "price": 212,
+            "factory": {
+              "id": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+              "fid": "900001",
+              "name": "龙猫云泽工厂",
+              "user": {
+                "id": "10001",
+                "name": "管理员",
+                "password": "6846860684f05029abccc09a53cd66f1",
+                "loginName": "admin",
+                "lastTime": "2019-08-23 11:04:19",
+                "roleList": [
+                  {
+                    "id": "6bac1280-7973-11e9-acb8-7cd30ae3fc90",
+                    "pid": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+                    "fid": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+                    "name": "管理员",
+                    "enname": "admin",
+                    "memo": "管理员",
+                    "status": "1",
+                    "createTime": "2019-05-12 18:57:15",
+                    "createUser": "yuan.yao",
+                    "lastTime": "2019-05-12 18:57:15",
+                    "updateUser": "yuan.yao",
+                    "resource": []
+                  }
+                ]
+              },
+              "sysProductsInfo": {
+                "id": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+                "productName": "标准",
+                "productDesc": "标准",
+                "status": "1",
+                "orderNum": 99999,
+                "createTime": "2017-12-14 15:21:23",
+                "createUser": "系统",
+                "lastTime": "2019-05-11 20:02:44",
+                "updateUser": "测试总店",
+                "productType": "Maintain"
+              }
+            },
+            "customer": {
+              "id": "7310f642-3519-49c8-854f-42b1a33d23b4",
+              "code": "15212",
+              "name": "李四",
+              "shortName": "谢培华",
+              "status": "1",
+              "descn": " ",
+              "contactName": "姚跑跑",
+              "contactPhone": "13568599856",
+              "contactEmail": "16616161@qq.com"
+            },
+            "operatorName": "",
+            "type": "0",
+            "orderTime": "2019-08-23 00:00:00",
+            "remark": "pcCreate:",
+            "status": "4",
+            "createTime": "2019-08-23 09:19:58",
+            "lastTime": "2019-08-23 09:22:39"
+          },
+          "createTime": "2019-08-23 09:23:20",
+          "status": "0",
+          "remark": "pcCreate:",
+          "factory": {
+            "id": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+            "fid": "900001",
+            "name": "龙猫云泽工厂",
+            "user": {
+              "id": "10001",
+              "name": "管理员",
+              "password": "6846860684f05029abccc09a53cd66f1",
+              "loginName": "admin",
+              "lastTime": "2019-08-23 11:04:19",
+              "roleList": [
+                {
+                  "id": "6bac1280-7973-11e9-acb8-7cd30ae3fc90",
+                  "pid": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+                  "fid": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+                  "name": "管理员",
+                  "enname": "admin",
+                  "memo": "管理员",
+                  "status": "1",
+                  "createTime": "2019-05-12 18:57:15",
+                  "createUser": "yuan.yao",
+                  "lastTime": "2019-05-12 18:57:15",
+                  "updateUser": "yuan.yao",
+                  "resource": []
+                }
+              ]
+            },
+            "sysProductsInfo": {
+              "id": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+              "productName": "标准",
+              "productDesc": "标准",
+              "status": "1",
+              "orderNum": 99999,
+              "createTime": "2017-12-14 15:21:23",
+              "createUser": "系统",
+              "lastTime": "2019-05-11 20:02:44",
+              "updateUser": "测试总店",
+              "productType": "Maintain"
+            }
+          }
+        },
+        {
+          "id": "243f2fe5-4e71-4a36-8480-8ede46f56507",
+          "orderNo": "CP201908230001",
+          "createTime": "2019-08-23 09:23:00",
+          "lastTime": "2019-08-23 09:23:00",
+          "status": "0",
+          "remark": "pcCreate:null",
+          "factory": {
+            "id": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+            "fid": "900001",
+            "name": "龙猫云泽工厂",
+            "user": {
+              "id": "10001",
+              "name": "管理员",
+              "password": "6846860684f05029abccc09a53cd66f1",
+              "loginName": "admin",
+              "lastTime": "2019-08-23 11:04:19",
+              "roleList": [
+                {
+                  "id": "6bac1280-7973-11e9-acb8-7cd30ae3fc90",
+                  "pid": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+                  "fid": "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+                  "name": "管理员",
+                  "enname": "admin",
+                  "memo": "管理员",
+                  "status": "1",
+                  "createTime": "2019-05-12 18:57:15",
+                  "createUser": "yuan.yao",
+                  "lastTime": "2019-05-12 18:57:15",
+                  "updateUser": "yuan.yao",
+                  "resource": []
+                }
+              ]
+            },
+            "sysProductsInfo": {
+              "id": "53adad94-58c0-4e7c-87c4-9a88e153ed3a",
+              "productName": "标准",
+              "productDesc": "标准",
+              "status": "1",
+              "orderNum": 99999,
+              "createTime": "2017-12-14 15:21:23",
+              "createUser": "系统",
+              "lastTime": "2019-05-11 20:02:44",
+              "updateUser": "测试总店",
+              "productType": "Maintain"
+            }
+          }
+        }
+      ],
+      "pageable": {
+        "sort": {
+          "sorted": true,
+          "unsorted": false
+        },
+        "offset": 0,
+        "pageNumber": 0,
+        "pageSize": 30,
+        "paged": true,
+        "unpaged": false
+      },
+      "last": true,
+      "totalPages": 1,
+      "totalElements": 2,
+      "number": 0,
+      "size": 30,
+      "sort": {
+        "sorted": true,
+        "unsorted": false
+      },
+      "numberOfElements": 2,
+      "first": true
+    }
+  }
