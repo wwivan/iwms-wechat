@@ -92,7 +92,13 @@ export default new Router({
         { path: "/echart", component: Echart },
         { path: "/search/page", component: SearchPage },
         { path: "/warehouse/management", component: WarehouseManagement },
-        { path: "/sale/and/purchase", component: SaleAndPurchase },
+        {
+          path: "/sale/and/purchase",
+          component: SaleAndPurchase
+          // children: [
+          //   { path: "sale/order/item/detail", component: SaleOrderItemDetail }
+          // ]
+        },
         { path: "/account/security", component: AccountSecurity },
         { path: "/logOut", component: LogOut },
         { path: "/customer", component: Customer },

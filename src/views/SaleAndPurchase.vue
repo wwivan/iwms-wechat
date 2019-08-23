@@ -25,10 +25,12 @@
       </div>
     </div>
     <div class="main">
+      
       <!-- <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order> -->
       <sale-order v-if="this.orderType =='1'"></sale-order>
       <purchase-order v-if="this.orderType == '3'"></purchase-order>
       <purchase-plan v-if="this.orderType == '2'"></purchase-plan>
+      <router-view></router-view>
     </div>
   </div>
 </template>

@@ -201,6 +201,7 @@ export default {
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
       setStore("SaleOrderItemId", SaleOrderItem.id);
+      // this.$router.push("/sale/and/purchase/sale/order/item/detail");
       this.$router.push("/sale/order/item/detail");
     }
   },
