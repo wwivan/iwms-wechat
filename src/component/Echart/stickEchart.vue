@@ -1,4 +1,5 @@
 <template>
+  <!-- 库存统计top10 -->
   <div
     :class="className"
     :id="id"

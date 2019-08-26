@@ -1,4 +1,5 @@
 <template>
+  <!-- 库存预警 -->
   <div
     :class="className"
     :id="id"

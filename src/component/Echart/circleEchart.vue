@@ -1,4 +1,5 @@
 <template>
+  <!-- 物料分布 -->
   <div
     :class="className"
     :id="id"

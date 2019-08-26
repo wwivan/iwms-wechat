@@ -15,7 +15,7 @@ export const getUserAuth = params =>
 // 获取用户信息
 export const getUserInfo = params => get("/auth/getUserInfo", params);
 // 获取统计数据
-export const getTask = params => post("/order/ault", params);
+export const getTask = params => post("/order/getDefault", params);
 export const reg = params => post("reg", params);
 export const hotSale = () => post("hotsale");
 export const saleGroup = () => post("salegroup");
