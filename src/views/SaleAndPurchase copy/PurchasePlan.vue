@@ -1,6 +1,6 @@
 <template>
-  <!-- 采购订单 -->
-  <div class="purchase_order">
+  <!-- 采购计划主单 -->
+  <div class="purchase_plan_order">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
         <div
@@ -10,33 +10,31 @@
           :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
-            <!-- 未收货 -->
             <span
               v-show="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
-            <!-- 收获完成 -->
             <span
               v-show="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
-            <!-- <span
-              v-show="item.status==2"
+            <span
+              v-show="item.status == 2"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status==3"
+              v-show="item.status == 3"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status==4"
+              v-show="item.status == 4"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>-->
+            ></span>
             <span class="context">{{ item.orderNo }}</span>
             <span class="context text-right">{{
               item.status | statusFilter
@@ -44,26 +42,41 @@
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>供应商: {{ item.supplier.name }}</div>
-              <div>总金额: {{ item.spAmount }} 元</div>
-              <div>采购计划单号: {{ item.purchasePlanOrder.orderNo }}</div>
+              <div>
+                源销售单:
+                {{ item.saleOrder != undefined ? item.saleOrder.orderNo : "" }}
+              </div>
+              <div>采购总价: {{ item.amount }}</div>
+              <div>创建日期: {{ item.createTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findPurchaseOrderItem(item)"
+                @click="findPurchasePlanOrderItem(item)"
               >
                 查看详情
               </div>
             </div>
+            <!-- <div class="confirm">
+              <div
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                @click="findReserveOrderItem(item)"
+              >审核通过</div>
+            </div>
+            <div class="confirm">
+              <div
+                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+                @click="findReserveOrderItem(item)"
+              >审核驳回</div>
+            </div>-->
           </div>
         </div>
       </van-list>
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="purchaseOrderList"
+          @click="purchasePlanOrder"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -76,7 +89,7 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { purchaseOrderList } from "@/api/api";
+import { purchasePlanOrder } from "@/api/api";
 import { setStore } from "@/util/util";
 // import { Dialog } from "vant";
 export default {
@@ -90,9 +103,8 @@ export default {
       records: [],
       searchParams: {},
       params: {
-        pageNumber: 1,
-        pageSize: 30,
-        userType: "0",
+        page: 1,
+        pageSize: 10,
         fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
         searchParams: {}
       }
@@ -109,30 +121,30 @@ export default {
 
     // let active = getStore("active");
     // this.act = active;
-    // // console.log(this.act);
+    // console.log(this.act);
     // let temp = getStore("ReserveSearchParam");
     // if (temp) {
     //   removeStore("ReserveSearchParam");
     //   this.searchParams = JSON.parse(temp);
     // } else {
     //   this.searchParams = {};
-    // // }
+    // }
   },
   methods: {
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.purchaseOrderList();
+      this.purchasePlanOrder();
     },
     // onLoadMore() {
-    //   this.purchaseOrderList();
+    //   this.findReserveOrderList();
     // },
-    purchaseOrderList() {
-      this.params.searchParams = this.searchParams;
-      this.params.searchParams["EQ_status"] = "0";
+    purchasePlanOrder() {
+      // this.params.searchParams = this.searchParams;
+      // this.params.searchParams["EQ_status"] = "1";
       // 获取记录
-      purchaseOrderList(this.params)
+      purchasePlanOrder(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
@@ -183,12 +195,13 @@ export default {
     //     });
     //   }
     // },
-    findPurchaseOrderItem(PurchaseOrderItem) {
+    findPurchasePlanOrderItem(PurchasePlan) {
       //获取单个入库单详细
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
-      setStore("PurchaseOrderId", PurchaseOrderItem.id);
-      this.$router.push("/sap/purchase/order/detail");
+      setStore("purchasePlanId", PurchasePlan.id);
+      setStore("purchasePlanStatus", PurchasePlan.status);
+      this.$router.push("/purchase/plan/order/detail");
     }
   },
   computed: {
@@ -198,26 +211,17 @@ export default {
     statusFilter(value) {
       let realVal = "";
       if (value == 0) {
-        realVal = "未收货";
+        realVal = "未审核";
       } else if (value == 1) {
-        realVal = "已确认";
+        realVal = "待审核";
       } else if (value == 2) {
-        realVal = "已拒绝";
-      }
-      return realVal;
-    },
-    inTypeValue(value) {
-      let realVal = "";
-      if (value == 1) {
-        realVal = "采购入库";
-      } else if (value == 2) {
-        realVal = "退货入库";
+        realVal = "已审核";
       } else if (value == 3) {
-        realVal = "外协入库";
+        realVal = "审核驳回";
       } else if (value == 4) {
-        realVal = "借用入库";
-      } else if (value == 5) {
-        realVal = "废品入库";
+        realVal = "已下单";
+      } else if (value == 99) {
+        realVal = "已关闭";
       }
       return realVal;
     }

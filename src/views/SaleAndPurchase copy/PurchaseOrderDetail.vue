@@ -1,6 +1,6 @@
 <template>
-  <!-- 采购订单 -->
-  <div class="purchase_order">
+  <!-- 采购订单详情 -->
+  <div class="purchase_order_detail">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
         <div
@@ -37,33 +37,32 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>-->
-            <span class="context">{{ item.orderNo }}</span>
-            <span class="context text-right">{{
-              item.status | statusFilter
-            }}</span>
+            <span class="context">{{ item.status | statusFilter }}</span>
           </div>
-          <div class="content d-flex jc-between">
+          <div class="content">
             <div>
-              <div>供应商: {{ item.supplier.name }}</div>
-              <div>总金额: {{ item.spAmount }} 元</div>
-              <div>采购计划单号: {{ item.purchasePlanOrder.orderNo }}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>采购数量: {{ item.qty }}</div>
+              <div>已到货数量： {{ item.arriveQty }}</div>
+              <div>采购单价: {{ item.price }}</div>
+              <div>金额小计: {{ item.amount }}</div>
+              <div>交付日期: {{ item.orderTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-            <div class="confirm">
+            <!-- <div class="confirm">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findPurchaseOrderItem(item)"
-              >
-                查看详情
-              </div>
-            </div>
+                @click="findReserveOrderItem(item)"
+              >查看详情</div>
+            </div>-->
           </div>
         </div>
       </van-list>
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="purchaseOrderList"
+          @click="purchaseOrderItemList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -76,8 +75,8 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { purchaseOrderList } from "@/api/api";
-import { setStore } from "@/util/util";
+import { purchaseOrderItemList } from "@/api/api";
+import { getStore } from "@/util/util";
 // import { Dialog } from "vant";
 export default {
   data() {
@@ -90,10 +89,9 @@ export default {
       records: [],
       searchParams: {},
       params: {
-        pageNumber: 1,
-        pageSize: 30,
-        userType: "0",
-        fid: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
+        page: 1,
+        pageSize: 10,
+        purchaseOrderId: "42dd7498-b9d3-43b3-b736-3e9844f03ff5",
         searchParams: {}
       }
     };
@@ -116,23 +114,24 @@ export default {
     //   this.searchParams = JSON.parse(temp);
     // } else {
     //   this.searchParams = {};
-    // // }
+    // }
   },
   methods: {
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.purchaseOrderList();
+      this.purchaseOrderItemList();
     },
     // onLoadMore() {
-    //   this.purchaseOrderList();
+    //   this.findReserveOrderList();
     // },
-    purchaseOrderList() {
+    purchaseOrderItemList() {
+      this.params.purchaseOrderId = getStore("PurchaseOrderId");
       this.params.searchParams = this.searchParams;
       this.params.searchParams["EQ_status"] = "0";
       // 获取记录
-      purchaseOrderList(this.params)
+      purchaseOrderItemList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
@@ -146,50 +145,50 @@ export default {
           Toast("请求错误" + error);
         });
     },
-    // onTitleClickLeft() {
-    //   // 返回
-    //   this.$router.push({
-    //     name: "Main"
-    //   });
-    // },
-    // onTitileClickRight() {
-    //   // 查询
-    //   this.$router.push({
-    //     name: "StockInSearch"
-    //   });
-    // },
-    // onClickForm() {
-    //   this.$router.push({
-    //     name: "ReserveOrderForm"
-    //   });
-    // },
-    // onClickSearch() {
-    //   this.$router.push({
-    //     name: "StockInSearch"
-    //   });
-    // },
-    // onTabChange(active) {
-    //   if (active == "0") {
-    //     this.$router.push({
-    //       name: "Main"
-    //     });
-    //   } else if (active == "1") {
-    //     this.$router.push({
-    //       name: "Statistics"
-    //     });
-    //   } else if (active == "2") {
-    //     this.$router.push({
-    //       name: "Mine"
-    //     });
-    //   }
-    // },
-    findPurchaseOrderItem(PurchaseOrderItem) {
-      //获取单个入库单详细
-      // setStore("StockInType", this.StockInType);
-      // setStore("act", this.act);
-      setStore("PurchaseOrderId", PurchaseOrderItem.id);
-      this.$router.push("/sap/purchase/order/detail");
+    onTitleClickLeft() {
+      // 返回
+      this.$router.push({
+        name: "Main"
+      });
+    },
+    onTitileClickRight() {
+      // 查询
+      this.$router.push({
+        name: "StockInSearch"
+      });
+    },
+    onClickForm() {
+      this.$router.push({
+        name: "ReserveOrderForm"
+      });
+    },
+    onClickSearch() {
+      this.$router.push({
+        name: "StockInSearch"
+      });
+    },
+    onTabChange(active) {
+      if (active == "0") {
+        this.$router.push({
+          name: "Main"
+        });
+      } else if (active == "1") {
+        this.$router.push({
+          name: "Statistics"
+        });
+      } else if (active == "2") {
+        this.$router.push({
+          name: "Mine"
+        });
+      }
     }
+    // findReserveOrderItem(ReserveOrderItemParams) {
+    //   // //获取单个入库单详细
+    //   // setStore("StockInType", this.StockInType);
+    //   // setStore("act", this.act);
+    //   // setStore("ReserveOrderItemParams", ReserveOrderItemParams);
+    //   this.$router.push("/reserve/order/detail");
+    // }
   },
   computed: {
     ...mapGetters(["fid"])
@@ -198,11 +197,11 @@ export default {
     statusFilter(value) {
       let realVal = "";
       if (value == 0) {
-        realVal = "未收货";
+        realVal = "采购";
       } else if (value == 1) {
-        realVal = "已确认";
+        realVal = "退货";
       } else if (value == 2) {
-        realVal = "已拒绝";
+        realVal = "换货";
       }
       return realVal;
     },

@@ -1,6 +1,6 @@
 <template>
-  <!-- 采购计划详情单 -->
-  <div class="purchase_plan_order_detail">
+  <!-- 销售订单详情 -->
+  <div class="sale_order">
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished">
         <div
@@ -11,31 +11,46 @@
         >
           <div class="header">
             <span
-              v-show="item.status == 0"
+              v-if="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status == 1"
+              v-if="item.status == 1"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-if="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
             <span
-              v-show="item.status == 2"
+              v-if="item.status == 3"
               class="bot"
-              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
             <span
-              v-show="item.status == 3"
-              class="bot"
-              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-            ></span>
-            <span
-              v-show="item.status == 4"
+              v-if="item.status == 4"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{ item.purchasePlanOrder.orderNo }}</span>
+            <span
+              v-if="item.status == 5"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>
+            <span
+              v-if="item.status == 6"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>
+            <span
+              v-if="item.status == 99"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>
+            <span class="context">{{ item.saleOrder.orderNo }}</span>
             <!-- <span class="context text-right">{{
               item.status | statusFilter
             }}</span> -->
@@ -44,30 +59,23 @@
             <div>
               <div>物料名称: {{ item.materielSku.name }}</div>
               <div>物料型号: {{ item.materielSku.model }}</div>
-              <div>订单需求量: {{ item.demandNum }} 个</div>
-              <div>实际采购量: {{ item.actualNum }} 个</div>
-              <div>库存数量: {{ item.materielSku.stockUseNum }} 个</div>
-              <div>价格小计: {{ item.materielSku.price }} 元</div>
+              <div>销售订单数量: {{ item.qty }}</div>
+              <div>当前库存: {{ item.materielSku.stockUseNum }}</div>
+              <div>单价: {{ item.price }}</div>
+              <div>总价: {{ item.price * item.qty }}</div>
               <div style="margin-bottom:0.05rem"></div>
-            </div>
-            <div style="width:0.8rem">
-              <div class="confirm">
-                <div
-                  style="width:0.6rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                  @click="purchasePlanOrderSupplier(item)"
-                >
-                  详情
-                </div>
-              </div>
             </div>
           </div>
         </div>
       </van-list>
-      <div class="d-flex jc-around ml-3" v-if="this.purchasePlanStatus == 1">
+      <div
+        class="d-flex jc-around ml-3"
+        v-if="this.orderType == '0' && this.saleOrderItemStatus == 1"
+      >
         <div class="confirm mt-3">
           <div
             style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #F7C77F, #FF9860);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-            @click="purchaseOrderPass()"
+            @click="saleOrderPass()"
           >
             审核通过
           </div>
@@ -75,7 +83,7 @@
         <div class="confirm mt-3">
           <div
             style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779 , #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-            @click="purchaseOrderUnPass()"
+            @click="saleOrderUnPass()"
           >
             审核驳回
           </div>
@@ -85,7 +93,7 @@
         class="confirm ml-4"
         v-if="
           this.records.length &&
-            (this.orderType != '2' || this.purchasePlanStatus != 1)
+            (this.orderType == '1' || this.saleOrderItemStatus != 1)
         "
       >
         <div
@@ -98,7 +106,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="purchasePlanOrderList"
+          @click="findSaleOrderItemList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -111,8 +119,8 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { purchasePlanOrderList, purchaseOrderPass } from "@/api/api";
-import { setStore, getStore } from "@/util/util";
+import { findSaleOrderItemList, SaleOrderPass } from "@/api/api";
+import { getStore } from "@/util/util";
 // import { Dialog } from "vant";
 export default {
   data() {
@@ -121,21 +129,15 @@ export default {
       loading: false,
       finished: false,
       act: undefined,
+      orderType: undefined,
       StockInType: undefined,
+      saleOrderItemStatus: 1,
       records: [],
       searchParams: {},
-      purchasePlanStatus: undefined,
-      orderType: "2",
       params: {
         page: 1,
         pageSize: 10,
-        purchasePlanOrderId: "",
-        searchParams: {}
-      },
-      detailParams: {
-        page: 1,
-        pageSize: 10,
-        purchasePlanOrderItemId: "87eebe08-bd2a-429e-a717-0f24e2a369a3",
+        saleOrderId: "1111",
         searchParams: {}
       },
       passParams: {
@@ -150,20 +152,22 @@ export default {
   },
   created() {
     this.onRefreshList();
+    this.saleOrderItemStatus = getStore("saleOrderItemStatus");
+    // eslint-disable-next-line no-console
+    console.log(this.saleOrderItemStatus);
   },
   mounted() {
     this.params.fid = this.fid;
-    this.params.purchasePlanOrderId = getStore("purchasePlanId");
-    this.detailParams.PurchasePlanOrderItem = getStore("purchasePlanId");
-    this.passParams.id = getStore("purchasePlanId");
-    this.purchasePlanStatus = getStore("purchasePlanStatus");
+    this.params.saleOrderId = getStore("SaleOrderItemId");
+    this.orderType = getStore("orderType");
+
     // let StockInType = getStore("StockInType");
     // this.StockInType = StockInType;
     // // console.log(this.StockInType);
 
     // let active = getStore("active");
     // this.act = active;
-    // console.log(this.act);
+    // // console.log(this.act);
     // let temp = getStore("ReserveSearchParam");
     // if (temp) {
     //   removeStore("ReserveSearchParam");
@@ -177,16 +181,16 @@ export default {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.purchasePlanOrderList();
+      this.findSaleOrderItemList();
     },
     // onLoadMore() {
     //   this.findReserveOrderList();
     // },
-    purchasePlanOrderList() {
+    findSaleOrderItemList() {
       this.params.searchParams = this.searchParams;
-      this.params.searchParams["EQ_status"] = "0";
+      // this.params.searchParams["EQ_status"] = "0";
       // 获取记录
-      purchasePlanOrderList(this.params)
+      findSaleOrderItemList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
           this.loading = false;
@@ -200,69 +204,55 @@ export default {
           Toast("请求错误" + error);
         });
     },
-    // onTitleClickLeft() {
-    //   // 返回
-    //   this.$router.push({
-    //     name: "Main"
-    //   });
-    // },
-    // onTitileClickRight() {
-    //   // 查询
-    //   this.$router.push({
-    //     name: "StockInSearch"
-    //   });
-    // },
-    // onClickForm() {
-    //   this.$router.push({
-    //     name: "ReserveOrderForm"
-    //   });
-    // },
-    // onClickSearch() {
-    //   this.$router.push({
-    //     name: "StockInSearch"
-    //   });
-    // },
-    // onTabChange(active) {
-    //   if (active == "0") {
-    //     this.$router.push({
-    //       name: "Main"
-    //     });
-    //   } else if (active == "1") {
-    //     this.$router.push({
-    //       name: "Statistics"
-    //     });
-    //   } else if (active == "2") {
-    //     this.$router.push({
-    //       name: "Mine"
-    //     });
-    //   }
-    // },
-    //查看供应商分配
-    purchasePlanOrderSupplier(PurchasePlanOrderItem) {
-      setStore("planOrderId", PurchasePlanOrderItem.id);
-      this.$router.push("/sap/purchase/plan/distribution/detail");
+    saleOrderPass() {
+      this.passParams.id = getStore("SaleOrderItemId");
+      SaleOrderPass(this.passParams);
+      this.$router.push("/sale/and/purchase");
     },
-    //审核通过
-    purchaseOrderPass() {
-      this.passParams.id = getStore("purchasePlanId");
-      purchaseOrderPass(this.passParams);
-      this.$router.push("/sap/purchase/plan");
+    saleOrderUnPass() {
+      this.unPassParams.id = getStore("SaleOrderItemId");
+      SaleOrderPass(this.unPassParams);
+      this.$router.push("/sale/and/purchase");
     },
-    // purchaseOrderPass1(){
-    //
-    //   // purchaseOrderPass(this.passParams).then(res=>{
-
-    //   // })
-
-    // }
-    //审核驳回
-    purchaseOrderUnPass() {
-      this.unPassParams.id = getStore("purchasePlanId");
-      purchaseOrderPass(this.unPassParams);
-      this.$router.push("/sap/purchase/plan");
+    onTitleClickLeft() {
+      // 返回
+      this.$router.push({
+        name: "Main"
+      });
+    },
+    onTitileClickRight() {
+      // 查询
+      this.$router.push({
+        name: "StockInSearch"
+      });
+    },
+    onClickForm() {
+      this.$router.push({
+        name: "ReserveOrderForm"
+      });
+    },
+    onClickSearch() {
+      this.$router.push({
+        name: "StockInSearch"
+      });
+    },
+    onTabChange(active) {
+      if (active == "0") {
+        this.$router.push({
+          name: "Main"
+        });
+      } else if (active == "1") {
+        this.$router.push({
+          name: "Statistics"
+        });
+      } else if (active == "2") {
+        this.$router.push({
+          name: "Mine"
+        });
+      }
     },
     back() {
-      this.$router.push("/sap/purchase/plan");
+      this.$router.push("/sale/and/purchase");
     }
   },
   computed: {
@@ -274,9 +264,34 @@ export default {
       if (value == 0) {
         realVal = "未审核";
       } else if (value == 1) {
-        realVal = "已审核";
+        realVal = "待审核";
       } else if (value == 2) {
-        realVal = "已拒绝";
+        realVal = "审核通过";
+      } else if (value == 3) {
+        realVal = "审核驳回";
+      } else if (value == 4) {
+        realVal = "未发货";
+      } else if (value == 5) {
+        realVal = "部分发货";
+      } else if (value == 6) {
+        realVal = "全部发货";
+      } else if (value == 99) {
+        realVal = "已关闭";
+      }
+      return realVal;
+    },
+    inTypeValue(value) {
+      let realVal = "";
+      if (value == 1) {
+        realVal = "采购入库";
+      } else if (value == 2) {
+        realVal = "退货入库";
+      } else if (value == 3) {
+        realVal = "外协入库";
+      } else if (value == 4) {
+        realVal = "借用入库";
+      } else if (value == 5) {
+        realVal = "废品入库";
       }
       return realVal;
     }
@@ -330,7 +345,6 @@ export default {
   font-size: 0.13rem;
   line-height: 0.28rem;
 }
-
 .bottom {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }

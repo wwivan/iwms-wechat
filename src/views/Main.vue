@@ -71,7 +71,7 @@
           仓储管理
         </div>
       </router-link>
-      <router-link tag="div" to="/sale/and/purchase" class="w-25">
+      <router-link tag="div" to="/sap" class="w-25">
         <div class="box">
           <span
             class="iconfont icon-rukuliucheng"
@@ -317,6 +317,7 @@ body {
 }
 .tabbar {
   height: 0.57rem;
+  line-height: 0.57rem;
   position: fixed;
   bottom: 0;
   border-top: 0.01rem solid #f0f0f0;
@@ -327,6 +328,13 @@ body {
     // // align-items: center;
     // // height: 0.3rem;
   }
+  .text {
+    line-height: 0.16rem;
+    color: grey;
+  }
+  .active {
+    color: #ff9860;
+  }
 }
 .iconfont {
   width: 0.3rem;
@@ -335,9 +343,7 @@ body {
   font-size: 0.3rem;
   color: grey;
 }
-.text {
-  color: grey;
-}
+
 .header {
   width: 100%;
   height: 0.64rem;
@@ -352,9 +358,7 @@ body {
   width: 100%;
   height: 0.4rem;
 }
-.active {
-  color: #ff9860;
-}
+
 .normal {
   display: none;
 }

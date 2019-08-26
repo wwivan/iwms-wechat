@@ -96,7 +96,12 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: this.names
+            data: this.names,
+            axisLabel: {
+              fontSize: 10,
+              interval: 0,
+              rotate: 40
+            }
           }
         ],
         yAxis: [

@@ -200,7 +200,7 @@ export default {
         PurchasePlanOrderItemParams.purchasePlanOrder.id
       );
       setStore("planOrderId", PurchasePlanOrderItemParams.id);
-      this.$router.push("/purchase/plan/order/detail");
+      this.$router.push("/sap/purchase/plan/order/detail");
     }
   },
   computed: {

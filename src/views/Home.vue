@@ -17,11 +17,7 @@
         </div>
         仓储管理
       </router-link>
-      <router-link
-        class="item fs-xs text-grey"
-        tag="div"
-        to="/sale/and/purchase"
-      >
+      <router-link class="item fs-xs text-grey" tag="div" to="/sap">
         <div
           class="icon-container"
           style="background:linear-gradient(135deg, #F8CF64, #FFCE45)"
@@ -242,26 +238,26 @@ export default {
         { name: "三级垫圈", stockInValue: 260, stockOutValue: 200 }
       ],
       items2: [
-        { name: "1", stockInValue: 30, stockOutValue: 10 },
-        { name: "2", stockInValue: 40, stockOutValue: 20 },
-        { name: "3", stockInValue: 50, stockOutValue: 30 },
-        { name: "4", stockInValue: 30, stockOutValue: 14 },
-        { name: "5", stockInValue: 40, stockOutValue: 20 },
-        { name: "6", stockInValue: 50, stockOutValue: 40 }
+        { name: "三级垫圈", stockInValue: 30, stockOutValue: 10 },
+        { name: "外六角", stockInValue: 40, stockOutValue: 20 },
+        { name: "螺钉", stockInValue: 50, stockOutValue: 30 },
+        { name: "白金卡", stockInValue: 30, stockOutValue: 14 },
+        { name: "主机", stockInValue: 40, stockOutValue: 20 },
+        { name: "显示器", stockInValue: 50, stockOutValue: 40 }
       ],
       items3: [
-        { name: "1", stockInValue: 30, stockOutValue: 10, storage: 20 },
-        { name: "2", stockInValue: 40, stockOutValue: 20, storage: 20 },
-        { name: "3", stockInValue: 50, stockOutValue: 30, storage: 20 },
-        { name: "4", stockInValue: 30, stockOutValue: 14, storage: 16 },
-        { name: "5", stockInValue: 40, stockOutValue: 20, storage: 20 },
-        { name: "6", stockInValue: 50, stockOutValue: 40, storage: 10 },
-        { name: "7", stockInValue: 30, stockOutValue: 10, storage: 20 },
-        { name: "8", stockInValue: 40, stockOutValue: 20, storage: 20 },
-        { name: "9", stockInValue: 50, stockOutValue: 30, storage: 20 },
-        { name: "10", stockInValue: 30, stockOutValue: 14, storage: 16 },
-        { name: "11", stockInValue: 40, stockOutValue: 20, storage: 20 },
-        { name: "12", stockInValue: 50, stockOutValue: 40, storage: 10 }
+        { name: "1月份", stockInValue: 30, stockOutValue: 10, storage: 20 },
+        { name: "2月份", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "3月份", stockInValue: 50, stockOutValue: 30, storage: 20 },
+        { name: "4月份", stockInValue: 30, stockOutValue: 14, storage: 16 },
+        { name: "5月份", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "6月份", stockInValue: 50, stockOutValue: 40, storage: 10 },
+        { name: "7月份", stockInValue: 30, stockOutValue: 10, storage: 20 },
+        { name: "8月份", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "9月份", stockInValue: 50, stockOutValue: 30, storage: 20 },
+        { name: "10月份", stockInValue: 30, stockOutValue: 14, storage: 16 },
+        { name: "11月份", stockInValue: 40, stockOutValue: 20, storage: 20 },
+        { name: "12月份", stockInValue: 50, stockOutValue: 40, storage: 10 }
       ],
       news: [
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成1" },
@@ -311,7 +307,7 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    // this.getTask()
+    this.getTask();
   },
   methods: {
     detailNews() {},
@@ -321,6 +317,8 @@ export default {
     // },
     getTask() {
       getTask(this.params).then(res => {
+        // eslint-disable-next-line no-console
+        console.log(res.data);
         this.store.todayIn = res.data.inSum;
         this.store.todayOut = res.data.outSum;
         this.store.waitIn = res.data.notfor4InItem;

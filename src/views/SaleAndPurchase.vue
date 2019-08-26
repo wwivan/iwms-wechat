@@ -34,10 +34,10 @@
     </div>
     <div class="main">
       <!-- <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order> -->
-      <sale-plan v-if="this.orderType == '0'"></sale-plan>
+      <!-- <sale-plan v-if="this.orderType == '0'"></sale-plan>
       <sale-order v-if="this.orderType == '1'"></sale-order>
       <purchase-plan v-if="this.orderType == '2'"></purchase-plan>
-      <purchase-order v-if="this.orderType == '3'"></purchase-order>
+      <purchase-order v-if="this.orderType == '3'"></purchase-order> -->
       <router-view></router-view>
     </div>
   </div>
@@ -45,20 +45,20 @@
 
 <script>
 import { getStore, setStore } from "@/util/util";
-import salePlan from "@/views/SaleAndPurchase/SalePlanOrder.vue";
-import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
-import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan";
-import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
-import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue";
+// import salePlan from "@/views/SaleAndPurchase/SalePlanOrder.vue";
+// import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
+// import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan";
+// import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
+// import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue";
 export default {
-  components: {
-    // eslint-disable-next-line vue/no-unused-components
-    purchasePlanOrder,
-    purchaseOrder,
-    purchasePlan,
-    saleOrder,
-    salePlan
-  },
+  // components: {
+  //   // eslint-disable-next-line vue/no-unused-components
+  //   purchasePlanOrder,
+  //   purchaseOrder,
+  //   purchasePlan,
+  //   saleOrder,
+  //   salePlan
+  // },
   data() {
     return {
       orderType: ""
@@ -72,9 +72,26 @@ export default {
       this.orderType = getStore("orderType");
       if (this.orderType == undefined) {
         this.orderType = "1";
+      } else if (this.orderType == "0") {
+        this.$router.push("/sap/sale/plan/order");
+      } else if (this.orderType == "1") {
+        this.$router.push("/sap/sale/order");
+      } else if (this.orderType == "2") {
+        this.$router.push("/sap/purchase/plan");
+      } else if (this.orderType == "3") {
+        this.$router.push("/sap/purchase/order");
       }
     },
     orderTypeActive(k) {
+      if (k == "0") {
+        this.$router.push("/sap/sale/plan/order");
+      } else if (k == "1") {
+        this.$router.push("/sap/sale/order");
+      } else if (k == "2") {
+        this.$router.push("/sap/purchase/plan");
+      } else if (k == "3") {
+        this.$router.push("/sap/purchase/order");
+      }
       setStore("orderType", k);
       this.initOrderType();
     }

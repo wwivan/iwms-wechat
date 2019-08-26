@@ -96,7 +96,12 @@ export default {
         xAxis: [
           {
             type: "category",
-            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+            data: this.names,
+            axisLabel: {
+              fontSize: 8,
+              interval: 0,
+              rotate: 40
+            }
           }
         ],
         yAxis: [
@@ -131,7 +136,6 @@ export default {
           //   data: this.stockOutValues,
           //   // itemStyle: {
           //   //   normal: {
-          //   //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
           //   //     color: function(params) {
           //   //       // build a color map as your need.
           //   //       var colorList = ["#FF9779", "#2360EF"];

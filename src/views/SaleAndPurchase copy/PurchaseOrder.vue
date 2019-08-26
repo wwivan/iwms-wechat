@@ -188,7 +188,7 @@ export default {
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
       setStore("PurchaseOrderId", PurchaseOrderItem.id);
-      this.$router.push("/sap/purchase/order/detail");
+      this.$router.push("/purchase/order/detail");
     }
   },
   computed: {

@@ -35,12 +35,14 @@ import SearchPage from "./views/SearchPage";
 import WarehouseManagement from "./views/WarehouseManagement";
 import SaleAndPurchase from "./views/SaleAndPurchase";
 //销售、采购部分
-import PurchasePlanOrder from "./views/SaleAndPurchase/PurchasePlanOrder";
+import PurchasePlan from "./views/SaleAndPurchase/PurchasePlan";
+// import PurchasePlanOrder from "./views/SaleAndPurchase/PurchasePlanOrder";
 import PurchasePlanOrderDetail from "./views/SaleAndPurchase/PurchasePlanOrderDetail";
 import PurchaseOrder from "./views/SaleAndPurchase/PurchaseOrder";
 import PurchasePlanDistributionDetail from "./views/SaleAndPurchase/PurchasePlanDistributionDetail";
 import PurchaseOrderDetail from "./views/SaleAndPurchase/PurchaseOrderDetail";
 import SaleOrder from "./views/SaleAndPurchase/SaleOrder";
+import SalePlanOrder from "./views/SaleAndPurchase/SalePlanOrder";
 import SaleOrderItemDetail from "./views/SaleAndPurchase/SaleOrderItemDetail";
 Vue.use(Router);
 
@@ -62,16 +64,43 @@ export default new Router({
       component: Main,
       redirect: "/home",
       children: [
-        { path: "/home", component: Home },
+        {
+          path: "/home",
+          component: Home
+        },
         //仓储管理
-        { path: "/stockIn", component: StockIn },
-        { path: "/stockOut", component: StockOut },
-        { path: "/stockIn/detail", component: StockInDetail },
-        { path: "/stockIn/form", component: StockInForm },
-        { path: "/reserve/order/form", component: ReserveOrderForm },
-        { path: "/reserve/order/detail", component: ReserveOrderDetail },
-        { path: "/stockIn/search", component: StockInSearch },
-        { path: "/reserve/order/search", component: ReserveOrderSearch },
+        {
+          path: "/stockIn",
+          component: StockIn
+        },
+        {
+          path: "/stockOut",
+          component: StockOut
+        },
+        {
+          path: "/stockIn/detail",
+          component: StockInDetail
+        },
+        {
+          path: "/stockIn/form",
+          component: StockInForm
+        },
+        {
+          path: "/reserve/order/form",
+          component: ReserveOrderForm
+        },
+        {
+          path: "/reserve/order/detail",
+          component: ReserveOrderDetail
+        },
+        {
+          path: "/stockIn/search",
+          component: StockInSearch
+        },
+        {
+          path: "/reserve/order/search",
+          component: ReserveOrderSearch
+        },
         {
           path: "/reserve/order/detail/form",
           component: ReserveOrderDetailForm
@@ -80,55 +109,121 @@ export default new Router({
           path: "/reserve/order/detail/search",
           component: ReserveOrderDetailSearch
         },
-        { path: "/stockIn/item/form", component: StockInItemForm },
-        { path: "/stock/out/detail", component: StockOutDetail },
-        { path: "/stock/out/item/detail", component: StockOutItemDetail },
-        { path: "/stock/out/form", component: StockOutForm },
-        { path: "/stock/out/search", component: StockOutSearch },
+        {
+          path: "/stockIn/item/form",
+          component: StockInItemForm
+        },
+        {
+          path: "/stock/out/detail",
+          component: StockOutDetail
+        },
+        {
+          path: "/stock/out/item/detail",
+          component: StockOutItemDetail
+        },
+        {
+          path: "/stock/out/form",
+          component: StockOutForm
+        },
+        {
+          path: "/stock/out/search",
+          component: StockOutSearch
+        },
         //物料
-        { path: "/materiel", component: Materiel },
-        { path: "/materiel/search", component: MaterielSearch },
-        { path: "/check/account", component: CheckAccount },
-        { path: "/echart", component: Echart },
-        { path: "/search/page", component: SearchPage },
-        { path: "/warehouse/management", component: WarehouseManagement },
         {
-          path: "/sale/and/purchase",
-          component: SaleAndPurchase
-          // children: [
-          //   { path: "sale/order/item/detail", component: SaleOrderItemDetail }
-          // ]
-        },
-        { path: "/account/security", component: AccountSecurity },
-        { path: "/logOut", component: LogOut },
-        { path: "/customer", component: Customer },
-        { path: "/supplier", component: Supplier },
-        { path: "/supplier/search", component: SupplierSearch },
-        { path: "/stock/take/form", component: StockTakeForm },
-        { path: "/stock/take/search", component: StockTakeSearch },
-        { path: "/stock/take/detail", component: StockTakeDetail },
-        //销售采购部分
-        { path: "/purchase/plan/order", component: PurchasePlanOrder },
-        {
-          path: "/purchase/plan/order/detail",
-          component: PurchasePlanOrderDetail
+          path: "/materiel",
+          component: Materiel
         },
         {
-          path: "/purchase/plan/distribution/detail",
-          component: PurchasePlanDistributionDetail
-        },
-        { path: "/purchase/order", component: PurchaseOrder },
-        {
-          path: "/purchase/order/detail",
-          component: PurchaseOrderDetail
+          path: "/materiel/search",
+          component: MaterielSearch
         },
         {
-          path: "/sale/order",
-          component: SaleOrder
+          path: "/check/account",
+          component: CheckAccount
         },
         {
-          path: "/sale/order/item/detail",
-          component: SaleOrderItemDetail
+          path: "/echart",
+          component: Echart
+        },
+        {
+          path: "/search/page",
+          component: SearchPage
+        },
+        {
+          path: "/warehouse/management",
+          component: WarehouseManagement
+        },
+        {
+          path: "/sap",
+          component: SaleAndPurchase,
+          children: [
+            //销售采购部分
+            {
+              path: "purchase/plan",
+              component: PurchasePlan
+            },
+            {
+              path: "purchase/plan/order/detail",
+              component: PurchasePlanOrderDetail
+            },
+            {
+              path: "purchase/plan/distribution/detail",
+              component: PurchasePlanDistributionDetail
+            },
+            {
+              path: "purchase/order",
+              component: PurchaseOrder
+            },
+            {
+              path: "purchase/order/detail",
+              component: PurchaseOrderDetail
+            },
+            {
+              path: "sale/plan/order",
+              component: SalePlanOrder
+            },
+            {
+              path: "sale/order",
+              component: SaleOrder
+            },
+            {
+              path: "sale/order/item/detail",
+              component: SaleOrderItemDetail
+            }
+          ]
+        },
+        {
+          path: "/account/security",
+          component: AccountSecurity
+        },
+        {
+          path: "/logOut",
+          component: LogOut
+        },
+        {
+          path: "/customer",
+          component: Customer
+        },
+        {
+          path: "/supplier",
+          component: Supplier
+        },
+        {
+          path: "/supplier/search",
+          component: SupplierSearch
+        },
+        {
+          path: "/stock/take/form",
+          component: StockTakeForm
+        },
+        {
+          path: "/stock/take/search",
+          component: StockTakeSearch
+        },
+        {
+          path: "/stock/take/detail",
+          component: StockTakeDetail
         }
       ]
     }

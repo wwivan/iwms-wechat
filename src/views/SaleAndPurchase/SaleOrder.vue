@@ -205,10 +205,9 @@ export default {
       setStore("SaleOrderItemId", SaleOrderItem.id);
       // eslint-disable-next-line no-console
       console.log(123456);
-      setStore("saleOrderItemStatus", SaleOrderItem.status);
       // eslint-disable-next-line no-console
       console.log(123456);
-      this.$router.push("/sale/order/item/detail");
+      this.$router.push("/sap/sale/order/item/detail");
     }
   },
   computed: {

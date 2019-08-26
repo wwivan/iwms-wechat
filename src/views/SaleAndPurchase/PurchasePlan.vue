@@ -42,7 +42,10 @@
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>源销售单: {{ item.saleOrder.orderNo }}</div>
+              <div>
+                源销售单:
+                {{ item.saleOrder != undefined ? item.saleOrder.orderNo : "" }}
+              </div>
               <div>采购总价: {{ item.amount }}</div>
               <div>创建日期: {{ item.createTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
@@ -138,8 +141,8 @@ export default {
     //   this.findReserveOrderList();
     // },
     purchasePlanOrder() {
-      this.params.searchParams = this.searchParams;
-      this.params.searchParams["EQ_status"] = "1";
+      // this.params.searchParams = this.searchParams;
+      // this.params.searchParams["EQ_status"] = "1";
       // 获取记录
       purchasePlanOrder(this.params)
         .then(res => {
@@ -197,7 +200,8 @@ export default {
       // setStore("StockInType", this.StockInType);
       // setStore("act", this.act);
       setStore("purchasePlanId", PurchasePlan.id);
-      this.$router.push("/purchase/plan/order/detail");
+      setStore("purchasePlanStatus", PurchasePlan.status);
+      this.$router.push("/sap/purchase/plan/order/detail");
     }
   },
   computed: {
@@ -212,10 +216,12 @@ export default {
         realVal = "待审核";
       } else if (value == 2) {
         realVal = "已审核";
-      } else if (value == 2) {
+      } else if (value == 3) {
         realVal = "审核驳回";
-      } else if (value == 2) {
+      } else if (value == 4) {
         realVal = "已下单";
+      } else if (value == 99) {
+        realVal = "已关闭";
       }
       return realVal;
     }

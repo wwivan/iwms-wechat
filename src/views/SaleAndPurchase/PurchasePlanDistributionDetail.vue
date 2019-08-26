@@ -122,7 +122,7 @@ export default {
   },
   methods: {
     goback() {
-      this.$router.push("/purchase/plan/order/detail");
+      this.$router.push("/sap/purchase/plan/order/detail");
     },
     onRefreshList() {
       // 刷新

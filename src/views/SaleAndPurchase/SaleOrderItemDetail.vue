@@ -207,12 +207,12 @@ export default {
     saleOrderPass() {
       this.passParams.id = getStore("SaleOrderItemId");
       SaleOrderPass(this.passParams);
-      this.$router.push("/sale/and/purchase");
+      this.$router.push("/sap/sale/plan/order");
     },
     saleOrderUnPass() {
       this.unPassParams.id = getStore("SaleOrderItemId");
       SaleOrderPass(this.unPassParams);
-      this.$router.push("/sale/and/purchase");
+      this.$router.push("/sap/sale/plan/order");
     },
     onTitleClickLeft() {
       // 返回
@@ -252,7 +252,7 @@ export default {
       }
     },
     back() {
-      this.$router.push("/sale/and/purchase");
+      this.$router.push("/sap/sale/plan/order");
     }
   },
   computed: {
