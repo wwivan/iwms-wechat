@@ -6,7 +6,7 @@
           v-for="(item, index) in records"
           :key="index"
           class="check-account"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
@@ -24,25 +24,33 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{item.orderNo}}</span>
+            <span class="context">{{ item.orderNo }}</span>
           </div>
           <div class="content">
             <div>
               <!-- <div>对账单号: {{item.orderNo}}</div> -->
-              <div>供应商: {{item.supplier.id == undefined? "":item.supplier.name}}</div>
-              <div>客户: {{item.customer.id == undefined? "":item.customer.name}}</div>
+              <div>
+                供应商:
+                {{ item.supplier.id == undefined ? "" : item.supplier.name }}
+              </div>
+              <div>
+                客户:
+                {{ item.customer.id == undefined ? "" : item.customer.name }}
+              </div>
               <!-- <div>盘点类型: {{item.type | typeFilter}}</div>
               <div>状态: {{item.status | formatStockTakeStatus}}</div>-->
-              <div>起始时间: {{item.startTime}}</div>
-              <div>结束时间: {{item.endTime}}</div>
-              <div>送货单号：{{item.purchaseNo}}</div>
+              <div>起始时间: {{ item.startTime }}</div>
+              <div>结束时间: {{ item.endTime }}</div>
+              <div>送货单号：{{ item.purchaseNo }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockTakeDetail(item)"
-              >详情</div>
+              >
+                详情
+              </div>
             </div>
           </div>
         </div>
@@ -83,6 +91,7 @@
 import Vue from "vue";
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import { findCheckAccountList, doToCell } from "@/api/api";
 import {
   setStore,
@@ -90,6 +99,7 @@ import {
   removeStore,
   formatStockTakeStatus
 } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 Vue.filter("formatStockTakeStatus", formatStockTakeStatus);
 export default {
@@ -121,10 +131,12 @@ export default {
   },
   methods: {
     checkAccountCreate() {
+      // eslint-disable-next-line no-console
       console.log("新建对账单");
       this.$router.push("/check/account/form");
     },
     checkAccountSearch() {
+      // eslint-disable-next-line no-console
       console.log("对账单查询");
       this.$router.push("/check/account/search");
     },
@@ -135,8 +147,10 @@ export default {
       this.findCheckAccountList();
     },
     onLoadMore() {
+      // eslint-disable-next-line no-console
       console.log("############");
       //this.params.pageNumber = this.params.pageNumber + 1;
+      // eslint-disable-next-line no-console
       console.log(this.params.pageNumber);
       this.findCheckAccountList();
     },
@@ -145,6 +159,7 @@ export default {
       // 获取记录
       findCheckAccountList(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
@@ -153,6 +168,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });

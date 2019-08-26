@@ -6,7 +6,7 @@
         <div class="row d-flex ai-center">
           <span class="iconfont icon-kucun"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.storage}}</div>
+            <div class="fs-xl text-white">{{ store.storage }}</div>
             <div class="text-left text-white mt-1">库存总量</div>
           </div>
         </div>
@@ -14,14 +14,16 @@
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
             <!-- <div class="fs-xl text-white">{{store.danger}} 项</div> -->
-            <marquee class="text-left text-white" width="0.55rem">{{store.skuWaringMsg}}</marquee>
+            <marquee class="text-left text-white" width="0.55rem">{{
+              store.skuWaringMsg
+            }}</marquee>
             <div class="text-left text-white mt-1">库存预警</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
           <span class="iconfont icon-chuku"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.todayOut}}</div>
+            <div class="fs-xl text-white">{{ store.todayOut }}</div>
             <div class="text-left text-white mt-1">今日已出</div>
           </div>
         </div>
@@ -30,21 +32,21 @@
         <div class="row d-flex ai-center">
           <span class="iconfont icon-daichuku"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.waitOut}}</div>
+            <div class="fs-xl text-white">{{ store.waitOut }}</div>
             <div class="text-left text-white mt-1">待出库量</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
           <span class="iconfont icon-rukuguanli-"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.todayIn}}</div>
+            <div class="fs-xl text-white">{{ store.todayIn }}</div>
             <div class="text-left text-white mt-1">今日已入</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
           <span class="iconfont icon-rukuliucheng"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.waitIn}}</div>
+            <div class="fs-xl text-white">{{ store.waitIn }}</div>
             <div class="text-left text-white mt-1">待入库量</div>
           </div>
         </div>
@@ -64,6 +66,7 @@ import stickEchart from "../component/Echart/stickEchart";
 import lineEchart from "../component/Echart/lineEchart";
 import { mapGetters } from "vuex";
 import { getTask, dangerStorage } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { getStore, setStore, formatFen2Yuan, removeStore } from "@/util/util";
 export default {
   components: { circleEchart, stickEchart, stickLineEchart, lineEchart },
@@ -124,12 +127,15 @@ export default {
   methods: {
     dangerStorage() {
       dangerStorage(this.params).then(res => {
+        // eslint-disable-next-line no-console
         console.log(res.data);
       });
     },
     getTask() {
       getTask(this.params).then(res => {
+        // eslint-disable-next-line no-console
         console.log(res.data);
+        // eslint-disable-next-line no-console
         console.log(res.data.outSum);
         this.store.todayIn = res.data.inSum;
         this.store.todayOut = res.data.outSum;
@@ -140,15 +146,18 @@ export default {
       });
     },
     checkDanger() {
+      // eslint-disable-next-line no-console
       console.log("查看库存预警");
       this.dangerStorage();
     },
     log() {
+      // eslint-disable-next-line no-unused-vars
       let items2 = this.items1.map(Element => {
         return {
           name: Element.name
         };
       });
+      // eslint-disable-next-line no-console
       console.log(this.stockOutValue);
     }
   }

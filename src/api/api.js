@@ -62,6 +62,9 @@ export const findSaleOrderList = params =>
 // 销售订单明细
 export const findSaleOrderItemList = params =>
   post("saleOrder/findSaleOrderItemList", params);
+//销售审核
+export const SaleOrderPass = params =>
+  post("saleOrder/saveSaleOrderPass", params);
 //库存预警
 export const dangerStorage = params =>
   post("/order/stockUseNumLTMinStock", params);

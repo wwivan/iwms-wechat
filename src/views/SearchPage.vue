@@ -1,14 +1,32 @@
 <template>
   <div class="serach mt-3">
     <div class="nav d-flex w-80">
-      <div class="materiel-search" :class="tab1==1?'active':''" @click="tab1Active">物料查询</div>
-      <div class="supplier-search" :class="tab2==1?'active':''" @click="tab2Active">供应商查询</div>
-      <div class="customer-search" :class="tab3==1?'active':''" @click="tab3Active">客户查询</div>
+      <div
+        class="materiel-search"
+        :class="tab1 == 1 ? 'active' : ''"
+        @click="tab1Active"
+      >
+        物料查询
+      </div>
+      <div
+        class="supplier-search"
+        :class="tab2 == 1 ? 'active' : ''"
+        @click="tab2Active"
+      >
+        供应商查询
+      </div>
+      <div
+        class="customer-search"
+        :class="tab3 == 1 ? 'active' : ''"
+        @click="tab3Active"
+      >
+        客户查询
+      </div>
     </div>
     <div class="main">
-      <materiel v-show="tab1==1"></materiel>
-      <supplier v-show="tab2==1"></supplier>
-      <customer v-show="tab3==1"></customer>
+      <materiel v-show="tab1 == 1"></materiel>
+      <supplier v-show="tab2 == 1"></supplier>
+      <customer v-show="tab3 == 1"></customer>
     </div>
   </div>
 </template>
@@ -43,7 +61,6 @@ export default {
   }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .nav {

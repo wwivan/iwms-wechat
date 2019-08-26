@@ -7,18 +7,18 @@
           v-for="(item, index) in records"
           :key="index"
           class="list"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <!-- 未收货 -->
             <span
-              v-show="item.status==0"
+              v-show="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <!-- 收获完成 -->
             <span
-              v-show="item.status==1"
+              v-show="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
@@ -37,17 +37,17 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>-->
-            <span class="context">{{item.status | statusFilter}}</span>
+            <span class="context">{{ item.status | statusFilter }}</span>
           </div>
           <div class="content">
             <div>
-              <div>物料名称: {{item.materielSku.name}}</div>
-              <div>物料型号: {{item.materielSku.model}}</div>
-              <div>采购数量: {{item.qty}}</div>
-              <div>已到货数量： {{item.arriveQty}}</div>
-              <div>采购单价: {{item.price}}</div>
-              <div>金额小计: {{item.amount}}</div>
-              <div>交付日期: {{item.orderTime}}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>采购数量: {{ item.qty }}</div>
+              <div>已到货数量： {{ item.arriveQty }}</div>
+              <div>采购单价: {{ item.price }}</div>
+              <div>金额小计: {{ item.amount }}</div>
+              <div>交付日期: {{ item.orderTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <!-- <div class="confirm">
@@ -59,7 +59,6 @@
           </div>
         </div>
       </van-list>
-
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -77,8 +76,8 @@
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { purchaseOrderItemList } from "@/api/api";
-import { setStore, getStore, removeStore } from "@/util/util";
-import { Dialog } from "vant";
+import { getStore } from "@/util/util";
+// import { Dialog } from "vant";
 export default {
   data() {
     return {
@@ -138,13 +137,12 @@ export default {
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
-          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
           this.loading = false;
           // console.log(JSON.stringify(error));
-          Toast("请求错误");
+          Toast("请求错误" + error);
         });
     },
     onTitleClickLeft() {
@@ -227,41 +225,6 @@ export default {
 </script>
 
 <style scoped>
-/* .reserve-order-header {
-  display: flex;
-  height: 0.46rem;
-  justify-content: space-around;
-  align-items: center;
-}
-.reserve-order .tab {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 0.5rem;
-}
-.reserve-order .tab .tab-active {
-  font-size: 0.13rem;
-  color: #3f7ffe;
-  font-weight: 500;
-}
-.reserve-order .tab .tab-normal {
-  font-size: 0.13rem;
-  color: #4a4a4a;
-}
-.reserve-order .tab_line_left {
-  width: 0.2rem;
-  height: 0.03rem;
-  background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -0.1rem;
-  margin-left: 0.84rem;
-}
-.reserve-order .tab_line_right {
-  width: 0.2rem;
-  height: 0.03rem;
-  background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -0.1rem;
-  margin-left: 2.72rem;
-} */
 .list {
   margin-left: 0.12rem;
   margin-top: 0.22rem;

@@ -39,20 +39,19 @@
         </div>
       </div>
     </van-pull-refresh>-->
-
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <div
           v-for="(item, index) in records"
           :key="index"
           class="stock-in-detail"
-          :class="(index < (records.length-1))?'bottom':'' "
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="content" style="justify-content:space-between">
             <div>
-              <div>供应商名称: {{item.name}}</div>
-              <div>联系人名称: {{item.contactName}}</div>
-              <div>联系人电话: {{item.contactPhone}}</div>
+              <div>供应商名称: {{ item.name }}</div>
+              <div>联系人名称: {{ item.contactName }}</div>
+              <div>联系人电话: {{ item.contactPhone }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -63,8 +62,18 @@
               >选择入库</div>-->
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="useSupplier(item,selectedStockInType,selectedWarehouse,deliveryNumber,purchaseNo)"
-              >选择</div>
+                @click="
+                  useSupplier(
+                    item,
+                    selectedStockInType,
+                    selectedWarehouse,
+                    deliveryNumber,
+                    purchaseNo
+                  )
+                "
+              >
+                选择
+              </div>
             </div>
           </div>
         </div>
@@ -86,7 +95,9 @@
 import { Toast } from "vant";
 import { mapGetters, mapMutations } from "vuex";
 import { findSupplierList } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { setStore, getStore, removeStore, timeFormat } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   data() {
@@ -123,8 +134,10 @@ export default {
     let item = getStore("selectedStockInType");
     if (item) {
       removeStore("selectedStockInType");
+      // eslint-disable-next-line no-console
       console.log(item);
       this.selectedStockInType = item;
+      // eslint-disable-next-line no-console
       console.log(this.selectedStockInType);
     }
 
@@ -135,11 +148,12 @@ export default {
     //   this.act = act;
     //   console.log(this.act);
     // }
-    this.stockType = getStore("stockType")
+    this.stockType = getStore("stockType");
     let Warehouse = getStore("selectedWarehouse");
     if (Warehouse) {
       removeStore("selectedWarehouse");
       this.selectedWarehouse = Warehouse;
+      // eslint-disable-next-line no-console
       console.log(this.selectedWarehouse);
     }
     let deliveryNumber = getStore("deliveryNumber");
@@ -166,9 +180,12 @@ export default {
       this.findSupplierList();
     },
     onLoadMore() {
+      // eslint-disable-next-line no-console
       console.log("############");
+      // eslint-disable-next-line no-console
       console.log(this.fid);
       // this.params.pageNumber = this.params.pageNumber + 1;
+      // eslint-disable-next-line no-console
       console.log(this.params.pageNumber);
       this.findSupplierList();
     },
@@ -177,6 +194,7 @@ export default {
       // 获取记录
       findSupplierList(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
@@ -185,6 +203,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
@@ -201,6 +220,7 @@ export default {
       setStore("selectedStockInType", selectedStockInType);
       setStore("selectedWarehouse", selectedWarehouse);
       setStore("supplier", supplier);
+      // eslint-disable-next-line no-console
       console.log(selectedStockInType.length);
       if (this.stockType == "0") {
         this.$router.push("/reserve/order/form");
@@ -232,6 +252,7 @@ export default {
   },
   created() {
     this.isshow = this.$store.state.isshow;
+    // eslint-disable-next-line no-console
     console.log(this.isshow);
   },
   filters: {
@@ -256,7 +277,7 @@ export default {
   margin-top: 0.22rem;
   margin-right: 0.12rem;
   /* display: flex;
-     justify-content: space-between; */
+       justify-content: space-between; */
 }
 .stock-in-detail .header {
   margin-top: 0.25rem;
@@ -303,4 +324,3 @@ export default {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>
-

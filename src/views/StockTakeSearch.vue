@@ -36,7 +36,9 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
+    >
+      确认
+    </div>
     <!-- <van-field clearable label="入库单号" placeholder="请输入入库单号" v-model="params.EQ_orderNo"></van-field> -->
     <!-- <van-field clearable label="盘点单号" placeholder="请输入盘点单号" v-model="params.EQ_orderNo"></van-field> -->
   </div>
@@ -45,7 +47,9 @@
 <script>
 import { Toast } from "vant";
 import PickerPopup from "@/component/PickerPopup";
+// eslint-disable-next-line no-unused-vars
 import DateSelectCell from "@/component/DateSelectCell";
+// eslint-disable-next-line no-unused-vars
 import { findWareHouseList, findSupplierList } from "@/api/api";
 import { mapGetters } from "vuex";
 import { setStore } from "@/util/util";
@@ -113,6 +117,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -124,6 +129,7 @@ export default {
     },
     onTitileClickRight() {
       // 确定
+      // eslint-disable-next-line no-console
       console.log(this.params);
       this.params.EQ_type = this.selectedStockTakeType.id;
       this.params["EQ_wareHouse.id"] = this.selectedWarehouse.id;

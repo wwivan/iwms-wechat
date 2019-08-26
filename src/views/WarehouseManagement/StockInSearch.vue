@@ -59,7 +59,6 @@
         :selectedItem.sync="selectedSupplier"
         :columns="suppliers"
       />
-
       <div class="row">
         <date-select-cell
           class="text-left"
@@ -83,7 +82,9 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
+    >
+      确认
+    </div>
     <!-- <van-field :border="false" is-link readonly @click="onInStockerClick" :placeholder="'请选择收货库管员'" :label="'收货库管员'"
     :value="inStocker"></van-field>-->
     <!-- <van-field :border="false" is-link readonly @click="onBuyerClick" :placeholder="'请选择采购员'" :label="'采购员'" :value="buyer"></van-field> -->

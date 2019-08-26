@@ -1,5 +1,10 @@
 <template>
-  <div :class="className" :id="id" :style="{height:'3rem',width:'3rem'}" ref="myEchart"></div>
+  <div
+    :class="className"
+    :id="id"
+    :style="{ height: '3rem', width: '3rem' }"
+    ref="myEchart"
+  ></div>
 </template>
 <script>
 import echarts from "echarts";

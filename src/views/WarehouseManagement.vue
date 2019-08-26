@@ -4,24 +4,36 @@
       <div class="nav d-flex w-80">
         <div
           class="reserve_in"
-          :class="stockType=='0'?'active':''"
+          :class="stockType == '0' ? 'active' : ''"
           @click="stockTypeActive('0')"
-        >入库预约</div>
-        <div class="stock_in" :class="stockType=='1'?'active':''" @click="stockTypeActive('1')">入库登记</div>
+        >
+          入库预约
+        </div>
+        <div
+          class="stock_in"
+          :class="stockType == '1' ? 'active' : ''"
+          @click="stockTypeActive('1')"
+        >
+          入库登记
+        </div>
         <div
           class="reserve_out"
-          :class="stockType=='2'?'active':''"
+          :class="stockType == '2' ? 'active' : ''"
           @click="stockTypeActive('2')"
-        >出库预约</div>
+        >
+          出库预约
+        </div>
         <div
           class="stock_out"
-          :class="stockType=='3'?'active':''"
+          :class="stockType == '3' ? 'active' : ''"
           @click="stockTypeActive('3')"
-        >出库登记</div>
+        >
+          出库登记
+        </div>
       </div>
     </div>
     <div class="main">
-      <reserve-order v-show="this.stockType=='0'"></reserve-order>
+      <reserve-order v-show="this.stockType == '0'"></reserve-order>
       <stock-in v-show="this.stockType == '1'"></stock-in>
       <stock-out v-show="this.stockType == '3'"></stock-out>
     </div>
@@ -52,9 +64,9 @@
 import { getStore, setStore } from "@/util/util";
 import reserveOrder from "@/views/WarehouseManagement/ReserveOrder.vue";
 import stockIn from "@/views/WarehouseManagement/StockIn.vue";
-import stockOut from "@/views/WarehouseManagement/StockOut.vue"
+import stockOut from "@/views/WarehouseManagement/StockOut.vue";
 export default {
-  components: { reserveOrder, stockIn , stockOut },
+  components: { reserveOrder, stockIn, stockOut },
   data() {
     return {
       stockType: "0"
@@ -66,8 +78,8 @@ export default {
   methods: {
     initStockType() {
       this.stockType = getStore("stockType");
-      if(this.stockType == undefined){
-        this.stockType = '1'
+      if (this.stockType == undefined) {
+        this.stockType = "1";
       }
     },
     stockTypeActive(k) {
@@ -76,28 +88,36 @@ export default {
     },
     Create() {
       if (this.stockType == "0") {
+        // eslint-disable-next-line no-console
         console.log("新建预约入库单");
         this.$router.push("/reserve/order/form");
       } else if (this.stockType == "1") {
+        // eslint-disable-next-line no-console
         console.log("新建入库单");
         this.$router.push("/stockIn/form");
       } else if (this.stockType == "2") {
+        // eslint-disable-next-line no-console
         console.log("新建预约出库单");
       } else if (this.stockType == "3") {
+        // eslint-disable-next-line no-console
         console.log("新建出库单");
         this.$router.push("/stock/out/form");
       }
     },
     Search() {
       if (this.stockType == "0") {
+        // eslint-disable-next-line no-console
         console.log("搜索预约入库单");
-        this.$router.push("/reserve/order/search"); 
+        this.$router.push("/reserve/order/search");
       } else if (this.stockType == "1") {
+        // eslint-disable-next-line no-console
         console.log("搜索入库单");
         this.$router.push("/stockIn/search");
       } else if (this.stockType == "2") {
+        // eslint-disable-next-line no-console
         console.log("搜索预约出库单");
       } else if (this.stockType == "3") {
+        // eslint-disable-next-line no-console
         console.log("搜索出库单");
         this.$router.push("/stock/out/search");
       }

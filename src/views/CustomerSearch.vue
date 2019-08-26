@@ -18,14 +18,18 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
+    >
+      确认
+    </div>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { setStore, getStore, removeStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import PickerPopup from "@/component/PickerPopup";
 export default {
   data() {
@@ -48,8 +52,10 @@ export default {
     let item = getStore("selectedStockOutType");
     if (item) {
       removeStore("selectedStockOutType");
+      // eslint-disable-next-line no-console
       console.log(item);
       this.selectedStockOutType = item;
+      // eslint-disable-next-line no-console
       console.log(this.selectedStockOutType);
     }
 
@@ -69,6 +75,7 @@ export default {
     if (Warehouse) {
       removeStore("selectedWarehouse");
       this.selectedWarehouse = Warehouse;
+      // eslint-disable-next-line no-console
       console.log(this.selectedWarehouse);
     }
   },
@@ -84,6 +91,7 @@ export default {
       setStore("StockOutType", StockOutType);
       setStore("selectedStockOutType", selectedStockOutType);
       setStore("StockInType", StockInType);
+      // eslint-disable-next-line no-console
       console.log(this.params);
       setStore("CustomerSearchParams", this.params);
       this.$router.push("/customer");

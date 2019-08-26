@@ -3,7 +3,7 @@
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">盘点单号</span>
-        <span class="message">{{params.orderNo}}</span>
+        <span class="message">{{ params.orderNo }}</span>
       </div>
       <picker-popup
         class="text-left"
@@ -15,16 +15,34 @@
       />
       <div
         class="row d-flex ai-center"
-        v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
+        v-if="
+          selectedStockInType.id == '1' ||
+            selectedStockInType.id == '3' ||
+            selectedStockInType.id == '4' ||
+            selectedStockInType.id == '2'
+        "
       >
         <span style="margin-left:0" class="title">供应商</span>
-        <span class="message">{{params.supplierName}}</span>
+        <span class="message">{{ params.supplierName }}</span>
         <van-button
-          v-if="selectedStockInType.id == '1'|| selectedStockInType.id == '3' || selectedStockInType.id == '4' || selectedStockInType.id == '2'"
+          v-if="
+            selectedStockInType.id == '1' ||
+              selectedStockInType.id == '3' ||
+              selectedStockInType.id == '4' ||
+              selectedStockInType.id == '2'
+          "
           size="small"
-          @click="selectSupplier(selectedStockInType,selectedWarehouse,params.deliveryNumber,params.purchaseNo)"
+          @click="
+            selectSupplier(
+              selectedStockInType,
+              selectedWarehouse,
+              params.deliveryNumber,
+              params.purchaseNo
+            )
+          "
           style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
-        >选择</van-button>
+          >选择</van-button
+        >
       </div>
       <div class="row">
         <date-select-cell
@@ -69,20 +87,23 @@
       size="normal"
       style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
       @click="back"
-    >确认返回</van-button>
+      >确认返回</van-button
+    >
     <van-button
       plain
       hairline
       size="normal"
       style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="addItem"
-    >添加明细</van-button>
+      >添加明细</van-button
+    >
   </div>
 </template>
 
 <script>
 import { Toast } from "vant";
 import PickerPopup from "@/component/PickerPopup";
+// eslint-disable-next-line no-unused-vars
 import DateSelectCell from "@/component/DateSelectCell";
 import {
   findWareHouseList,
@@ -90,6 +111,7 @@ import {
   createStockTake
 } from "@/api/api";
 import { mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import { setStore, getStore, removeStore } from "@/util/util";
 export default {
   data() {
@@ -162,6 +184,7 @@ export default {
 
     this.findStockInOrdeParams.fid = this.fid;
     this.getStockTakeOrderNo();
+    // eslint-disable-next-line no-console
     console.log(this.params["EQ_wareHouse.id"]);
     let StockInType = getStore("StockInType");
     this.StockInType = StockInType;
@@ -184,6 +207,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -192,10 +216,12 @@ export default {
       // 仓库列表
       getStockTakeOrderNo(this.findStockInOrdeParams)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(res.data);
           this.params.orderNo = res.data;
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -204,6 +230,7 @@ export default {
       this.params.wareHouse.id = this.selectedWarehouse.id;
       this.params.type = this.selectedStockTakeType.id;
       createStockTake(this.params)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
           this.$router.push({
@@ -211,6 +238,7 @@ export default {
           });
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -232,6 +260,7 @@ export default {
           });
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast.fail(JSON.stringify(error.message));
         });

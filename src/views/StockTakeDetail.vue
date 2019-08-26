@@ -36,7 +36,7 @@
           v-for="(item, index) in records"
           :key="index"
           class="stock-out"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
@@ -54,20 +54,28 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-
-            <span
-              style="font-size:0.13rem;color:#4181FF"
-            >{{item.stockTake==undefined? '':item.stockTake.orderNo}}</span>
+            <span style="font-size:0.13rem;color:#4181FF">{{
+              item.stockTake == undefined ? "" : item.stockTake.orderNo
+            }}</span>
           </div>
           <div class="content">
             <div>
-              <div>物料条码:{{item.materielSku==undefined? '':item.materielSku.barcode }}</div>
-              <div>物料名称: {{item.materielSku==undefined? '':item.materielSku.name }}</div>
-              <div>所在货位: {{item.cell==undefined? '':item.cell.code }}</div>
-              <div>原库存: {{item.stockNum }}</div>
+              <div>
+                物料条码:{{
+                  item.materielSku == undefined ? "" : item.materielSku.barcode
+                }}
+              </div>
+              <div>
+                物料名称:
+                {{ item.materielSku == undefined ? "" : item.materielSku.name }}
+              </div>
+              <div>
+                所在货位: {{ item.cell == undefined ? "" : item.cell.code }}
+              </div>
+              <div>原库存: {{ item.stockNum }}</div>
               <div>
                 <van-field
-                  v-if="result==records"
+                  v-if="result == records"
                   clearable
                   label="实际库存"
                   v-model="item.takeStockNumber"
@@ -77,14 +85,11 @@
                 ></van-field>
               </div>
               <!-- <div v-if="result==records" style="background-color:#F4F4F4;">实际库存: {{item.takeStockNumber }}</div> -->
-              <div
-                v-if="result==records"
-                style="background-color:green;"
-              >差异: {{item.takeStockNumber-item.stockNum }}</div>
-
+              <div v-if="result == records" style="background-color:green;">
+                差异: {{ item.takeStockNumber - item.stockNum }}
+              </div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-
             <!-- <div class="confirm">
               <div
               v-if="StockOutType == 1"
@@ -100,14 +105,14 @@
           </div>
         </div>
       </van-list>
-      <div v-if="status=='1'" class="mt-3 text-grey fs-xl">还未盘点</div>
+      <div v-if="status == '1'" class="mt-3 text-grey fs-xl">还未盘点</div>
       <van-row type="flex" justify="center" gutter="15">
         <!-- <van-col>
             <van-button v-if="status=='1'" @click="inventoryMore" type="primary" style="height:0.35rem;width:1rem;line-height:0.35rem;font-size:0.15rem;background: linear-gradient(135deg, #4181ff, #2360ef);border:none;color:white" :text="'等待盘点'"></van-button>
         </van-col>-->
         <van-col>
           <van-button
-            v-if="result==records"
+            v-if="result == records"
             @click="add"
             type="primary"
             style="height:0.35rem;line-height:0.32rem"
@@ -115,7 +120,6 @@
           ></van-button>
         </van-col>
       </van-row>
-
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -130,17 +134,20 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import Vue from "vue";
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import {
   findStockTakeItems,
+  // eslint-disable-next-line no-unused-vars
   getStockLogsByTrays,
   findTraysByRfids,
   getStockTakeItem,
   saveStockTakeItem
 } from "@/api/api";
 import { setStore, getStore, formatFen2Yuan, removeStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   data() {
@@ -185,6 +192,7 @@ export default {
     }
     this.params.stockTakeId = StockTakeDetailParams.id;
     this.status = StockTakeDetailParams.status;
+    // eslint-disable-next-line no-console
     console.log(this.status);
   },
   // created() {
@@ -197,6 +205,7 @@ export default {
       this.findStockTakeItems();
     },
     onLoadMore() {
+      // eslint-disable-next-line no-console
       console.log(this.params.pageNumber);
       this.findStockTakeItems();
     },
@@ -209,12 +218,14 @@ export default {
         .then(res => {
           this.loading = false;
           this.finished = res.data.last;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           this.records.push(...res.data.content);
         })
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast(JSON.stringify(error.message));
         });
@@ -243,8 +254,10 @@ export default {
       this.params.rfid = rfid;
       findTraysByRfids(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(res.data);
           let items = res.data;
+          // eslint-disable-next-line no-console
           console.log(items);
           let result = "";
           for (let item of items) {
@@ -253,6 +266,7 @@ export default {
           this.getStockTakeItem(result);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
@@ -271,6 +285,7 @@ export default {
           this.records = this.result;
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast.fail("请求错误");
         });
@@ -289,11 +304,13 @@ export default {
       this.params.stockTakeId = stockTakeId;
       saveStockTakeItem(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(res.data);
           Toast("成功!");
           this.onRefreshList();
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast.fail(JSON.stringify(error.message));
         });

@@ -1,9 +1,14 @@
 <template>
   <div>
-    <van-nav-bar title="预约明细记录" left-text="返回" left-arrow @click-left="onTitleClickLeft">
+    <van-nav-bar
+      title="预约明细记录"
+      left-text="返回"
+      left-arrow
+      @click-left="onTitleClickLeft"
+    >
       <van-button
         slot="right"
-        v-if="records.length == 0||status == '0'"
+        v-if="records.length == 0 || status == '0'"
         @click="onClickForm(StockInType)"
       >
         <van-icon name="plus" size="1.5em" />
@@ -16,7 +21,7 @@
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <van-panel
           v-for="(item, index) in records"
-          :title="item.barcode == undefined? '':item.barcode"
+          :title="item.barcode == undefined ? '' : item.barcode"
           :key="index"
           :status="item.status | statusFilter"
         >
@@ -36,14 +41,13 @@
           </div>
         </van-panel>
         <van-button
-          v-if="records.length>0&&status=='0'"
+          v-if="records.length > 0 && status == '0'"
           @click="confirm()"
           type="primary"
           style="height:0.35rem;line-height:0.32rem;margin:0rem 1rem;"
           :text="'确认收货'"
         ></van-button>
       </van-list>
-
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -54,7 +58,6 @@
         </div>
       </div>
     </van-pull-refresh>
-
     <!-- 弹出框 -->
     <van-dialog
       v-model="show"
@@ -414,5 +417,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

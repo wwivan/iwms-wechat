@@ -6,11 +6,11 @@
           v-for="(item, index) in records"
           :key="index"
           class="reserve-order-detail"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
-              v-show="item.status==0"
+              v-show="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
@@ -34,26 +34,32 @@
                   class="bot"
                   style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>-->
-            <span class="context">{{item.status | statusFilter}}</span>
+            <span class="context">{{ item.status | statusFilter }}</span>
           </div>
           <div class="content">
             <div>
-              <div>入库仓库: {{item.wareHouse == undefined? "":item.wareHouse.name}}</div>
-              <div>供应商: {{item.supplier == undefined? "":item.supplier.name}}</div>
-              <div>送货单号:{{item.deliveryNumber}}</div>
+              <div>
+                入库仓库:
+                {{ item.wareHouse == undefined ? "" : item.wareHouse.name }}
+              </div>
+              <div>
+                供应商:
+                {{ item.supplier == undefined ? "" : item.supplier.name }}
+              </div>
+              <div>送货单号:{{ item.deliveryNumber }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-
             <div class="confirm">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findReserveOrderItem(item)"
-              >确认收货</div>
+              >
+                确认收货
+              </div>
             </div>
           </div>
         </div>
       </van-list>
-
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
@@ -72,7 +78,7 @@ import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { findReserveOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
-import { Dialog } from "vant";
+// import { Dialog } from "vant";
 export default {
   data() {
     return {

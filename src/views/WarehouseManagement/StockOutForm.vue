@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 <template>
   <div style="background-color:#ffffff;">
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">出库单号</span>
-        <span class="message">{{params.orderNo}}</span>
+        <span class="message">{{ params.orderNo }}</span>
       </div>
       <picker-popup
         class="text-left"
@@ -15,23 +16,33 @@
       />
       <div
         class="row d-flex ai-center"
-        v-if="selectedStockOutType.id == '1' || selectedStockOutType.id == '2' || selectedStockOutType.id == '4'"
+        v-if="
+          selectedStockOutType.id == '1' ||
+            selectedStockOutType.id == '2' ||
+            selectedStockOutType.id == '4'
+        "
       >
         <span style="margin-left:0" class="title">客户</span>
-        <span class="message">{{params.customerName}}</span>
+        <span class="message">{{ params.customerName }}</span>
         <van-button
           style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
-          v-if="selectedStockOutType.id == '1' || selectedStockOutType.id == '2' || selectedStockOutType.id == '4'"
+          v-if="
+            selectedStockOutType.id == '1' ||
+              selectedStockOutType.id == '2' ||
+              selectedStockOutType.id == '4'
+          "
           size="small"
           @click="selectSupplier(selectedStockOutType)"
-        >选择</van-button>
+          >选择</van-button
+        >
       </div>
-
       <div class="row">
         <date-select-cell
           class="text-left"
           style="margin-left:-0.15rem;"
-          v-if="selectedStockOutType.id == '3' || selectedStockOutType.id == '5'"
+          v-if="
+            selectedStockOutType.id == '3' || selectedStockOutType.id == '5'
+          "
           :title="'出库时间'"
           required
           :placeholder="'请输入出库时间'"
@@ -41,7 +52,7 @@
       <div class="row" v-if="selectedStockOutType.id == '1'">
         <span style="margin-left:0" class="title">送货单号</span>
         <input
-        class="fs-md"
+          class="fs-md"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入送货单号'"
@@ -50,7 +61,11 @@
       </div>
       <div
         class="row"
-        v-if="selectedStockOutType.id == '3' || selectedStockOutType.id == '5' || selectedStockOutType.id == '4'"
+        v-if="
+          selectedStockOutType.id == '3' ||
+            selectedStockOutType.id == '5' ||
+            selectedStockOutType.id == '4'
+        "
       >
         <span style="margin-left:0" class="title">领用人</span>
         <input
@@ -68,16 +83,17 @@
         size="normal"
         style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
         @click="back(StockOutType)"
-      >确认返回</van-button>
+        >确认返回</van-button
+      >
       <van-button
         plain
         hairline
         size="normal"
         style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
         @click="addItem(StockOutType)"
-      >添加明细</van-button>
+        >添加明细</van-button
+      >
     </div>
-
     <div style="height:0.57rem;width:3.75rem;"></div>
   </div>
 </template>
@@ -166,14 +182,12 @@ export default {
     if (StockOutType) {
       removeStore("StockOutType");
       this.StockOutType = StockOutType;
-      console.log(this.StockOutType);
     }
 
     let items = getStore("selectedStockOutType");
     if (items) {
       removeStore("selectedStockOutType");
       let item = JSON.parse(items);
-      console.log(item.id);
       this.selectedStockOutType.id = item.id;
       this.selectedStockOutType.name = item.name;
     }
@@ -203,6 +217,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -214,6 +229,7 @@ export default {
           this.params.orderNo = res.data;
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -234,6 +250,7 @@ export default {
         this.params.operatorUser = undefined;
       }
       saveStockOut(this.params)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
           setStore("StockOutType", StockOutType);
@@ -242,6 +259,7 @@ export default {
           });
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -265,6 +283,7 @@ export default {
         .then(res => {
           Toast("保存成功!");
           setStore("StockOutType", StockOutType);
+          // eslint-disable-next-line no-console
           console.log(StockOutType);
           setStore("StockOutDetailParams", res.data);
           this.$router.push({
@@ -272,6 +291,7 @@ export default {
           });
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });

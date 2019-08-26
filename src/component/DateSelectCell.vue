@@ -13,14 +13,15 @@
       <van-datetime-picker
         v-model="currentDate"
         type="date"
-        @confirm="show=false"
-        @cancel="show=false"
+        @confirm="show = false"
+        @cancel="show = false"
       ></van-datetime-picker>
     </van-popup>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import dataformat from "date-format-lite";
 export default {
   name: "DataSelectCell",
@@ -64,5 +65,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

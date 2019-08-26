@@ -6,7 +6,7 @@
           v-for="(item, index) in records"
           :key="index"
           class="stock-out"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
@@ -34,22 +34,26 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{item.orderNo}}</span>
-            <span style="font-size:0.13rem;color:#4181FF">{{item.status | formatStockOutStatus}}</span>
+            <span class="context">{{ item.orderNo }}</span>
+            <span style="font-size:0.13rem;color:#4181FF">{{
+              item.status | formatStockOutStatus
+            }}</span>
           </div>
           <div class="content">
             <div>
-              <div>出库类型: {{item.type | formatType}}</div>
+              <div>出库类型: {{ item.type | formatType }}</div>
               <div
-                v-if="item.type == '1'|| item.type == '2'||item.type == '4'"
-              >客户: {{item.customer==undefined? '':item.customer.name}}</div>
-              <div v-if="item.type == '1'">送货单号: {{item.deliveryNo}}</div>
+                v-if="item.type == '1' || item.type == '2' || item.type == '4'"
+              >
+                客户: {{ item.customer == undefined ? "" : item.customer.name }}
+              </div>
+              <div v-if="item.type == '1'">送货单号: {{ item.deliveryNo }}</div>
               <!-- <div>状态: {{item.status | formatStockInStatus}}</div> -->
               <!-- <div>发票号: {{item.purchaseNo}}</div> -->
               <!-- <div>仓库: {{item.wareHouse==undefined? '':item.wareHouse.name}}</div> -->
-              <div v-if="item.type=='3'">领用人: {{item.operatorUser}}</div>
+              <div v-if="item.type == '3'">领用人: {{ item.operatorUser }}</div>
               <!-- <div>操作人: {{item.operatorUser}}</div> -->
-              <div>出库时间: {{item.createTime }}</div>
+              <div>出库时间: {{ item.createTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -57,12 +61,16 @@
                 v-if="StockOutType == 1"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockOutDetail(item)"
-              >详情</div>
+              >
+                详情
+              </div>
               <div
                 v-if="StockOutType == 3"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findStockOutDetail(item)"
-              >查看明细</div>
+              >
+                查看明细
+              </div>
             </div>
           </div>
         </div>
@@ -83,7 +91,9 @@
 import Vue from "vue";
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import { findStockOutList, toLocation, saveStockLibrary } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { CompleteGetStockOutList } from "@/api/api";
 import {
   setStore,
@@ -91,6 +101,7 @@ import {
   removeStore,
   formatStockOutStatus
 } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 Vue.filter("formatStockOutStatus", formatStockOutStatus);
 export default {
@@ -130,8 +141,8 @@ export default {
     }
     let StockOutType = getStore("StockOutType");
     this.StockOutType = StockOutType;
-    console.log(1212321231122);
-    console.log(this.StockOutType);
+    // console.log(1212321231122);
+    // console.log(this.StockOutType);
     // if(StockOutType == '2'){//分配货位
     //   this.searchParams.EQ_status = 1;
     // }else if(StockOutTy2pe == '3'){//拣货
@@ -156,8 +167,10 @@ export default {
       this.findStockOutList();
     },
     onLoadMore() {
+      // eslint-disable-next-line no-console
       console.log("############");
       //this.params.pageNumber = this.params.pageNumber + 1;
+      // eslint-disable-next-line no-console
       console.log(this.params.pageNumber);
       this.findStockOutList();
     },
@@ -175,6 +188,7 @@ export default {
           this.finished = res.data.last;
           this.records.push(...res.data.content);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;
@@ -233,6 +247,7 @@ export default {
       // if(StockOutDetailParams.status == '3') {
       //    this.addStockLibrary(StockOutDetailParams.id);
       // }
+      // eslint-disable-next-line no-console
       console.log("11111111111111111");
       setStore("StockOutDetailParams", StockOutDetailParams);
       this.$router.push("/stock/out/detail");
@@ -335,4 +350,3 @@ export default {
   }
 }
 </style>
-

@@ -23,7 +23,9 @@
           @click="getVcode"
           class="bg-primary text-white"
           style="height:0.3rem;border:none"
-        >{{!time?"点击获取验证码":time}}</button>
+        >
+          {{ !time ? "点击获取验证码" : time }}
+        </button>
         <van-field
           v-model="params.vcode"
           clearable
@@ -35,7 +37,13 @@
         <van-cell>
           <van-row>
             <van-col span="12" class="btn">
-              <van-button type="primary" size="small" @click="login" :loading="loading">登录</van-button>
+              <van-button
+                type="primary"
+                size="small"
+                @click="login"
+                :loading="loading"
+                >登录</van-button
+              >
             </van-col>
           </van-row>
         </van-cell>
@@ -45,12 +53,17 @@
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import MD5 from "crypto-js/md5";
 import { mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import { emailCheck, pwdCheck } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { login, getUserAuth, getVcode } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { setStore, getStore, removeStore } from "@/util/util";
 import { Toast } from "vant";
+// eslint-disable-next-line no-unused-vars
 import { setInterval, clearInterval } from "timers";
 // Vue.use(Toast).use(Cell).use(CellGroup).use(Button).use(Col).use(Row);
 export default {
@@ -111,11 +124,13 @@ export default {
           }
         }, 1000);
         getVcode(this.getVcodeParmas).then(res => {
+          // eslint-disable-next-line no-console
           console.log(res.data);
         });
       }
     },
     login() {
+      // eslint-disable-next-line no-unused-vars
       login(this.params).then(res => {
         setStore("appid", this.params.extUserId);
         this.$router.push("/");

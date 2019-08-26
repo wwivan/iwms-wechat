@@ -4,32 +4,40 @@
       <div class="nav d-flex w-80">
         <div
           class="sales_plan"
-          :class="orderType=='0'?'active':''"
+          :class="orderType == '0' ? 'active' : ''"
           @click="orderTypeActive('0')"
-        >销售审核</div>
+        >
+          销售审核
+        </div>
         <div
           class="sales_order"
-          :class="orderType=='1'?'active':''"
+          :class="orderType == '1' ? 'active' : ''"
           @click="orderTypeActive('1')"
-        >销售订单</div>
+        >
+          销售订单
+        </div>
         <div
           class="purchase_plan"
-          :class="orderType=='2'?'active':''"
+          :class="orderType == '2' ? 'active' : ''"
           @click="orderTypeActive('2')"
-        >采购计划</div>
+        >
+          采购计划
+        </div>
         <div
           class="purchase_order"
-          :class="orderType=='3'?'active':''"
+          :class="orderType == '3' ? 'active' : ''"
           @click="orderTypeActive('3')"
-        >采购订单</div>
+        >
+          采购订单
+        </div>
       </div>
     </div>
     <div class="main">
-      
       <!-- <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order> -->
-      <sale-order v-if="this.orderType =='1'"></sale-order>
-      <purchase-order v-if="this.orderType == '3'"></purchase-order>
+      <sale-plan v-if="this.orderType == '0'"></sale-plan>
+      <sale-order v-if="this.orderType == '1'"></sale-order>
       <purchase-plan v-if="this.orderType == '2'"></purchase-plan>
+      <purchase-order v-if="this.orderType == '3'"></purchase-order>
       <router-view></router-view>
     </div>
   </div>
@@ -37,12 +45,20 @@
 
 <script>
 import { getStore, setStore } from "@/util/util";
+import salePlan from "@/views/SaleAndPurchase/SalePlanOrder.vue";
 import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
-import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan"
+import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan";
 import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
-import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue"
+import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue";
 export default {
-  components: { purchasePlanOrder ,purchaseOrder,purchasePlan,saleOrder},
+  components: {
+    // eslint-disable-next-line vue/no-unused-components
+    purchasePlanOrder,
+    purchaseOrder,
+    purchasePlan,
+    saleOrder,
+    salePlan
+  },
   data() {
     return {
       orderType: ""
@@ -54,8 +70,8 @@ export default {
   methods: {
     initOrderType() {
       this.orderType = getStore("orderType");
-      if(this.orderType == undefined){
-        this.orderType = '1'
+      if (this.orderType == undefined) {
+        this.orderType = "1";
       }
     },
     orderTypeActive(k) {

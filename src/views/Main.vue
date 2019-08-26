@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-keys */
 <template>
   <div>
     <div class="header bg-dark-1 d-flex jc-between ai-center">
@@ -7,10 +8,18 @@
         class="text-white ml-3"
         style="width:0.4rem;height:0.64rem;line-height:0.40rem"
       >
-        <img src="../assets/images/logo1.png" class="w-100" style="margin-top:0" alt />
+        <img
+          src="../assets/images/logo1.png"
+          class="w-100"
+          style="margin-top:0"
+          alt
+        />
       </router-link>
       <div class="text-white fs-xl">江苏东志信有限公司</div>
-      <div class="text-white mr-3" style="width:0.4rem;height:0.64rem;line-height:0.25rem">
+      <div
+        class="text-white mr-3"
+        style="width:0.4rem;height:0.64rem;line-height:0.25rem"
+      >
         <span
           v-show="!this.userInfo.headimgurl"
           class="iconfont icon-canguanyuyue"
@@ -40,31 +49,39 @@
     </div>
     <div style="height:0.57rem;width:100%"></div>
     <div class="tabbar d-flex jc-around w-100">
-      <router-link tag="div" to="/home" class="w-25 border-right">
+      <router-link tag="div" to="/home" class="w-25">
         <div class="box">
           <span
             class="iconfont icon-gongnengguanli"
             @click="tab1Active"
-            :class="this.tab1?'active':''"
+            :class="this.tab1 ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab1?'active':''">首页</div>
+        <div class="text fs-xs" :class="this.tab1 ? 'active' : ''">首页</div>
       </router-link>
-      <router-link tag="div" to="/warehouse/management" class="w-25 border-right">
+      <router-link tag="div" to="/warehouse/management" class="w-25">
         <div class="box">
           <span
             class="iconfont icon-chuku"
             @click="tab2Active"
-            :class="this.tab2?'active':''"
+            :class="this.tab2 ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab2?'active':''">仓储管理</div>
-      </router-link>
-      <router-link tag="div" to="/sale/and/purchase" class="w-25 border-right">
-        <div class="box">
-          <span class="iconfont icon-rukuliucheng" @click="tab3Active" :class="this.tab3?'active':''"></span>
+        <div class="text fs-xs" :class="this.tab2 ? 'active' : ''">
+          仓储管理
         </div>
-        <div class="text fs-xs" :class="this.tab3?'active':''">销售采购</div>
+      </router-link>
+      <router-link tag="div" to="/sale/and/purchase" class="w-25">
+        <div class="box">
+          <span
+            class="iconfont icon-rukuliucheng"
+            @click="tab3Active"
+            :class="this.tab3 ? 'active' : ''"
+          ></span>
+        </div>
+        <div class="text fs-xs" :class="this.tab3 ? 'active' : ''">
+          销售采购
+        </div>
       </router-link>
       <!-- <router-link tag="div" to="/search/page" class="w-25 border-right">
         <div class="box"  @click="tab4Active">
@@ -77,10 +94,10 @@
           <span
             class="iconfont icon-shezhi"
             @click="tab5Active"
-            :class="this.tab5?'active':''"
+            :class="this.tab5 ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab5?'active':''">设置</div>
+        <div class="text fs-xs" :class="this.tab5 ? 'active' : ''">设置</div>
       </router-link>
     </div>
   </div>
@@ -118,7 +135,8 @@ export default {
       navName: "功能",
       pulldown: true,
       appID: "wx08c444d8f0255f63",
-      code: undefined,
+      // eslint-disable-next-line no-dupe-keys
+      pagecode: undefined,
       appserect: "ee2d5ba41eabb66b7b39229d4405db75",
       params: {
         pageNumber: 1,
@@ -161,15 +179,17 @@ export default {
       var r = window.location.search.substr(1).match(reg); // 匹配目标参数
       // this.code = unescape(r[2]);
       if (r != null) {
-        this.code = unescape(r[2]);
+        this.pagecode = unescape(r[2]);
       } else {
-        this.code = null;
+        this.pagecode = null;
       }
       // console.log(this.code);
     },
     async getUserInfo() {
-      if (this.code != null) {
-        const res = await axios.get(`http://49.235.41.147:3000/${this.code}`);
+      if (this.pagecode != null) {
+        const res = await axios.get(
+          `http://49.235.41.147:3000/${this.pagecode}`
+        );
         this.userInfo = res.data;
         // console.log(this.userInfo);
       } else {
@@ -202,6 +222,7 @@ export default {
     },
     stockDetailList() {
       // console.log(11111111);
+      // eslint-disable-next-line no-unused-vars
       stockDetailList(this.params).then(res => {
         // console.log(res.data);
       });
@@ -229,51 +250,51 @@ export default {
       this.isshow = false;
       this.$router.push("/echart");
     },
-    back() {
-      if (this.$router.currentRoute.fullPath == "/reserve/order") {
-        this.$router.push("/");
-      } else if (
-        this.$router.currentRoute.fullPath == "/reserve/order/detail"
-      ) {
-        this.$router.push("/reserve/order");
-      } else if (this.$router.currentRoute.fullPath == "/reserve/order/form") {
-        this.$router.push("/reserve/order");
-      } else if (
-        this.$router.currentRoute.fullPath == "/reserve/order/search"
-      ) {
-        this.$router.push("/reserve/order");
-      } else if (
-        this.$router.currentRoute.fullPath == "/reserve/order/detail/form"
-      ) {
-        this.$router.push("/reserve/order/detail");
-      } else if (
-        this.$router.currentRoute.fullPath == "/reserve/order/detail/search"
-      ) {
-        this.$router.push("/reserve/order/detail");
-      } else if (this.$router.currentRoute.fullPath == "/stockIn") {
-        this.$router.push("/");
-      } else if (this.$router.currentRoute.fullPath == "/stockIn/form") {
-        this.$router.push("/stockIn");
-      } else if (this.$router.currentRoute.fullPath == "/stockIn/detail") {
-        this.$router.push("/stockIn");
-      } else if (this.$router.currentRoute.fullPath == "/stockIn/search") {
-        this.$router.push("/stockIn");
-      } else if (this.$router.currentRoute.fullPath == "/stockOut") {
-        this.$router.push("/");
-      } else if (this.$router.currentRoute.fullPath == "/stockOut/detail") {
-        this.$router.push("/stockOut");
-      } else if (this.$router.currentRoute.fullPath == "/stockOut/form") {
-        this.$router.push("/stockOut");
-      } else if (this.$router.currentRoute.fullPath == "/stockOut/search") {
-        this.$router.push("/stockOut");
-      } else if (
-        this.$router.currentRoute.fullPath == "/stockOut/item/detail"
-      ) {
-        this.$router.push("/stockOut/detail");
-      } else {
-        this.$router.go("-1");
-      }
-    },
+    // back() {
+    //   if (this.$router.currentRoute.fullPath == "/reserve/order") {
+    //     this.$router.push("/");
+    //   } else if (
+    //     this.$router.currentRoute.fullPath == "/reserve/order/detail"
+    //   ) {
+    //     this.$router.push("/reserve/order");
+    //   } else if (this.$router.currentRoute.fullPath == "/reserve/order/form") {
+    //     this.$router.push("/reserve/order");
+    //   } else if (
+    //     this.$router.currentRoute.fullPath == "/reserve/order/search"
+    //   ) {
+    //     this.$router.push("/reserve/order");
+    //   } else if (
+    //     this.$router.currentRoute.fullPath == "/reserve/order/detail/form"
+    //   ) {
+    //     this.$router.push("/reserve/order/detail");
+    //   } else if (
+    //     this.$router.currentRoute.fullPath == "/reserve/order/detail/search"
+    //   ) {
+    //     this.$router.push("/reserve/order/detail");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockIn") {
+    //     this.$router.push("/");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockIn/form") {
+    //     this.$router.push("/stockIn");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockIn/detail") {
+    //     this.$router.push("/stockIn");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockIn/search") {
+    //     this.$router.push("/stockIn");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockOut") {
+    //     this.$router.push("/");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockOut/detail") {
+    //     this.$router.push("/stockOut");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockOut/form") {
+    //     this.$router.push("/stockOut");
+    //   } else if (this.$router.currentRoute.fullPath == "/stockOut/search") {
+    //     this.$router.push("/stockOut");
+    //   } else if (
+    //     this.$router.currentRoute.fullPath == "/stockOut/item/detail"
+    //   ) {
+    //     this.$router.push("/stockOut/detail");
+    //   } else {
+    //     this.$router.go("-1");
+    //   }
+    // },
     confirmStatus() {
       if (this.$router.currentRoute.fullPath == "/") {
         this.toshow = true;
@@ -354,4 +375,3 @@ body {
   border-bottom: 0.01rem solid rgb(199, 198, 198);
 }
 </style>
-

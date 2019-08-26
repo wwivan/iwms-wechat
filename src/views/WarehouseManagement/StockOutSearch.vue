@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 <template>
   <div>
     <!-- <div class="top-bar">
@@ -54,7 +55,9 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
+    >
+      确认
+    </div>
   </div>
 </template>
 
@@ -162,6 +165,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -175,6 +179,7 @@ export default {
           this.suppliers.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求供应商列表错误");
         });
@@ -185,7 +190,6 @@ export default {
     },
     onTitileClickRight() {
       // 确定
-      console.log(this.params);
       this.params.EQ_type = this.selectedStockOutType.id;
       this.params["EQ_wareHouse.id"] = this.selectedWarehouse.id;
       // this.params["EQ_supplier.id"] = this.selectedSupplier.id;

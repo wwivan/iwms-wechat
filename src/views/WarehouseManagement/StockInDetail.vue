@@ -36,7 +36,7 @@
           v-for="(item, index) in records"
           :key="index"
           class="stock-in-detail"
-          :class="(index < (records.length-1))?'bottom':'' "
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
@@ -54,14 +54,14 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{item.status | statusFilter}}</span>
+            <span class="context">{{ item.status | statusFilter }}</span>
           </div>
           <div class="content">
             <div>
-              <div>入库数量: {{item.qty}}</div>
+              <div>入库数量: {{ item.qty }}</div>
               <!-- <div>未理数量: {{item.qty - item.checkedInQty}}</div> -->
-              <div>物料条码: {{item.materielSku.barcode}}</div>
-              <div>物料名称: {{item.materielSku.name}}</div>
+              <div>物料条码: {{ item.materielSku.barcode }}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -70,10 +70,12 @@
                    @click="findTrayList(item)">理货</div>
               <div v-if="item.status == '1'||item.status == '2'" style="height:0.2rem;"></div>-->
               <div
-                v-if="item.status == '1'||item.status == '2'"
+                v-if="item.status == '1' || item.status == '2'"
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="toCell(item.materielSku)"
-              >上架</div>
+              >
+                上架
+              </div>
             </div>
           </div>
         </div>
@@ -212,7 +214,7 @@ export default {
           //   this.getCheckedInQty(result);
           // }
           this.records.push(...items);
-          console.log(this.records)
+          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
@@ -416,7 +418,7 @@ export default {
 .btn {
   z-index: 999;
   /* .iconfont {
-    font-size: 0.13rem;
-  } */
+        font-size: 0.13rem;
+      } */
 }
 </style>

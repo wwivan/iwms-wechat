@@ -5,7 +5,7 @@
       is-link
       readonly
       :label="title"
-      @click="show=true"
+      @click="show = true"
       :placeholder="placeholder"
       :value="selectedItem.name"
     ></van-field>

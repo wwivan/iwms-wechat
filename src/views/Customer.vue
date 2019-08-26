@@ -30,20 +30,19 @@
         </div>
       </div>
     </van-pull-refresh>-->
-
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <div
           v-for="(item, index) in records"
           :key="index"
           class="stock-in-detail"
-          :class="(index < (records.length-1))?'bottom':'' "
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="content" style="justify-content:space-between">
             <div>
-              <div>客户名称: {{item.name}}</div>
-              <div>联系人名称: {{item.contactName}}</div>
-              <div>联系人电话: {{item.contactPhone}}</div>
+              <div>客户名称: {{ item.name }}</div>
+              <div>联系人名称: {{ item.contactName }}</div>
+              <div>联系人电话: {{ item.contactPhone }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -54,8 +53,17 @@
               >选择入库</div>-->
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="useSupplier(item,selectedStockOutType,StockOutType,selectedWarehouse)"
-              >选择</div>
+                @click="
+                  useSupplier(
+                    item,
+                    selectedStockOutType,
+                    StockOutType,
+                    selectedWarehouse
+                  )
+                "
+              >
+                选择
+              </div>
             </div>
           </div>
         </div>
@@ -77,7 +85,9 @@
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { findCustomerList } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { setStore, getStore, removeStore, timeFormat } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   data() {
@@ -115,8 +125,10 @@ export default {
     let item = getStore("selectedStockOutType");
     if (item) {
       removeStore("selectedStockOutType");
+      // eslint-disable-next-line no-console
       console.log(item);
       this.selectedStockOutType = item;
+      // eslint-disable-next-line no-console
       console.log(this.selectedStockOutType);
     }
 
@@ -136,6 +148,7 @@ export default {
     if (Warehouse) {
       removeStore("selectedWarehouse");
       this.selectedWarehouse = Warehouse;
+      // eslint-disable-next-line no-console
       console.log(this.selectedWarehouse);
     }
   },
@@ -155,6 +168,7 @@ export default {
       // 获取记录
       findCustomerList(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
@@ -163,6 +177,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
@@ -224,7 +239,7 @@ export default {
   margin-top: 0.22rem;
   margin-right: 0.12rem;
   /* display: flex;
-     justify-content: space-between; */
+           justify-content: space-between; */
 }
 .stock-in-detail .header {
   margin-top: 0.25rem;
@@ -271,5 +286,3 @@ export default {
   border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
 }
 </style>
-
-

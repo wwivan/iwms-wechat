@@ -1,8 +1,14 @@
 <template>
-  <div :class="className" :id="id" :style="{height:'2rem',width:'3.5rem'}" ref="myEchart"></div>
+  <div
+    :class="className"
+    :id="id"
+    :style="{ height: '2rem', width: '3.5rem' }"
+    ref="myEchart"
+  ></div>
 </template>
 <script>
 import echarts from "echarts";
+// eslint-disable-next-line no-unused-vars
 import { totalmem } from "os";
 export default {
   props: {

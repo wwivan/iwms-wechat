@@ -7,70 +7,101 @@
           v-for="(item, index) in records"
           :key="index"
           class="list"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
-              v-show="item.status==0"
+              v-if="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status==1"
+              v-if="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status==2"
+              v-if="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
             <span
-              v-show="item.status==3"
+              v-if="item.status == 3"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
             <span
-              v-show="item.status==4"
+              v-if="item.status == 4"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
             <span
-              v-show="item.status==5"
+              v-if="item.status == 5"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
             <span
-              v-show="item.status==6"
+              v-if="item.status == 6"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
             <span
-              v-show="item.status==99"
+              v-if="item.status == 99"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span class="context">{{item.saleOrder.orderNo}}</span>
-            <span class="context text-right">{{item.status | statusFilter}}</span>
+            <span class="context">{{ item.saleOrder.orderNo }}</span>
+            <!-- <span class="context text-right">{{
+              item.status | statusFilter
+            }}</span> -->
           </div>
           <div class="content d-flex jc-between">
             <div>
-              <div>物料名称: {{item.materielSku.name}}</div>
-              <div>物料型号: {{item.materielSku.model}}</div>
-              <div>销售订单数量: {{item.qty}}</div>
-              <div>当前库存: {{item.materielSku.stockUseNum}}</div>
-              <div>单价: {{item.price}}</div>
-              <div>总价: {{item.price*item.qty}}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>销售订单数量: {{ item.qty }}</div>
+              <div>当前库存: {{ item.materielSku.stockUseNum }}</div>
+              <div>单价: {{ item.price }}</div>
+              <div>总价: {{ item.price * item.qty }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
           </div>
         </div>
       </van-list>
-      <div class="confirm ml-4">
+      <div
+        class="d-flex jc-around ml-3"
+        v-if="this.orderType == '0' && this.saleOrderItemStatus == 1"
+      >
+        <div class="confirm mt-3">
+          <div
+            style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #F7C77F, #FF9860);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+            @click="saleOrderPass()"
+          >
+            审核通过
+          </div>
+        </div>
+        <div class="confirm mt-3">
+          <div
+            style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779 , #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
+            @click="saleOrderUnPass()"
+          >
+            审核驳回
+          </div>
+        </div>
+      </div>
+      <div
+        class="confirm ml-4"
+        v-if="
+          this.records.length &&
+            (this.orderType == '1' || this.saleOrderItemStatus != 1)
+        "
+      >
         <div
           style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
           @click="back"
-        >返回</div>
+        >
+          返回
+        </div>
       </div>
       <div class="van-list__loading">
         <div
@@ -88,9 +119,9 @@
 <script>
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
-import { findSaleOrderItemList } from "@/api/api";
-import { setStore, getStore, removeStore } from "@/util/util";
-import { Dialog } from "vant";
+import { findSaleOrderItemList, SaleOrderPass } from "@/api/api";
+import { getStore } from "@/util/util";
+// import { Dialog } from "vant";
 export default {
   data() {
     return {
@@ -98,7 +129,9 @@ export default {
       loading: false,
       finished: false,
       act: undefined,
+      orderType: undefined,
       StockInType: undefined,
+      saleOrderItemStatus: 1,
       records: [],
       searchParams: {},
       params: {
@@ -106,15 +139,28 @@ export default {
         pageSize: 10,
         saleOrderId: "1111",
         searchParams: {}
+      },
+      passParams: {
+        id: "233e3",
+        status: "2"
+      },
+      unPassParams: {
+        id: "233e3",
+        status: "3"
       }
     };
   },
   created() {
     this.onRefreshList();
+    this.saleOrderItemStatus = getStore("saleOrderItemStatus");
+    // eslint-disable-next-line no-console
+    console.log(this.saleOrderItemStatus);
   },
   mounted() {
     this.params.fid = this.fid;
     this.params.saleOrderId = getStore("SaleOrderItemId");
+    this.orderType = getStore("orderType");
+
     // let StockInType = getStore("StockInType");
     // this.StockInType = StockInType;
     // // console.log(this.StockInType);
@@ -150,14 +196,23 @@ export default {
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
-          console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
           this.loading = false;
           // console.log(JSON.stringify(error));
-          Toast("请求错误");
+          Toast("请求错误" + error);
         });
+    },
+    saleOrderPass() {
+      this.passParams.id = getStore("SaleOrderItemId");
+      SaleOrderPass(this.passParams);
+      this.$router.push("/sale/and/purchase");
+    },
+    saleOrderUnPass() {
+      this.unPassParams.id = getStore("SaleOrderItemId");
+      SaleOrderPass(this.unPassParams);
+      this.$router.push("/sale/and/purchase");
     },
     onTitleClickLeft() {
       // 返回
@@ -197,7 +252,6 @@ export default {
       }
     },
     back() {
-
       this.$router.push("/sale/order");
     }
   },
@@ -246,41 +300,6 @@ export default {
 </script>
 
 <style scoped>
-/* .reserve-order-header {
-  display: flex;
-  height: 0.46rem;
-  justify-content: space-around;
-  align-items: center;
-}
-.reserve-order .tab {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 0.5rem;
-}
-.reserve-order .tab .tab-active {
-  font-size: 0.13rem;
-  color: #3f7ffe;
-  font-weight: 500;
-}
-.reserve-order .tab .tab-normal {
-  font-size: 0.13rem;
-  color: #4a4a4a;
-}
-.reserve-order .tab_line_left {
-  width: 0.2rem;
-  height: 0.03rem;
-  background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -0.1rem;
-  margin-left: 0.84rem;
-}
-.reserve-order .tab_line_right {
-  width: 0.2rem;
-  height: 0.03rem;
-  background: linear-gradient(0, #4181ff, #2360ef);
-  margin-top: -0.1rem;
-  margin-left: 2.72rem;
-} */
 .list {
   margin-left: 0.12rem;
   margin-top: 0.22rem;

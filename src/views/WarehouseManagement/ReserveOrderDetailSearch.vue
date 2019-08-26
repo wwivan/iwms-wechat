@@ -8,7 +8,12 @@
       @click-left="onTitleClickLeft"
       @click-right="onTitileClickRight"
     />
-    <van-field clearable label="物料条码" placeholder="请输入物料条码" v-model="params.EQ_barcode"></van-field>
+    <van-field
+      clearable
+      label="物料条码"
+      placeholder="请输入物料条码"
+      v-model="params.EQ_barcode"
+    ></van-field>
     <van-field
       clearable
       label="物料名称"
@@ -53,4 +58,3 @@ export default {
   components: {}
 };
 </script>
-

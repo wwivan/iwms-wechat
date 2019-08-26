@@ -6,7 +6,7 @@
           v-for="(item, index) in records"
           :key="index"
           class="stock-out"
-          :class="(index < (records.length-1))?'bottom':''"
+          :class="index < records.length - 1 ? 'bottom' : ''"
         >
           <div class="header">
             <span
@@ -24,17 +24,24 @@
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
-            <span
-              style="font-size:0.13rem;color:#4181FF;margin-left:0.06rem"
-            >{{item.stockOut==undefined? '':item.stockOut.orderNo}}</span>
+            <span style="font-size:0.13rem;color:#4181FF;margin-left:0.06rem">{{
+              item.stockOut == undefined ? "" : item.stockOut.orderNo
+            }}</span>
           </div>
           <div class="content">
             <div>
-              <div>物料名称: {{item.materielSku.name}}</div>
-              <div>物料型号: {{item.materielSku.model}}</div>
-              <div>出库数量: {{item.qty}}</div>
-              <div>总库存: {{stockUseNum}}</div>
-              <div>仓库: {{item.stockOut.wareHouse==undefined? '':item.stockOut.wareHouse.name}}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>出库数量: {{ item.qty }}</div>
+              <div>总库存: {{ stockUseNum }}</div>
+              <div>
+                仓库:
+                {{
+                  item.stockOut.wareHouse == undefined
+                    ? ""
+                    : item.stockOut.wareHouse.name
+                }}
+              </div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
           </div>
@@ -43,12 +50,16 @@
               v-if="item.status != '1'"
               style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
               @click="findStockOutItemDetail(item)"
-            >查看详情</div>
+            >
+              查看详情
+            </div>
             <div
               v-if="item.status == '1'"
               @click="toLocation(item)"
               style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-            >开始配货</div>
+            >
+              开始配货
+            </div>
           </div>
         </div>
       </van-list>
@@ -65,12 +76,14 @@
   </div>
 </template>
 <script>
+// eslint-disable-next-line no-unused-vars
 import Vue from "vue";
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import {
   findStockOutItemList,
   toLocation,
+  // eslint-disable-next-line no-unused-vars
   findToLocationByStockOutItemAndCell,
   findStockList
 } from "@/api/api";
@@ -111,11 +124,13 @@ export default {
     let temps = getStore("StockOutDetailParams");
 
     let stockOutDetailParams = JSON.parse(temps);
+    // eslint-disable-next-line no-console
     console.log(stockOutDetailParams.id);
     this.params.stockOutId = stockOutDetailParams.id;
     this.params.id = stockOutDetailParams.id;
     this.stockOut = stockOutDetailParams;
     let StockOutType = getStore("StockOutType");
+    // eslint-disable-next-line no-console
     console.log(StockOutType);
     this.StockOutType = StockOutType;
   },
@@ -128,12 +143,14 @@ export default {
     },
     onLoadMore() {
       // this.params.pageNumber = this.params.pageNumber + 1;
+      // eslint-disable-next-line no-console
       console.log(this.params.pageNumber);
       this.findStockOutItemList();
     },
     findStockOutItemList() {
       this.params.searchParams = this.searchParams;
       // 获取记录
+      // eslint-disable-next-line no-console
       console.log("获取记录");
       findStockOutItemList(this.params)
         .then(res => {
@@ -143,6 +160,7 @@ export default {
           for (let item of items) {
             this.findStockList(item.materielSku.id);
             this.status = item.status;
+            // eslint-disable-next-line no-console
             console.log(this.status);
             //console.log(item.materielSku.id);
             //Vue.set(item, "checked", false);
@@ -152,6 +170,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
@@ -161,6 +180,7 @@ export default {
       // 获取记录
       findStockList(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           let stockUseNums = res.data.content;
           for (let item of stockUseNums) {
@@ -170,6 +190,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
@@ -192,12 +213,14 @@ export default {
     },
 
     // 开始配货
+    // eslint-disable-next-line no-unused-vars
     toLocation(stockOut) {
       // this.params.searchParams = this.searchParams;
       // this.params.id = stockOut.id;
       // 获取记录
       toLocation(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           this.loading = false;
           Toast("配货完成！");
@@ -208,6 +231,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast(JSON.stringify(error.message));
         });

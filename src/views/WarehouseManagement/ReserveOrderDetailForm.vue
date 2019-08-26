@@ -28,8 +28,15 @@
       size="small"
       @click="selectMaterielSku"
       style="background-color:#337ab7;color:white;"
-    >选择</van-button>
-    <van-field clearable required label="送货数量" placeholder="请输入 送货数量" v-model="params.purchaseNum"></van-field>
+      >选择</van-button
+    >
+    <van-field
+      clearable
+      required
+      label="送货数量"
+      placeholder="请输入 送货数量"
+      v-model="params.purchaseNum"
+    ></van-field>
   </div>
 </template>
 
@@ -110,4 +117,3 @@ export default {
   }
 };
 </script>
-

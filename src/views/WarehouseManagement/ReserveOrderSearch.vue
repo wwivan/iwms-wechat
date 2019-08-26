@@ -31,14 +31,14 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
-
+    >
+      确认
+    </div>
     <!-- <van-tabbar v-model="active" @change="onTabChange">
       <van-tabbar-item icon="home-o">主页</van-tabbar-item>
       <van-tabbar-item icon="orders-o">新增入库单</van-tabbar-item>
       <van-tabbar-item icon="apps-o">选择入库单</van-tabbar-item>
     </van-tabbar>-->
-
     <!-- <picker-popup :title="'供应商'" :placeholder="'请选择供应商'" :selectedItem.sync="selectedSupplier" :columns="suppliers" /> -->
     <!-- <date-select-cell :title="'开始日期'" :placeholder="'请输入开始日期'" :value.sync="params.GTEDATE_purchaseDate"></date-select-cell>
     <date-select-cell :title="'截止日期'" :placeholder="'请输入截止日期'" :value.sync="params.LTEDATE_purchaseDate"></date-select-cell>-->

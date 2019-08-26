@@ -9,6 +9,7 @@
 </template>
 <script>
 import { authorize, getUser, getUserInfo } from "@/api/api";
+// eslint-disable-next-line no-unused-vars
 import { setStore, getStore, removeStore } from "@/util/util";
 import axios from "axios";
 export default {
@@ -36,6 +37,7 @@ export default {
     },
     authorize() {
       authorize().then(res => {
+        // eslint-disable-next-line no-console
         console.log(res.data);
         this.url = res.data;
       });
@@ -45,11 +47,13 @@ export default {
     },
     getUser() {
       getUser().then(res => {
+        // eslint-disable-next-line no-console
         console.log(res.data);
       });
     },
     getUserInfo() {
       getUserInfo(this.params).then(res => {
+        // eslint-disable-next-line no-console
         console.log(res.data);
         setStore("appid", this.params.appid);
         this.$router.push("/login");

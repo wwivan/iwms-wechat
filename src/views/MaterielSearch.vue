@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <div>
     <!-- <van-nav-bar title="物料查询" left-text="返回" right-text="确定" left-arrow @click-left="onTitleClickLeft" @click-right="onTitileClickRight" />
@@ -29,14 +30,18 @@
       class="confirm fs-md"
       style="border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="onTitileClickRight"
-    >确认</div>
+    >
+      确认
+    </div>
   </div>
 </template>
 
 <script>
+// eslint-disable-next-line no-unused-vars
 import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { setStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import PickerPopup from "@/component/PickerPopup";
 export default {
   data() {
@@ -55,6 +60,7 @@ export default {
     },
     onTitileClickRight() {
       // 确定
+      // eslint-disable-next-line no-console
       console.log(this.params);
       setStore("MaterielSkuSearchParams", this.params);
       this.$router.push("/materiel");

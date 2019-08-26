@@ -4,7 +4,7 @@
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">预约单号</span>
-        <span class="message">{{params.reserveOrderNo}}</span>
+        <span class="message">{{ params.reserveOrderNo }}</span>
       </div>
       <div class="row">
         <date-select-cell
@@ -17,12 +17,14 @@
       </div>
       <div class="row">
         <span style="margin-left:0" class="title">供应商</span>
-        <span class="message">{{params.supplierName}}</span>
+        <span class="message">{{ params.supplierName }}</span>
       </div>
       <div
         @click="selectSupplier()"
         class="fs-sm "
-        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;">选择
+        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;"
+      >
+        选择
       </div>
       <div class="row">
         <span style="margin-left:0" class="title">送货单号</span>
@@ -49,14 +51,16 @@
       size="normal"
       style="margin:0.05rem 0.27rem;border-radius:0.08rem; background:linear-gradient(135deg, #F7C77F, #FF9860);color:white;"
       @click="back"
-    >确认返回</van-button>
+      >确认返回</van-button
+    >
     <van-button
       plain
       hairline
       size="normal"
       style="margin:0.05rem 0.27rem;border-radius:0.08rem; background: linear-gradient(135deg, #4181ff, #2360ef);color:white;"
       @click="addItem"
-    >添加明细</van-button>
+      >添加明细</van-button
+    >
     <!-- <van-tabbar v-model="active" @change="onTabChange">
       <van-tabbar-item icon="home-o">主页</van-tabbar-item>
       <van-tabbar-item icon="orders-o">新增入库单</van-tabbar-item>
@@ -115,7 +119,7 @@ export default {
       // this.params.supplierName = temps.name;
       // this.params.supplier.id = temps.id;
     }
-    this.StockType = getStore("stockType")
+    this.StockType = getStore("stockType");
     // let active = getStore("active");
     // this.act = active;
     // console.log(this.act);

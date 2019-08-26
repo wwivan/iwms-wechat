@@ -2,26 +2,58 @@
   <div class="home">
     <!-- 顶部按钮 -->
     <div class="nav_btn d-flex jc-around">
-      <router-link class="item fs-xs text-grey" tag="div" to="/warehouse/management">
-        <div class="icon-container" style="background:linear-gradient(135deg, #FF9779, #F6617B)">
+      <router-link
+        class="item fs-xs text-grey"
+        tag="div"
+        to="/warehouse/management"
+      >
+        <div
+          class="icon-container"
+          style="background:linear-gradient(135deg, #FF9779, #F6617B)"
+        >
           <div class="icon">
-            <img src="../assets/images/入库登记@2x.png" style="width:100%" alt />
+            <img
+              src="../assets/images/入库登记@2x.png"
+              style="width:100%"
+              alt
+            />
           </div>
-        </div>仓储管理
+        </div>
+        仓储管理
       </router-link>
-      <router-link class="item fs-xs text-grey" tag="div" to="/sale/and/purchase">
-        <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
+      <router-link
+        class="item fs-xs text-grey"
+        tag="div"
+        to="/sale/and/purchase"
+      >
+        <div
+          class="icon-container"
+          style="background:linear-gradient(135deg, #F8CF64, #FFCE45)"
+        >
           <div class="icon">
-            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
+            <img
+              src="../assets/images/出库登记@2x.png"
+              style="width:100%"
+              alt
+            />
           </div>
-        </div>销售采购
+        </div>
+        销售采购
       </router-link>
       <router-link class="item fs-xs text-grey" tag="div" to="/materiel/search">
-        <div class="icon-container" style="background:linear-gradient(135deg, #4181FF, #2360EF)">
+        <div
+          class="icon-container"
+          style="background:linear-gradient(135deg, #4181FF, #2360EF)"
+        >
           <div class="icon">
-            <img src="../assets/images/出库存货@2x.png" style="width:100%" alt />
+            <img
+              src="../assets/images/出库存货@2x.png"
+              style="width:100%"
+              alt
+            />
           </div>
-        </div>对账管理
+        </div>
+        对账管理
       </router-link>
       <!-- <div class="item" @click="onStockOutToCell">
             <div>
@@ -30,18 +62,34 @@
             下架
       </div>-->
       <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
-        <div class="icon-container" style="background:linear-gradient(135deg, #F7C77F, #FF9860)">
+        <div
+          class="icon-container"
+          style="background:linear-gradient(135deg, #F7C77F, #FF9860)"
+        >
           <div class="icon">
-            <img src="../assets/images/盘点操作@2x.png" style="width:100%" alt />
+            <img
+              src="../assets/images/盘点操作@2x.png"
+              style="width:100%"
+              alt
+            />
           </div>
-        </div>查 询
+        </div>
+        查 询
       </router-link>
       <router-link class="item fs-xs text-grey" tag="div" to="/stockOut">
-        <div class="icon-container" style="background:linear-gradient(135deg, #F8CF64, #FFCE45)">
+        <div
+          class="icon-container"
+          style="background:linear-gradient(135deg, #F8CF64, #FFCE45)"
+        >
           <div class="icon">
-            <img src="../assets/images/出库登记@2x.png" style="width:100%" alt />
+            <img
+              src="../assets/images/出库登记@2x.png"
+              style="width:100%"
+              alt
+            />
           </div>
-        </div>报 表
+        </div>
+        报 表
       </router-link>
     </div>
     <!-- 滚动栏 -->
@@ -51,10 +99,21 @@
         <!-- <swiper-slide v-for="(item, i) in images" :key="i">
         <a :href="item.url"> <img class="w-100" :src="item.image" alt=""/></a>
         </swiper-slide>-->
-        <swiper-slide v-for="(item,index) in news" :key="index">
-          <span class="iconfont icon-xiaolaba" style="height:0.39rem;line-height:0.39rem;"></span>
-          <span class="ml-3 fs-md" style="height:0.39rem;line-height:0.39rem;">{{item.title}}</span>
-          <span class="ml-3 fs-md" style="height:0.39rem;line-height:0.39rem;">{{item.context}}</span>
+        <swiper-slide v-for="(item, index) in news" :key="index">
+          <span
+            class="iconfont icon-xiaolaba"
+            style="height:0.39rem;line-height:0.39rem;"
+          ></span>
+          <span
+            class="ml-3 fs-md"
+            style="height:0.39rem;line-height:0.39rem;"
+            >{{ item.title }}</span
+          >
+          <span
+            class="ml-3 fs-md"
+            style="height:0.39rem;line-height:0.39rem;"
+            >{{ item.context }}</span
+          >
         </swiper-slide>
         <!-- <swiper-slide v-for="(item,index) in news" :key="index" v-show="(index % 2) != 0">
           <span>
@@ -71,21 +130,21 @@
         <div class="row d-flex ai-center">
           <span class="iconfont icon-rukuliucheng"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.waitIn}}</div>
+            <div class="fs-xl text-white">{{ store.waitIn }}</div>
             <div class="text-left text-white mt-1">预约入库</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
           <span class="iconfont icon-rukuguanli-"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.todayIn}}</div>
+            <div class="fs-xl text-white">{{ store.todayIn }}</div>
             <div class="text-left text-white mt-1">今日入库</div>
           </div>
         </div>
         <div class="row d-flex ai-center" @click="checkDanger">
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.danger}} 项</div>
+            <div class="fs-xl text-white">{{ store.danger }} 项</div>
             <!-- <marquee class="text-left text-white" width="0.55rem">{{store.skuWaringMsg}}</marquee> -->
             <div class="text-left text-white mt-1">本月入库</div>
           </div>
@@ -95,22 +154,21 @@
         <div class="row d-flex ai-center">
           <span class="iconfont icon-daichuku"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.waitOut}}</div>
+            <div class="fs-xl text-white">{{ store.waitOut }}</div>
             <div class="text-left text-white mt-1">预约出库</div>
           </div>
         </div>
-
         <div class="row d-flex ai-center">
           <span class="iconfont icon-chuku"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.todayOut}}</div>
+            <div class="fs-xl text-white">{{ store.todayOut }}</div>
             <div class="text-left text-white mt-1">今日出库</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
           <span class="iconfont icon-kucun"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{store.storage}}</div>
+            <div class="fs-xl text-white">{{ store.storage }}</div>
             <div class="text-left text-white mt-1">本月出库</div>
           </div>
         </div>
@@ -131,6 +189,7 @@ import stickLineEchart from "../component/Echart/stick_lineEchart";
 import stickEchart from "../component/Echart/stickEchart";
 import lineEchart from "../component/Echart/lineEchart";
 import { mapGetters } from "vuex";
+// eslint-disable-next-line no-unused-vars
 import { getTask, dangerStorage } from "@/api/api";
 export default {
   components: { circleEchart, stickEchart, stickLineEchart, lineEchart },
@@ -354,7 +413,7 @@ export default {
     .row {
       border-radius: 0.1rem;
       // background: rgb(192, 192, 192);
-      background:rgba(65, 128, 255, 0.6);
+      background: rgba(65, 128, 255, 0.6);
       border-left: 0.03rem solid white;
       border-right: 0.03rem solid white;
       width: 33.3%;
