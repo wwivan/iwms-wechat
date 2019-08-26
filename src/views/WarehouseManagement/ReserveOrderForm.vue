@@ -71,6 +71,7 @@
 
 <script>
 import { Toast } from "vant";
+// eslint-disable-next-line no-unused-vars
 import PickerPopup from "@/component/PickerPopup";
 import DateSelectCell from "@/component/DateSelectCell";
 import { saveReserveOrder, getReserveOrderNo } from "@/api/api";
@@ -143,6 +144,7 @@ export default {
     // },
     findWareHouseList() {
       // 仓库列表
+      // eslint-disable-next-line no-undef
       findWareHouseList(this.findWareHouseListParams)
         .then(res => {
           this.sarehouses = [];
@@ -150,6 +152,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -161,17 +164,20 @@ export default {
           this.params.reserveOrderNo = res.data;
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
     },
     back() {
       saveReserveOrder(this.params)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
           this.$router.push("/stockIn");
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -188,6 +194,7 @@ export default {
           this.$router.push("/reserve/order");
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -200,6 +207,7 @@ export default {
     selectCustomer(StockType, selectedWarehouse) {
       setStore("selectedWarehouse", selectedWarehouse);
       setStore("StockType", StockType);
+      // eslint-disable-next-line no-console
       console.log(StockType);
       this.$router.push({
         name: "Customer"

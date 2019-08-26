@@ -1,3 +1,4 @@
+/* eslint-disable no-console */ /* eslint-disable no-console */
 <template>
   <div>
     <div class="content">
@@ -51,6 +52,7 @@
 <script>
 import { Toast } from "vant";
 import PickerPopup from "@/component/PickerPopup";
+// eslint-disable-next-line no-unused-vars
 import DateSelectCell from "@/component/DateSelectCell";
 import { findWareHouseList, findSupplierList } from "@/api/api";
 import { mapGetters } from "vuex";
@@ -173,6 +175,7 @@ export default {
           this.sarehouses.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求仓库列表错误");
         });
@@ -186,6 +189,7 @@ export default {
           this.suppliers.push(...items);
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast("请求供应商列表错误");
         });
@@ -196,6 +200,7 @@ export default {
     },
     onTitileClickRight() {
       // 确定
+      // eslint-disable-next-line no-console
       console.log(this.params);
       // this.params.EQ_inType = this.selectedStockInType.id;
       this.params["EQ_wareHouse.id"] = this.selectedWarehouse.id;

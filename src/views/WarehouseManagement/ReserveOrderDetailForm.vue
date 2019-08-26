@@ -42,6 +42,7 @@
 
 <script>
 import { Toast } from "vant";
+// eslint-disable-next-line no-unused-vars
 import DateSelectCell from "@/component/DateSelectCell";
 import { saveReserveOrderItem } from "@/api/api";
 import { getStore, setStore, removeStore } from "@/util/util";
@@ -63,10 +64,12 @@ export default {
     if (temp) {
       let reserveOrder = JSON.parse(temp);
       this.params.reserveOrder.id = reserveOrder.id;
+      // eslint-disable-next-line no-console
       console.log(this.params.reserveOrder.id);
     }
     let act = getStore("active");
     this.act = act;
+    // eslint-disable-next-line no-console
     console.log(this.act);
     temp = getStore("materielSku");
     if (temp) {
@@ -84,19 +87,23 @@ export default {
     },
     onTitleClickRight() {
       saveReserveOrderItem(this.params)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
           this.$router.push("/reserve/order/detail");
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast(error.message);
         });
     },
     continueAdd() {
+      // eslint-disable-next-line no-console
       console.log("继续添加");
     },
     confirmBack() {
+      // eslint-disable-next-line no-console
       console.log("确认返回");
     },
     onTabChange(active) {

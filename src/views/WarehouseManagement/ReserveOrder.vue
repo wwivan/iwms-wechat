@@ -139,6 +139,7 @@ export default {
           this.finished = res.data.last;
           this.records.push(...res.data.content);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;

@@ -91,8 +91,10 @@
 <script>
 import { mapGetters, mapMutations } from "vuex";
 import { Toast } from "vant";
+// eslint-disable-next-line no-unused-vars
 import { findStockInList, doToCell } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   data() {
@@ -170,12 +172,15 @@ export default {
       findStockInList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
+          // eslint-disable-next-line no-console
           console.log(33333);
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
+          // eslint-disable-next-line no-console
           console.log(this.records);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;

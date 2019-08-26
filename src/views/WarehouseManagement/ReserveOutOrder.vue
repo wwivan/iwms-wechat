@@ -78,6 +78,7 @@ import { Toast } from "vant";
 import { mapGetters } from "vuex";
 import { findReserveOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   data() {
@@ -139,6 +140,7 @@ export default {
           this.finished = res.data.last;
           this.records.push(...res.data.content);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;

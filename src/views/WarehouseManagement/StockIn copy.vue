@@ -114,8 +114,10 @@
 import reserveOrder from "@/views/ReserveOrder";
 import { mapGetters, mapMutations } from "vuex";
 import { Toast } from "vant";
+// eslint-disable-next-line no-unused-vars
 import { findStockInList, doToCell, findReserveOrderList } from "@/api/api";
 import { setStore, getStore, removeStore } from "@/util/util";
+// eslint-disable-next-line no-unused-vars
 import { Dialog } from "vant";
 export default {
   components: { reserveOrder },
@@ -165,18 +167,22 @@ export default {
     },
     stockInCreate() {
       if (this.isshow == false) {
+        // eslint-disable-next-line no-console
         console.log("新建入库单");
         this.$router.push("/stockIn/form");
       } else if (this.isshow == true) {
+        // eslint-disable-next-line no-console
         console.log("新建预约单");
         this.$router.push("/reserve/order/form");
       }
     },
     stockInSearch() {
       if (this.isshow == false) {
+        // eslint-disable-next-line no-console
         console.log("搜索入库单");
         this.$router.push("/stockIn/search");
       } else if (this.isshow == true) {
+        // eslint-disable-next-line no-console
         console.log("搜索预约单");
         this.$router.push("/reserve/order/search");
       }
@@ -197,9 +203,11 @@ export default {
       this.params.searchParams = this.searchParams;
       if (this.isshow == false) {
         //this.params.searchParams["EQ_status"] = "0";
+        // eslint-disable-next-line no-console
         console.log(this.isshow);
       } else if (this.isshow == true) {
         this.params.searchParams["IN_status"] = "0,1,2";
+        // eslint-disable-next-line no-console
         console.log(111122222211111);
       }
 
@@ -207,11 +215,13 @@ export default {
       findStockInList(this.params)
         .then(res => {
           // console.log(JSON.stringify(res));
+          // eslint-disable-next-line no-console
           console.log(33333);
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;

@@ -252,7 +252,7 @@ export default {
       }
     },
     back() {
-      this.$router.push("/sale/order");
+      this.$router.push("/sale/and/purchase");
     }
   },
   computed: {

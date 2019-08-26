@@ -86,6 +86,7 @@ export default {
   },
   created() {
     let stockIn = getStore("StockInDetailParams");
+    // eslint-disable-next-line no-console
     console.log(stockIn);
     let obj = JSON.parse(stockIn);
     this.stockInItem.stockIn.orderNo = obj.orderNo;
@@ -105,7 +106,9 @@ export default {
     orderNo: {
       get: function() {
         if (this.stockInItem.stockIn) {
+          // eslint-disable-next-line no-console
           console.log("bucunzai");
+          // eslint-disable-next-line no-console
           console.log(this.stockInItem.stockIn);
           return this.stockInItem.stockIn.orderNo;
         }
@@ -128,21 +131,26 @@ export default {
       this.$router.push("/materiel");
     },
     onTitleClickRight() {
+      // eslint-disable-next-line no-console
       console.log("确认：", this.stockInItem);
       saveStockInItem(this.stockInItem)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
           this.$router.push("/stockIn/detail");
         })
         .catch(error => {
+          // eslint-disable-next-line no-console
           console.log(error);
           Toast(error.message);
         });
     },
     continueAdd() {
+      // eslint-disable-next-line no-console
       console.log("继续添加");
     },
     confirmBack() {
+      // eslint-disable-next-line no-console
       console.log("确认返回");
     },
     onTabChange(active) {

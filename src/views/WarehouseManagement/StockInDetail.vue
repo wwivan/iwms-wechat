@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 <template>
   <div>
     <!-- <van-nav-bar title="入库明细记录" left-text="返回" right-text="查询" left-arrow @click-left="onTitleClickLeft" @click-right="onTitileClickRight" > -->
@@ -156,6 +157,7 @@ export default {
       this.searchParams = {};
     }
     let temps = getStore("StockInDetailParams");
+    // eslint-disable-next-line no-console
     console.log(temps);
     let stockInDetailParams = JSON.parse(temps);
     this.params.stockInId = stockInDetailParams.id;
@@ -165,6 +167,7 @@ export default {
   },
   methods: {
     stockInItemSearch() {
+      // eslint-disable-next-line no-console
       console.log("查询");
     },
     stockInItemForm() {
@@ -200,37 +203,45 @@ export default {
       // 获取记录
       findStockInItemList(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(res.data);
           this.loading = false;
           this.finished = res.data.last;
           let items = res.data.content;
+          // eslint-disable-next-line no-console
           console.log(items);
           let result = "";
           for (let item of items) {
             result += item.id + ",";
           }
+          // eslint-disable-next-line no-console
           console.log(result);
           // if (result != "") {
           //   this.getCheckedInQty(result);
           // }
           this.records.push(...items);
+          // eslint-disable-next-line no-console
           console.log(this.records);
         })
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
     },
 
     getCheckedInQty(id) {
+      // eslint-disable-next-line no-console
       console.log(id);
       this.params.stockInItemId = id;
       getCheckedInQty(this.params)
         .then(res => {
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(res));
           let items = res.data;
+          // eslint-disable-next-line no-unused-vars
           let result = "";
           for (let key in items) {
             for (
@@ -248,18 +259,21 @@ export default {
               }
             }
             this.checkedInQty = items[key];
+            // eslint-disable-next-line no-console
             console.log(items[key]);
           }
         })
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
     },
     toCell(materielSku) {
       setStore("toCells", materielSku);
+      // eslint-disable-next-line no-console
       console.log(materielSku);
       this.$router.push({
         name: "StockInCameraCell"
@@ -269,6 +283,7 @@ export default {
       this.params.stockInItem.id = StockInItem.id;
       // 获取记录
       confirmSealedTray(this.params)
+        // eslint-disable-next-line no-unused-vars
         .then(res => {
           this.onRefreshList();
           Toast("确定理货成功!");
@@ -276,6 +291,7 @@ export default {
         .catch(error => {
           this.finished = true;
           this.loading = false;
+          // eslint-disable-next-line no-console
           console.log(JSON.stringify(error));
           Toast("请求错误");
         });
