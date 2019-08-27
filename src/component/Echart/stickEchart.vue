@@ -12,6 +12,10 @@ import echarts from "echarts";
 export default {
   props: {
     items: { type: Array },
+    itemName: { type: String },
+    itemName2: { type: String },
+    title: { type: String },
+    color: { type: Array },
     className: {
       type: String,
       default: "yourClassName"
@@ -33,8 +37,8 @@ export default {
     return {
       chart: null,
       names: [],
-      stockInValues: [],
-      stockOutValues: []
+      num1: [],
+      num2: []
     };
   },
   created() {
@@ -55,15 +59,15 @@ export default {
       let names = this.items.map(e => {
         return e.name;
       });
-      let stockInValues = this.items.map(e => {
-        return e.stockInValue;
+      let num1 = this.items.map(e => {
+        return e.num1;
       });
-      let stockOutValues = this.items.map(e => {
-        return e.stockOutValue;
+      let num2 = this.items.map(e => {
+        return e.num2;
       });
-      this.names = names;
-      this.stockInValues = stockInValues;
-      this.stockOutValues = stockOutValues;
+      this.names = names.reverse();
+      this.num1 = num1.reverse();
+      this.num2 = num2.reverse();
       // console.log(this.names);
     },
     initChart() {
@@ -71,9 +75,9 @@ export default {
       // 把配置和数据放这里
       this.chart.setOption({
         title: {
-          text: "库存统计Top10",
+          text: this.title,
           textStyle: {
-            color: "#FF9860"
+            color: this.color[0]
           }
           // subtext: "纯属虚构"
         },
@@ -112,11 +116,11 @@ export default {
         ],
         series: [
           {
-            name: "库存",
+            name: this.itemName,
             type: "bar",
-            data: this.stockInValues,
+            data: this.num1,
             itemStyle: {
-              color: "#FF9860"
+              color: this.color[1]
             },
             // markPoint: {
             //   data: [

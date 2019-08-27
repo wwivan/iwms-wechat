@@ -15,7 +15,7 @@
           alt
         />
       </router-link>
-      <div class="text-white fs-xl">江苏东志信有限公司</div>
+      <div class="text-white fs-xl">江苏东志信科技有限公司</div>
       <div
         class="text-white mr-3"
         style="width:0.4rem;height:0.64rem;line-height:0.25rem"

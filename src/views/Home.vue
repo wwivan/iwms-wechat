@@ -150,9 +150,55 @@
         </div>
       </div>
     </div>
-    <circle-echart :items="items" class="circleEchart"></circle-echart>
-    <stick-echart :items="items1" class="stickEchart"></stick-echart>
-    <stick-line-echart :items="items2" class="stickEchart"></stick-line-echart>
+    <circle-echart
+      :items="items4"
+      :title="salePerMsg.title"
+      :color="salePerMsg.color"
+      class="circleEchart"
+    ></circle-echart>
+    <!-- <div class="fs-xl">利润率</div> -->
+    <div class="circleEchart d-flex">
+      <dashboard-echart class="dashboard"></dashboard-echart>
+      <dashboard-echart class="dashboard"></dashboard-echart>
+    </div>
+    <full-circle-echart
+      :items="items6"
+      :title="materielSaleMsg.title"
+      :color="materielSaleMsg.color"
+      class="circleEchart"
+    ></full-circle-echart>
+    <double-stick-echart
+      :items="items5"
+      class="stickEchart"
+      :itemName="saleMsg.name1"
+      :itemName2="saleMsg.name2"
+      :title="saleMsg.title"
+      :color="saleMsg.color"
+      v-if="items4"
+    ></double-stick-echart>
+    <circle-echart
+      :items="items"
+      :title="materielMsg.title"
+      :color="materielMsg.color"
+      class="circleEchart"
+    ></circle-echart>
+    <stick-echart
+      :items="items1"
+      class="stickEchart"
+      :itemName="top10Msg.name1"
+      :itemName2="top10Msg.name2"
+      :title="top10Msg.title"
+      :color="top10Msg.color"
+      v-if="items1"
+    ></stick-echart>
+    <stick-line-echart
+      :items="items2"
+      :itemName="dangerMsg.name1"
+      :itemName2="dangerMsg.name2"
+      :title="dangerMsg.title"
+      :color="dangerMsg.color"
+      class="stickEchart"
+    ></stick-line-echart>
     <line-echart :items="items3" class="stickEchart"></line-echart>
     <!-- 订单管理模块 -->
     <div></div>
@@ -164,11 +210,22 @@ import circleEchart from "../component/Echart/circleEchart";
 import stickLineEchart from "../component/Echart/stick_lineEchart";
 import stickEchart from "../component/Echart/stickEchart";
 import lineEchart from "../component/Echart/lineEchart";
+import doubleStickEchart from "../component/Echart/doubleStickEchart";
+import fullCircleEchart from "../component/Echart/fullCircleEchart";
+import dashboardEchart from "../component/Echart/dashboardEchart";
 import { mapGetters } from "vuex";
 // eslint-disable-next-line no-unused-vars
 import { getTask, dangerStorage } from "@/api/api";
 export default {
-  components: { circleEchart, stickEchart, stickLineEchart, lineEchart },
+  components: {
+    circleEchart,
+    stickEchart,
+    stickLineEchart,
+    lineEchart,
+    doubleStickEchart,
+    fullCircleEchart,
+    dashboardEchart
+  },
   data() {
     return {
       store: {
@@ -220,23 +277,78 @@ export default {
           clickable: true
         }
       },
+      materielMsg: {
+        name1: "当前库存",
+        name2: "安全库存",
+        title: "物料统计",
+        color: [
+          "#F7C77F",
+          "#749f83",
+          "#c23531",
+          "#2f4554",
+          "#ca8622",
+          "#bda29a",
+          "#6e7074",
+          "#546570",
+          "#c4ccd3"
+        ]
+      },
+      salePerMsg: {
+        name1: "当前库存",
+        name2: "安全库存",
+        title: "个人销售情况占比",
+        color: [
+          "#F7C77F",
+          "#749f83",
+          "#c23531",
+          "#2f4554",
+          "#ca8622",
+          "#bda29a",
+          "#6e7074",
+          "#546570",
+          "#c4ccd3"
+        ]
+      },
+      materielSaleMsg: {
+        name1: "当前库存",
+        name2: "安全库存",
+        title: "产品销售情况占比",
+        color: [
+          "#F7C77F",
+          "#749f83",
+          "#c23531",
+          "#2f4554",
+          "#ca8622",
+          "#bda29a",
+          "#6e7074",
+          "#546570",
+          "#c4ccd3"
+        ]
+      },
+      dangerMsg: {
+        name1: "当前库存",
+        name2: "安全库存",
+        title: "库存预警",
+        color: ["#FF9860", "#4181FF", "#F6617B"]
+      },
+      top10Msg: {
+        name1: "库存",
+        name2: "安全库存",
+        title: "库存top10",
+        color: ["#FF9860", "#4181FF", "#F6617B"]
+      },
+      saleMsg: {
+        name1: "月度销售趋势",
+        name2: "销售金额",
+        title: "同期销售金额",
+        color: ["#FF9860", "#4181FF", "#F6617B"]
+      },
       items: [
         { name: "成品", value: 95, max: "100" },
         { name: "半成品", value: 55, max: "100" },
         { name: "原材料", value: 75, max: "100" }
       ],
-      items1: [
-        { name: "三级垫圈", stockInValue: 10, stockOutValue: 200 },
-        { name: "外六角", stockInValue: 50, stockOutValue: 200 },
-        { name: "螺钉", stockInValue: 60, stockOutValue: 200 },
-        { name: "三级垫圈", stockInValue: 80, stockOutValue: 200 },
-        { name: "外六角", stockInValue: 100, stockOutValue: 200 },
-        { name: "螺钉", stockInValue: 120, stockOutValue: 200 },
-        { name: "三级垫圈", stockInValue: 200, stockOutValue: 200 },
-        { name: "外六角", stockInValue: 210, stockOutValue: 200 },
-        { name: "螺钉", stockInValue: 250, stockOutValue: 200 },
-        { name: "三级垫圈", stockInValue: 260, stockOutValue: 200 }
-      ],
+      items1: undefined,
       items2: [
         { name: "三级垫圈", stockInValue: 30, stockOutValue: 10 },
         { name: "外六角", stockInValue: 40, stockOutValue: 20 },
@@ -259,6 +371,34 @@ export default {
         { name: "11月份", stockInValue: 40, stockOutValue: 20, storage: 20 },
         { name: "12月份", stockInValue: 50, stockOutValue: 40, storage: 10 }
       ],
+      items4: [
+        { name: "张三", value: 5, max: "100" },
+        { name: "李四", value: 2, max: "100" },
+        { name: "王五", value: 4, max: "100" },
+        { name: "周六", value: 7, max: "100" },
+        { name: "姜七", value: 2, max: "100" }
+      ],
+      items5: [
+        { name: "1月份", num1: 30, num2: 10 },
+        { name: "2月份", num1: 40, num2: 20 },
+        { name: "3月份", num1: 50, num2: 30 },
+        { name: "4月份", num1: 30, num2: 14 },
+        { name: "5月份", num1: 40, num2: 20 },
+        { name: "6月份", num1: 50, num2: 40 },
+        { name: "7月份", num1: 30, num2: 10 },
+        { name: "8月份", num1: 40, num2: 20 },
+        { name: "9月份", num1: 50, num2: 30 },
+        { name: "10月份", num1: 30, num2: 14 },
+        { name: "11月份", num1: 40, num2: 20 },
+        { name: "12月份", num1: 50, num2: 40 }
+      ],
+      items6: [
+        { name: "白金卡", value: 5, max: "100" },
+        { name: "小米手机", value: 2, max: "100" },
+        { name: "联想电脑", value: 4, max: "100" },
+        { name: "显示器", value: 7, max: "100" },
+        { name: "打印机", value: 2, max: "100" }
+      ],
       news: [
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成1" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成2" },
@@ -267,31 +407,6 @@ export default {
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成5" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成6" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成7" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
-        { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成" },
@@ -325,7 +440,26 @@ export default {
         this.store.waitOut = res.data.notfor4OutItem;
         this.store.storage = res.data.stockSum;
         this.store.skuWaringMsg = res.data.skuWaringMsg;
+        //top10库存数据重组
+        if (res.data.top10Name) {
+          const names = this.reset(res.data.top10Name);
+          const pieces = this.reset(res.data.top10piece);
+          let i;
+          this.items1 = [];
+          for (i = 0; i < names.length - 1; i++) {
+            let arr = { name: names[i], num1: pieces[i] };
+            this.items1.push(arr);
+          }
+        }
+
+        // console.log(this.items1);
       });
+    },
+    reset(item) {
+      let name = item.replace(/\s*/g, "");
+      let names = new Array();
+      names = name.split(",");
+      return names;
     },
     checkDanger() {
       this.dangerStorage();
@@ -411,11 +545,15 @@ export default {
   }
 }
 .circleEchart {
-  margin: 0.1rem auto;
-  width: 80%;
+  // margin: 0.1rem auto;
+  width: 90%;
+  margin: 0 auto;
+  .dashboard {
+    margin: 0 auto;
+  }
 }
 .stickEchart {
-  margin: 0.1rem auto;
+  margin: 0 auto;
   width: 80%;
 }
 </style>

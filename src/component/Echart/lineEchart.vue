@@ -119,9 +119,15 @@ export default {
           {
             name: "入库量",
             type: "line",
+            symbolSize: 5,
             data: this.stockInValues,
             itemStyle: {
-              color: "#FF9860"
+              normal: {
+                lineStyle: {
+                  width: 3
+                },
+                color: "#FF9860"
+              }
             },
             // markPoint: {
             //   data: [
@@ -136,9 +142,15 @@ export default {
           {
             name: "库存量",
             type: "line",
+            symbolSize: 5,
             data: this.storages,
             itemStyle: {
-              color: "#F7C77F"
+              normal: {
+                lineStyle: {
+                  width: 3
+                },
+                color: "#F7C77F"
+              }
             },
             // markPoint: {
             //   data: [
@@ -151,10 +163,16 @@ export default {
             }
           },
           {
-            name: "销售里",
+            name: "销售量",
             type: "line",
+            symbolSize: 5,
             itemStyle: {
-              color: "#4181FF"
+              normal: {
+                lineStyle: {
+                  width: 3
+                },
+                color: "#4181FF"
+              }
             },
             data: this.stockOutValues,
             // itemStyle: {

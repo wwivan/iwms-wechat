@@ -3,7 +3,7 @@
   <div
     :class="className"
     :id="id"
-    :style="{ height: '2rem', width: '3.5rem'}"
+    :style="{ height: '2rem', width: '3.5rem' }"
     ref="myEchart"
   ></div>
 </template>
@@ -118,10 +118,10 @@ export default {
         calculable: true,
         series: [
           {
-            name: "访问来源",
+            name: "占比",
             x: "right",
             type: "pie",
-            radius: ["30%", "60%"],
+            radius: ["0%", "60%"],
             itemStyle: {
               normal: {
                 color: function() {

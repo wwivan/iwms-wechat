@@ -1,5 +1,5 @@
 <template>
-  <!-- 库存预警 -->
+  <!--  -->
   <div
     :class="className"
     :id="id"
@@ -37,8 +37,8 @@ export default {
     return {
       chart: null,
       names: [],
-      stockInValues: [],
-      stockOutValues: []
+      num1: [],
+      num2: []
     };
   },
   created() {
@@ -59,16 +59,16 @@ export default {
       let names = this.items.map(e => {
         return e.name;
       });
-      let stockInValues = this.items.map(e => {
-        return e.stockInValue;
+      let num1 = this.items.map(e => {
+        return e.num1;
       });
-      let stockOutValues = this.items.map(e => {
-        return e.stockOutValue;
+      let num2 = this.items.map(e => {
+        return e.num2;
       });
       this.names = names;
-      this.stockInValues = stockInValues;
-      this.stockOutValues = stockOutValues;
-      // console.log(this.names)
+      this.num1 = num1;
+      this.num2 = num2;
+      // console.log(this.names);
     },
     initChart() {
       this.chart = echarts.init(this.$refs.myEchart);
@@ -77,16 +77,16 @@ export default {
         title: {
           text: this.title,
           textStyle: {
-            color: this.color[1]
+            color: this.color[0]
           }
           // subtext: "纯属虚构"
         },
         tooltip: {
           trigger: "axis"
         },
-        // legend: {
-        //   data: ["入库", "出库"]
-        // },
+        legend: {
+          data: ["入库", "出库"]
+        },
         toolbox: {
           show: true,
           feature: {
@@ -103,7 +103,7 @@ export default {
             type: "category",
             data: this.names,
             axisLabel: {
-              fontSize: 10,
+              fontSize: 8,
               interval: 0,
               rotate: 40
             }
@@ -118,65 +118,75 @@ export default {
           {
             name: this.itemName,
             type: "bar",
-            data: this.stockOutValues,
+            data: this.num1,
             itemStyle: {
               color: this.color[1]
-            }
-            // itemStyle: {
-            //   normal: {
-            //     //好，这里就是重头戏了，定义一个list，然后根据所以取得不同的值，这样就实现了，
-            //     color: function(params) {
-            //       // build a color map as your need.
-            //       var colorList = ["#FF9779", "#2360EF"];
-            //       return colorList[params.dataIndex];
-            //     }, //以下为是否显示，显示位置和显示格式的设置了
-            //     label: {
-            //       show: true,
-            //       position: "top",
-            //       //                             formatter: '{c}'
-            //       formatter: "{b}\n{c}"
-            //     }
-            //   }
-            // },
-            // markPoint: {
-            //   data: [
-            //     {
-            //       name: "年最高",
-            //       value: 182.2,
-            //       yxAxis: 7,
-            //       xAxis: 183,
-            //       symbolSize: 18
-            //     },
-            //     { name: "年最低", value: 2.3, yAxis: 11, xAxis: 3 }
-            //   ]
-            // },
-            // markLine: {
-            //   data: [{ type: "average", name: "平均值" }]
-            // }
-          },
-          {
-            name: this.itemName2,
-            type: "line",
-            symbolSize: 10,
-            data: this.stockInValues,
-            itemStyle: {
-              normal: {
-                lineStyle: {
-                  width: 6
-                }
-              },
-              color: this.color[2]
-            }
+            },
             // markPoint: {
             //   data: [
             //     { type: "max", name: "最大值" },
             //     { type: "min", name: "最小值" }
             //   ]
             // },
-            // markLine: {
-            //   data: [{ type: "average", name: "平均值" }]
-            // }
+            markLine: {
+              data: [{ type: "average", name: "平均值" }]
+            }
+          },
+          {
+            name: this.itemName,
+            type: "bar",
+            data: this.num2,
+            itemStyle: {
+              color: this.color[2]
+            },
+            // markPoint: {
+            //   data: [
+            //     { type: "max", name: "最大值" },
+            //     { type: "min", name: "最小值" }
+            //   ]
+            // },
+            markLine: {
+              data: [{ type: "average", name: "平均值" }]
+            }
           }
+          // {
+          //   name: "出库量",
+          //   type: "bar",
+          //   itemStyle: {
+          //     color: "#4181FF"
+          //   },
+          //   data: this.stockOutValues,
+          //   // itemStyle: {
+          //   //   normal: {
+          //   //     color: function(params) {
+          //   //       // build a color map as your need.
+          //   //       var colorList = ["#FF9779", "#2360EF"];
+          //   //       return colorList[params.dataIndex];
+          //   //     }, //以下为是否显示，显示位置和显示格式的设置了
+          //   //     label: {
+          //   //       show: true,
+          //   //       position: "top",
+          //   //       //                             formatter: '{c}'
+          //   //       formatter: "{b}\n{c}"
+          //   //     }
+          //   //   }
+          //   // },
+          //   // markPoint: {
+          //   //   data: [
+          //   //     {
+          //   //       name: "年最高",
+          //   //       value: 182.2,
+          //   //       yxAxis: 7,
+          //   //       xAxis: 183,
+          //   //       symbolSize: 18
+          //   //     },
+          //   //     { name: "年最低", value: 2.3, yAxis: 11, xAxis: 3 }
+          //   //   ]
+          //   // },
+          //   markLine: {
+          //     data: [{ type: "average", name: "平均值" }]
+          //   }
+          // }
         ]
       });
     }
