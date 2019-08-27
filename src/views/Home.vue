@@ -150,6 +150,7 @@
         </div>
       </div>
     </div>
+    <swiper-page :items="this.items1" v-if="this.items1"></swiper-page>
     <circle-echart
       :items="items4"
       :title="salePerMsg.title"
@@ -213,6 +214,7 @@ import lineEchart from "../component/Echart/lineEchart";
 import doubleStickEchart from "../component/Echart/doubleStickEchart";
 import fullCircleEchart from "../component/Echart/fullCircleEchart";
 import dashboardEchart from "../component/Echart/dashboardEchart";
+import swiperPage from "../component/swiper";
 import { mapGetters } from "vuex";
 // eslint-disable-next-line no-unused-vars
 import { getTask, dangerStorage } from "@/api/api";
@@ -224,7 +226,8 @@ export default {
     lineEchart,
     doubleStickEchart,
     fullCircleEchart,
-    dashboardEchart
+    dashboardEchart,
+    swiperPage
   },
   data() {
     return {
@@ -545,15 +548,14 @@ export default {
   }
 }
 .circleEchart {
-  // margin: 0.1rem auto;
+  margin: 0.1rem auto;
   width: 90%;
-  margin: 0 auto;
   .dashboard {
     margin: 0 auto;
   }
 }
 .stickEchart {
-  margin: 0 auto;
+  margin: 0.1rem auto;
   width: 80%;
 }
 </style>

@@ -3,7 +3,7 @@
   <div
     :class="className"
     :id="id"
-    :style="{ height: '2rem', width: '3.5rem'}"
+    :style="{ height: '2rem', width: '3.5rem' }"
     ref="myEchart"
   ></div>
 </template>
