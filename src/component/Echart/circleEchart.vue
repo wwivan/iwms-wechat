@@ -67,8 +67,8 @@ export default {
   },
   methods: {
     initChart() {
-      var i = 0;
-      var colors = this.color;
+      // var i = 0;
+      // var colors = this.color;
       this.chart = echarts.init(this.$refs.myEchart);
       // 把配置和数据放这里
       this.chart.setOption({
@@ -124,9 +124,9 @@ export default {
             radius: ["30%", "60%"],
             itemStyle: {
               normal: {
-                color: function() {
-                  return colors[i++];
-                },
+                // color: function() {
+                //   return colors[i++];
+                // },
                 label: {
                   show: false
                 },

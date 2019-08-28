@@ -20,14 +20,14 @@
         class="text-white mr-3"
         style="width:0.4rem;height:0.64rem;line-height:0.25rem"
       >
-        <span
-          v-show="!this.userInfo.headimgurl"
+        <!-- <span
+          v-if="!this.userInfo.headimgurl"
           class="iconfont icon-canguanyuyue"
           style="font-size:0.2rem;color:white"
-        ></span>
+        ></span> -->
         <img
           style="width:0.25rem;height:0.25rem"
-          v-show="this.userInfo.headimgurl"
+          v-if="this.userInfo.headimgurl"
           :src="userInfo.headimgurl"
         />
       </div>
@@ -89,7 +89,7 @@
         </div>
         <div class="text fs-sm" :class="this.tab4==1?'active':''">查询</div>
       </router-link> -->
-      <router-link tag="div" to="/user/page" class="w-25">
+      <router-link tag="div" to="/check/account" class="w-25">
         <div class="box">
           <span
             class="iconfont icon-shezhi"
@@ -107,7 +107,7 @@
 // import ScrollY from "../component/scrollY";
 import { mapGetters } from "vuex";
 import { stockDetailList } from "@/api/api";
-import { setStore } from "@/util/util";
+import { setStore, getStore } from "@/util/util";
 import axios from "axios";
 export default {
   // components: { ScrollY },
@@ -168,10 +168,10 @@ export default {
     // console.log(this.params.fid);
     this.confirmStatus();
     // this.stockDetailList();
-    this.getCode();
+    this.getUserInfo();
   },
   mounted() {
-    this.getUserInfo();
+    setStore("appid", this.userInfo.openid);
   },
   methods: {
     getCode() {
@@ -187,14 +187,20 @@ export default {
       // console.log(this.code);
     },
     async getUserInfo() {
+      await this.getCode();
       if (this.pagecode != null) {
         const res = await axios.get(
           `http://49.235.41.147:3000/${this.pagecode}`
         );
-        this.userInfo = res.data;
-        setStore("userInfo", this.userInfo);
-        setStore("appid", this.userInfo.openid);
-        // console.log(this.userInfo);
+        if (localStorage.userInfo) {
+          return;
+        } else {
+          await setStore("userInfo", res.data);
+          // await setStore("appid", res.data.openid);
+          this.userInfo = await getStore("userInfo");
+          // eslint-disable-next-line no-console
+          console.log(this.userInfo);
+        }
       } else {
         return;
       }

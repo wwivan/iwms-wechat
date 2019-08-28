@@ -69,7 +69,11 @@
       </router-link>
     </div>
     <!-- 滚动栏 -->
-    <div class="square d-flex jc-around text-white" @click="detailNews">
+    <div
+      class="square d-flex jc-around text-white"
+      @click="detailNews"
+      v-if="0"
+    >
       <swiper :options="swiperOption" ref="mySwiper">
         <!-- slides -->
         <!-- <swiper-slide v-for="(item, i) in images" :key="i">
@@ -103,11 +107,18 @@
     <div class="taskView w-100">
       <!-- 任务看板 -->
       <div class="col d-flex ai-center">
-        <div class="row d-flex ai-center">
+        <div class="row d-flex ai-center" v-if="this.userType == 1">
           <span class="iconfont icon-rukuliucheng"></span>
           <div class="ml-2">
             <div class="fs-xl text-white">{{ store.waitIn }}</div>
             <div class="text-left text-white mt-1">预约入库</div>
+          </div>
+        </div>
+        <div class="row d-flex ai-center" v-if="this.userType == 0">
+          <span class="iconfont icon-rukuliucheng"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{ store.waitIn }}</div>
+            <div class="text-left text-white mt-1">采购单量</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
@@ -117,21 +128,30 @@
             <div class="text-left text-white mt-1">今日入库</div>
           </div>
         </div>
-        <div class="row d-flex ai-center" @click="checkDanger">
+        <div class="row d-flex ai-center">
           <span class="iconfont icon-iconfontzhizuobiaozhunbduan19"></span>
           <div class="ml-2">
-            <div class="fs-xl text-white">{{ store.danger }} 项</div>
+            <div class="fs-xl text-white">
+              {{ store.danger ? store.danger : "0" }}
+            </div>
             <!-- <marquee class="text-left text-white" width="0.55rem">{{store.skuWaringMsg}}</marquee> -->
             <div class="text-left text-white mt-1">本月入库</div>
           </div>
         </div>
       </div>
       <div class="col d-flex ai-center">
-        <div class="row d-flex ai-center">
+        <div class="row d-flex ai-center" v-if="this.userType == 1">
           <span class="iconfont icon-daichuku"></span>
           <div class="ml-2">
             <div class="fs-xl text-white">{{ store.waitOut }}</div>
             <div class="text-left text-white mt-1">预约出库</div>
+          </div>
+        </div>
+        <div class="row d-flex ai-center" v-if="this.userType == 0">
+          <span class="iconfont icon-daichuku"></span>
+          <div class="ml-2">
+            <div class="fs-xl text-white">{{ store.waitOut }}</div>
+            <div class="text-left text-white mt-1">销售单量</div>
           </div>
         </div>
         <div class="row d-flex ai-center">
@@ -150,18 +170,32 @@
         </div>
       </div>
     </div>
-    <swiper-page :items="this.items1" v-if="this.items1"></swiper-page>
+    <swiper-page :items="this.items7" v-if="this.items7"></swiper-page>
+    <!-- <div class="fs-xl">利润率</div> -->
+    <div class="circleEchart d-flex">
+      <dashboard-echart
+        class="dashboard"
+        :items="items8"
+        :itemName="analysisMsg.name1"
+        :title="analysisMsg.title"
+        :color="analysisMsg.color"
+        :tableColor="analysisMsg.tableColor"
+      ></dashboard-echart>
+      <dashboard-echart
+        class="dashboard"
+        :items="items9"
+        :itemName="analysis2Msg.name1"
+        :title="analysis2Msg.title"
+        :color="analysis2Msg.color"
+        :tableColor="analysis2Msg.tableColor"
+      ></dashboard-echart>
+    </div>
     <circle-echart
       :items="items4"
       :title="salePerMsg.title"
       :color="salePerMsg.color"
       class="circleEchart"
     ></circle-echart>
-    <!-- <div class="fs-xl">利润率</div> -->
-    <div class="circleEchart d-flex">
-      <dashboard-echart class="dashboard"></dashboard-echart>
-      <dashboard-echart class="dashboard"></dashboard-echart>
-    </div>
     <full-circle-echart
       :items="items6"
       :title="materielSaleMsg.title"
@@ -231,6 +265,7 @@ export default {
   },
   data() {
     return {
+      userType: 1,
       store: {
         storage: 0,
         skuWaringMsg: "",
@@ -285,7 +320,7 @@ export default {
         name2: "安全库存",
         title: "物料统计",
         color: [
-          "#F7C77F",
+          "#4181FF",
           "#749f83",
           "#c23531",
           "#2f4554",
@@ -301,7 +336,7 @@ export default {
         name2: "安全库存",
         title: "个人销售情况占比",
         color: [
-          "#F7C77F",
+          "#4181FF",
           "#749f83",
           "#c23531",
           "#2f4554",
@@ -317,7 +352,7 @@ export default {
         name2: "安全库存",
         title: "产品销售情况占比",
         color: [
-          "#F7C77F",
+          "#4181FF",
           "#749f83",
           "#c23531",
           "#2f4554",
@@ -341,10 +376,24 @@ export default {
         color: ["#FF9860", "#4181FF", "#F6617B"]
       },
       saleMsg: {
-        name1: "月度销售趋势",
-        name2: "销售金额",
-        title: "同期销售金额",
+        name1: "销售金额",
+        name2: "同期销售金额",
+        title: "月度销售趋势",
         color: ["#FF9860", "#4181FF", "#F6617B"]
+      },
+      analysisMsg: {
+        name1: "业务指标",
+        // name2: "同期销售金额",
+        title: "毛利润率",
+        color: ["#FF9860", "#4181FF", "#F6617B"],
+        tableColor: [[0.25, "#FF9860"], [0.75, "#4181FF"], [1, "#F6617B"]]
+      },
+      analysis2Msg: {
+        name1: "业务指标",
+        // name2: "同期销售金额",
+        title: "净利润率",
+        color: ["#4181FF", "#FF9860", "#F6617B"],
+        tableColor: [[0.25, "#4181FF"], [0.75, "#F6617B"], [1, "#FF9860"]]
       },
       items: [
         { name: "成品", value: 95, max: "100" },
@@ -401,6 +450,42 @@ export default {
         { name: "联想电脑", value: 4, max: "100" },
         { name: "显示器", value: 7, max: "100" },
         { name: "打印机", value: 2, max: "100" }
+      ],
+      items9: [{ value: 50 }],
+      items8: [{ value: 70 }],
+      items7: [
+        {
+          name1: "本期营业收入（万元）",
+          value: "97,089.05",
+          name2: "本年营业收入（万元）",
+          totalValue: "173,116.18",
+          color: "linear-gradient(135deg, #4181FF, #2360EF)",
+          bgColor: "linear-gradient(-135deg, #F7C77F, #FF9860)"
+        },
+        {
+          name1: "本期营业成本（万元）",
+          value: "63520.05",
+          name2: "本年营业成本（万元）",
+          totalValue: "115,653.81",
+          color: "linear-gradient(135deg, #FF9779, #F6617B)",
+          bgColor: "linear-gradient(-135deg, #4181FF, #2360EF)"
+        },
+        {
+          name1: "本期营业利润（万元）",
+          value: "25,901.77",
+          name2: "本年营业利润（万元）",
+          totalValue: "51790.10",
+          color: "linear-gradient(135deg, #F7C77F, #FF9860)",
+          bgColor: "linear-gradient(-135deg, #FF9779, #F6617B)"
+        },
+        {
+          name1: "本期净利润（万元）",
+          value: "20,949.34",
+          name2: "本年净利润（万元）",
+          totalValue: "42,546.23",
+          color: "linear-gradient(135deg, #F8CF64, #FFCE45)",
+          bgColor: "linear-gradient(-135deg, #4181FF, #2360EF)"
+        }
       ],
       news: [
         { id: 1, title: "日志", context: " XXX将三级垫圈上架完成1" },

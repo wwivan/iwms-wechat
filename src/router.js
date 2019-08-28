@@ -34,6 +34,8 @@ import ReserveOrderDetailSearch from "./views/WarehouseManagement/ReserveOrderDe
 import SearchPage from "./views/SearchPage";
 import WarehouseManagement from "./views/WarehouseManagement";
 import SaleAndPurchase from "./views/SaleAndPurchase";
+//用户界面
+import UserPage from "./views/UserPage.vue";
 //销售、采购部分
 import PurchasePlan from "./views/SaleAndPurchase/PurchasePlan";
 // import PurchasePlanOrder from "./views/SaleAndPurchase/PurchasePlanOrder";
@@ -67,6 +69,11 @@ export default new Router({
         {
           path: "/home",
           component: Home
+        },
+        //用户页面
+        {
+          path: "/user/page",
+          component: UserPage
         },
         //仓储管理
         {
@@ -193,6 +200,7 @@ export default new Router({
             }
           ]
         },
+
         {
           path: "/account/security",
           component: AccountSecurity

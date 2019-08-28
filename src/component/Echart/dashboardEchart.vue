@@ -3,7 +3,7 @@
   <div
     :class="className"
     :id="id"
-    :style="{ height: '2rem', width: '1.75rem' }"
+    :style="{ height: '1.9rem', width: '1.75rem' }"
     ref="myEchart"
   ></div>
 </template>
@@ -30,6 +30,7 @@ export default {
     itemName2: { type: String },
     title: { type: String },
     color: { type: Array },
+    tableColor: { type: Array },
     className: {
       type: String,
       default: "yourClassName"
@@ -73,12 +74,12 @@ export default {
       // 把配置和数据放这里
       this.chart.setOption({
         title: {
-          text: "毛利润率",
+          text: this.title,
           x: "center",
-          y: "top",
+          y: "bottom",
           textStyle: {
             bottom: "0rem",
-            color: "#FF9860"
+            color: this.color[0]
           }
           // subtext: "纯属虚构"
         },
@@ -93,7 +94,7 @@ export default {
         // },
         series: [
           {
-            name: "业务指标",
+            name: this.itemName,
             type: "gauge",
             radius: "80%",
             // startAngle: 150,
@@ -103,7 +104,7 @@ export default {
               //仪表盘轴线相关配置
               // show: false,
               lineStyle: {
-                color: [[0.3, "#FF9860"], [0.7, "#4181FF"], [1, "#F6617B"]],
+                color: this.tableColor,
                 width: 25
                 // opacity: 0.2
                 // shadowColor: [
@@ -135,7 +136,7 @@ export default {
                 fontSize: 15
               }
             },
-            data: [{ value: 60 }]
+            data: this.items
           }
         ]
         // tooltip: {

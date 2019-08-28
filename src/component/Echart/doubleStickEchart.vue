@@ -133,7 +133,7 @@ export default {
             }
           },
           {
-            name: this.itemName,
+            name: this.itemName2,
             type: "bar",
             data: this.num2,
             itemStyle: {

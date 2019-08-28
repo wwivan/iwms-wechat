@@ -2,17 +2,14 @@
   <div class="full-page-slide-wrapper">
     <swiper :options="swiperOption" ref="mySwiper">
       <!-- slides -->
-      <template>
-        <swiper-slide>
-          111111
-          <!-- <img @click="toTopic(item)" :src="item.bannerImageUrl" alt /> -->
-        </swiper-slide>
-        <swiper-slide>
-          222
-          <!-- <img @click="toTopic(item)" :src="item.bannerImageUrl" alt /> -->
-        </swiper-slide>
-        <swiper-slide>
-          3333
+      <template v-for="(item, index) in items">
+        <swiper-slide :key="index" :style="`background:${item.bgColor}`">
+          <div class="title fs-xl">{{ item.name1 }}</div>
+          <div class="value bg-peach-red" :style="`background:${item.color}`">
+            {{ item.value }}
+          </div>
+          <span class="fs-md">{{ item.name2 }}</span>
+          <span class="fs-md">{{ item.totalValue }}</span>
           <!-- <img @click="toTopic(item)" :src="item.bannerImageUrl" alt /> -->
         </swiper-slide>
       </template>
@@ -74,11 +71,11 @@ export default {
 <style lang="scss">
 .full-page-slide-wrapper {
   width: 100%;
-  height: 120px;
+  height: 1.2rem;
   background: white;
   box-sizing: content-box;
-  padding-top: 15px;
-  margin-top: 10px;
+  padding-top: 0.15rem;
+  margin-top: 0.1rem;
   position: relative;
   overflow: hidden;
   .swiper-container {
@@ -89,10 +86,20 @@ export default {
       align-items: center;
     }
     .swiper-slide {
-      width: calc(100% - 50px);
-      border-radius: 5px;
-      background: skyblue;
+      width: calc(100% - 0.5rem);
+      border-radius: 0.1rem;
+      // opacity: 0.6;
       color: white;
+      height: 1.2rem;
+      line-height: 0;
+      .title {
+        margin-top: 0.05rem;
+        line-height: 0.3rem;
+      }
+      .value {
+        line-height: 0.4rem;
+        font-size: 0.25rem;
+      }
     }
     .swiper-slide-prev {
       height: 90% !important;
@@ -105,26 +112,26 @@ export default {
     object-fit: fill;
     height: 100%;
     width: 100%;
-    border-radius: 5px;
+    border-radius: 0.05rem;
   }
   .slide_dot {
     display: inline-block;
-    margin: 5px;
-    width: 3px;
-    height: 3px;
+    margin: 0.05rem;
+    width: 0.03rem;
+    height: 0.03rem;
     background-color: #f2f2f2;
     border-radius: 50%;
     opacity: 0.5;
   }
   .swiper-pagination {
-    height: 90px;
+    height: 0.9rem;
     bottom: 0;
   }
   .slide_dot_active {
     display: inline-block;
-    width: 7px;
-    height: 3px;
-    border-radius: 5px;
+    width: 0.07rem;
+    height: 0.03rem;
+    border-radius: 0.05rem;
     background: white;
     opacity: 1;
   }
