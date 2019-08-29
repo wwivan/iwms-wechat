@@ -53,7 +53,8 @@ export default {
 <style lang="scss" scoped>
 .header {
   position: relative;
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   height: 1.5rem;
   // background: linear-gradient(-135deg, #f7c77f, #ff9860);
   background: linear-gradient(-135deg, #ff9779, #f6617b);
