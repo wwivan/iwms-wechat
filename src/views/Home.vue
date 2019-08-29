@@ -8,6 +8,7 @@
         to="/warehouse/management"
       >
         <div
+          @click="setTab('1')"
           class="icon-container"
           style="background:linear-gradient(135deg, #FF9779, #F6617B)"
         >
@@ -20,6 +21,7 @@
       <router-link class="item fs-xs text-grey" tag="div" to="/sap">
         <div
           class="icon-container"
+          @click="setTab('2')"
           style="background:linear-gradient(135deg, #F8CF64, #FFCE45)"
         >
           <div class="icon">
@@ -249,6 +251,7 @@ import doubleStickEchart from "../component/Echart/doubleStickEchart";
 import fullCircleEchart from "../component/Echart/fullCircleEchart";
 import dashboardEchart from "../component/Echart/dashboardEchart";
 import swiperPage from "../component/swiper";
+import { setStore } from "@/util/util";
 import { mapGetters } from "vuex";
 // eslint-disable-next-line no-unused-vars
 import { getTask, dangerStorage } from "@/api/api";
@@ -513,6 +516,9 @@ export default {
     this.getTask();
   },
   methods: {
+    setTab(k) {
+      setStore("tabActive", k);
+    },
     detailNews() {},
     // dangerStorage() {
     //   dangerStorage(this.params).then(res => {

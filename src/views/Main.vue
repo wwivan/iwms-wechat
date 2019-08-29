@@ -1,9 +1,11 @@
 /* eslint-disable no-dupe-keys */
 <template>
   <div>
-    <div class="header bg-dark-1 d-flex jc-between ai-center">
-      <router-link
-        tag="div"
+    <div
+      class="header bg-dark-1 d-flex jc-between ai-center"
+      v-if="this.topNavShow"
+    >
+      <div
         to="/authorize"
         class="text-white ml-3"
         style="width:0.4rem;height:0.64rem;line-height:0.40rem"
@@ -14,7 +16,7 @@
           style="margin-top:0"
           alt
         />
-      </router-link>
+      </div>
       <div class="text-white fs-xl">江苏东志信科技有限公司</div>
       <div
         class="text-white mr-3"
@@ -49,56 +51,52 @@
     </div>
     <div style="height:0.57rem;width:100%"></div>
     <div class="tabbar d-flex jc-around w-100">
-      <router-link tag="div" to="/home" class="w-25">
+      <div class="w-25" @click="tabActive('0')">
         <div class="box">
           <span
             class="iconfont icon-gongnengguanli"
-            @click="tab1Active"
-            :class="this.tab1 ? 'active' : ''"
+            :class="tab == '0' ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab1 ? 'active' : ''">首页</div>
-      </router-link>
-      <router-link tag="div" to="/warehouse/management" class="w-25">
+        <div class="text fs-xs" :class="tab == '0' ? 'active' : ''">首页</div>
+      </div>
+      <div class="w-25" @click="tabActive('1')">
         <div class="box">
           <span
             class="iconfont icon-chuku"
-            @click="tab2Active"
-            :class="this.tab2 ? 'active' : ''"
+            :class="tab == '1' ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab2 ? 'active' : ''">
+        <div class="text fs-xs" :class="tab == '1' ? 'active' : ''">
           仓储管理
         </div>
-      </router-link>
-      <router-link tag="div" to="/sap" class="w-25">
+      </div>
+      <div to="/sap" class="w-25" @click="tabActive('2')">
         <div class="box">
           <span
             class="iconfont icon-rukuliucheng"
-            @click="tab3Active"
-            :class="this.tab3 ? 'active' : ''"
+            :class="tab == '2' ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab3 ? 'active' : ''">
+        <div class="text fs-xs" :class="tab == '2' ? 'active' : ''">
           销售采购
         </div>
-      </router-link>
-      <!-- <router-link tag="div" to="/search/page" class="w-25 border-right">
+      </div>
+      <!-- <div to="/search/page" class="w-25 border-right">
         <div class="box"  @click="tab4Active">
           <span class="iconfont icon-query1" :class="this.tab4?'active':''"></span>
         </div>
         <div class="text fs-sm" :class="this.tab4==1?'active':''">查询</div>
-      </router-link> -->
-      <router-link tag="div" to="/user/page" class="w-25">
+      </div> -->
+      <div to="/user/page" class="w-25" @click="tabActive('3')">
         <div class="box">
           <span
             class="iconfont icon-shezhi"
-            @click="tab5Active"
-            :class="this.tab5 ? 'active' : ''"
+            :class="tab == '3' ? 'active' : ''"
           ></span>
         </div>
-        <div class="text fs-xs" :class="this.tab5 ? 'active' : ''">设置</div>
-      </router-link>
+        <div class="text fs-xs" :class="tab == '3' ? 'active' : ''">设置</div>
+      </div>
     </div>
   </div>
 </template>
@@ -107,7 +105,7 @@
 // import ScrollY from "../component/scrollY";
 import { mapGetters } from "vuex";
 import { stockDetailList } from "@/api/api";
-import { setStore } from "@/util/util";
+import { setStore, getStore } from "@/util/util";
 import axios from "axios";
 export default {
   // components: { ScrollY },
@@ -130,11 +128,13 @@ export default {
       tab3: false,
       tab4: false,
       tab5: false,
+      tab: "0",
       isshow: false,
       act: false,
       toshow: true,
       navName: "功能",
       pulldown: true,
+      topNavShow: 1,
       appID: "wx08c444d8f0255f63",
       // eslint-disable-next-line no-dupe-keys
       pagecode: undefined,
@@ -157,21 +157,35 @@ export default {
       return this.$refs.mySwiper.swiper;
     },
     ...mapGetters(["fid"])
-
     // ...mapMutations(["toshowOpen","toshowClose"])
   },
   updated() {
-    this.confirmStatus();
+    this.initTabActive();
   },
   created() {
+    setStore("tabActive", "0");
+    this.tab = "0";
     this.params.fid = this.fid;
+    setStore("appid", "oL2mSxLWsvUDRj2_UNkzYlCmpTjY");
+    setStore("userInfo", {
+      openid: "oL2mSxLWsvUDRj2_UNkzYlCmpTjY",
+      nickname: "五彩斑斓的黑",
+      sex: 1,
+      language: "zh_CN",
+      city: "曼彻斯特",
+      province: "英格兰",
+      country: "英国",
+      headimgurl:
+        "http://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83eo8qLicjE4QGgfKNfeP9DmKiaISMIL2uXHbjZvRScFcFSVEmowFe59jgibyB3oB5NzpUsu1NT4EdCvrQ/132",
+      privilege: []
+    });
     // console.log(this.params.fid);
-    this.confirmStatus();
     // this.stockDetailList();
     this.getCode();
   },
   mounted() {
     this.getUserInfo();
+    this.initTabActive();
   },
   methods: {
     getCode() {
@@ -199,26 +213,66 @@ export default {
         return;
       }
     },
-    tab1Active() {
-      this.tab1 = true;
-      this.tab5 = this.tab2 = this.tab3 = this.tab4 = false;
+    initTabActive() {
+      this.tab = getStore("tabActive");
+      if (this.tabActive == undefined) {
+        this.tabActive = "1";
+      } else if (this.tab == "0") {
+        this.$router.push("/home");
+        this.topNavShow = 1;
+      } else if (this.tab == "1") {
+        this.$router.push("/warehouse/management");
+        this.topNavShow = 1;
+      } else if (this.tab == "2") {
+        this.$router.push("/sap");
+        this.topNavShow = 1;
+      } else if (this.tab == "3") {
+        this.$router.push("/user/page");
+        this.topNavShow = 0;
+      }
     },
-    tab2Active() {
-      this.tab2 = true;
-      this.tab5 = this.tab1 = this.tab3 = this.tab4 = false;
+    tabActive(k) {
+      if (k == "0") {
+        this.$router.push("/home");
+        this.topNavShow = 1;
+      } else if (k == "1") {
+        this.$router.push("/warehouse/management");
+        this.topNavShow = 1;
+      } else if (k == "2") {
+        this.$router.push("/sap");
+        this.topNavShow = 1;
+      } else if (k == "3") {
+        this.$router.push("/user/page");
+        this.topNavShow = 0;
+      }
+      setStore("tabActive", k);
+      this.initTabActive();
     },
-    tab3Active() {
-      this.tab3 = true;
-      this.tab5 = this.tab2 = this.tab1 = this.tab4 = false;
-    },
-    tab4Active() {
-      this.tab4 = true;
-      this.tab5 = this.tab2 = this.tab3 = this.tab1 = false;
-    },
-    tab5Active() {
-      this.tab5 = true;
-      this.tab4 = this.tab2 = this.tab3 = this.tab1 = false;
-    },
+    // tab1Active() {
+    //   this.topNavShow = 1;
+    //   this.tab1 = true;
+    //   this.tab5 = this.tab2 = this.tab3 = this.tab4 = false;
+    // },
+    // tab2Active() {
+    //   this.topNavShow = 1;
+    //   this.tab2 = true;
+    //   this.tab5 = this.tab1 = this.tab3 = this.tab4 = false;
+    // },
+    // tab3Active() {
+    //   this.topNavShow = 1;
+    //   this.tab3 = true;
+    //   this.tab5 = this.tab2 = this.tab1 = this.tab4 = false;
+    // },
+    // tab4Active() {
+    //   this.topNavShow = 1;
+    //   this.tab4 = true;
+    //   this.tab5 = this.tab2 = this.tab3 = this.tab1 = false;
+    // },
+    // tab5Active() {
+    //   this.topNavShow = 0;
+    //   this.tab5 = true;
+    //   this.tab4 = this.tab2 = this.tab3 = this.tab1 = false;
+    // },
 
     system() {
       // console.log("我的");
@@ -252,7 +306,7 @@ export default {
       this.toshow = false;
       this.isshow = false;
       this.$router.push("/echart");
-    },
+    }
     // back() {
     //   if (this.$router.currentRoute.fullPath == "/reserve/order") {
     //     this.$router.push("/");
@@ -298,14 +352,14 @@ export default {
     //     this.$router.go("-1");
     //   }
     // },
-    confirmStatus() {
-      if (this.$router.currentRoute.fullPath == "/") {
-        this.toshow = true;
-      }
-      if (this.$router.currentRoute.fullPath != "/") {
-        this.toshow = false;
-      }
-    }
+    // confirmStatus() {
+    //   if (this.$router.currentRoute.fullPath == "/") {
+    //     this.toshow = true;
+    //   }
+    //   if (this.$router.currentRoute.fullPath != "/") {
+    //     this.toshow = false;
+    //   }
+    // }
   }
 };
 </script>

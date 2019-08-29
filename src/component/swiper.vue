@@ -8,8 +8,9 @@
           <div class="value bg-peach-red" :style="`background:${item.color}`">
             {{ item.value }}
           </div>
-          <span class="fs-md">{{ item.name2 }}</span>
-          <span class="fs-md">{{ item.totalValue }}</span>
+          <div class="total-value">
+            <div class="fs-md">{{ item.name2 }}：{{ item.totalValue }}</div>
+          </div>
           <!-- <img @click="toTopic(item)" :src="item.bannerImageUrl" alt /> -->
         </swiper-slide>
       </template>
@@ -86,26 +87,32 @@ export default {
       align-items: center;
     }
     .swiper-slide {
-      width: calc(100% - 0.5rem);
+      width: calc(100% - 0.8rem);
       border-radius: 0.1rem;
       // opacity: 0.6;
       color: white;
-      height: 1.2rem;
+      height: 1.1rem;
       line-height: 0;
       .title {
-        margin-top: 0.05rem;
-        line-height: 0.3rem;
+        height: 0.28rem;
+        margin-top: 0.04rem;
+        line-height: 0.28rem;
       }
       .value {
-        line-height: 0.4rem;
+        height: 0.38rem;
+        line-height: 0.38rem;
         font-size: 0.25rem;
+      }
+      .total-value {
+        height: 0.45rem;
+        line-height: 0.45rem;
       }
     }
     .swiper-slide-prev {
-      height: 90% !important;
+      height: 80% !important;
     }
     .swiper-slide-next {
-      height: 90% !important;
+      height: 80% !important;
     }
   }
   img {
