@@ -36,7 +36,7 @@
             ></span>-->
             <span class="context">{{ item.status | statusFilter }}</span>
           </div>
-          <div class="content">
+          <div class="content d-flex jc-between">
             <div>
               <div>
                 入库仓库:
@@ -49,7 +49,7 @@
               <div>送货单号:{{ item.deliveryNumber }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
-            <div class="confirm">
+            <div class="confirm mr-3">
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
                 @click="findReserveOrderItem(item)"
@@ -70,6 +70,26 @@
         </div>
       </div>
     </van-pull-refresh>
+    <div
+      class="btn d-flex"
+      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="create"
+      >
+        <span class="iconfont icon-xinjian"></span>
+      </button>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:0.45rem;height:0.3rem;border:none;"
+        @click="search"
+      >
+        <span class="iconfont icon-sousuo"></span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -119,6 +139,12 @@ export default {
     }
   },
   methods: {
+    create() {
+      this.$router.push("/warehouse/reserve/order/form");
+    },
+    search() {
+      this.$router.push("/warehouse/reserve/order/search");
+    },
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
@@ -187,9 +213,10 @@ export default {
     findReserveOrderItem(ReserveOrderItemParams) {
       //获取单个入库单详细
       setStore("StockInType", this.StockInType);
+      setStore("reserveOrderType", "01");
       setStore("act", this.act);
       setStore("ReserveOrderItemParams", ReserveOrderItemParams);
-      this.$router.push("/reserve/order/detail");
+      this.$router.push("/warehouse/reserve/order/detail");
     }
   },
   computed: {

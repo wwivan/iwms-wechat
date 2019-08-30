@@ -2,11 +2,7 @@
   <div class="home">
     <!-- 顶部按钮 -->
     <div class="nav_btn d-flex jc-around">
-      <router-link
-        class="item fs-xs text-grey"
-        tag="div"
-        to="/warehouse/management"
-      >
+      <div class="item fs-xs text-grey">
         <div
           @click="setTab('1')"
           class="icon-container"
@@ -17,7 +13,7 @@
           </div>
         </div>
         仓储管理
-      </router-link>
+      </div>
       <router-link class="item fs-xs text-grey" tag="div" to="/sap">
         <div
           class="icon-container"
@@ -251,7 +247,7 @@ import doubleStickEchart from "../component/Echart/doubleStickEchart";
 import fullCircleEchart from "../component/Echart/fullCircleEchart";
 import dashboardEchart from "../component/Echart/dashboardEchart";
 import swiperPage from "../component/swiper";
-import { setStore } from "@/util/util";
+import { setStore, getStore } from "@/util/util";
 import { mapGetters } from "vuex";
 // eslint-disable-next-line no-unused-vars
 import { getTask, dangerStorage } from "@/api/api";
@@ -268,6 +264,7 @@ export default {
   },
   data() {
     return {
+      stockType: undefined,
       userType: 1,
       store: {
         storage: 0,
@@ -517,6 +514,21 @@ export default {
   },
   methods: {
     setTab(k) {
+      if (k == "1") {
+        this.$router.push("/warehouse");
+        this.stockType = getStore("stockType");
+        if (this.stockType == undefined) {
+          this.stockType = "1";
+        } else if (this.stockType == "0") {
+          this.$router.push("/warehouse/reserve/order");
+        } else if (this.stockType == "1") {
+          this.$router.push("/warehouse/stockIn");
+        } else if (this.stockType == "2") {
+          this.$router.push("/warehouse/reserve/order");
+        } else if (this.stockType == "3") {
+          this.$router.push("/warehouse/stockOut");
+        }
+      }
       setStore("tabActive", k);
     },
     detailNews() {},

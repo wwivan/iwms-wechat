@@ -250,7 +250,7 @@ export default {
       // eslint-disable-next-line no-console
       console.log("11111111111111111");
       setStore("StockOutDetailParams", StockOutDetailParams);
-      this.$router.push("/stock/out/detail");
+      this.$router.push("/warehouse/stock/out/detail");
     }
   },
   computed: {

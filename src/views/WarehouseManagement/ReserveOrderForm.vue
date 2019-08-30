@@ -174,7 +174,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
-          this.$router.push("/stockIn");
+          this.$router.push("/warehouse/stockIn");
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -191,7 +191,7 @@ export default {
         .then(res => {
           Toast("保存成功!");
           setStore("ReserveOrderItemParams", res.data);
-          this.$router.push("/reserve/order");
+          this.$router.push("/warehouse/reserve/order");
         })
         .catch(error => {
           // eslint-disable-next-line no-console

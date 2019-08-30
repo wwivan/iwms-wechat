@@ -3,7 +3,7 @@
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">入库单号</span>
-        <span class="message">{{ params.reserveOrderNo }}</span>
+        <span class="message">{{ params.orderNo }}</span>
       </div>
       <picker-popup
         class="text-left"
@@ -133,7 +133,7 @@ export default {
       params: {
         orderNo: undefined, // 入库单号
         inType: undefined,
-        deliveryNumber: undefined,
+        deliveryNumber: "",
         supplier: {
           id: undefined,
           name: undefined
@@ -318,7 +318,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
-          this.$router.push("/stockIn");
+          this.$router.push("/warehouse/stockIn");
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -347,7 +347,7 @@ export default {
         .then(res => {
           Toast("保存成功!");
           setStore("StockInDetailParams", res.data);
-          this.$router.push("/stockIn/detail");
+          this.$router.push("/warehouse/stockIn/detail");
         })
         .catch(error => {
           // eslint-disable-next-line no-console

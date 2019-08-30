@@ -33,94 +33,54 @@
       </div>
     </div>
     <div class="main">
-      <reserve-order v-show="this.stockType == '0'"></reserve-order>
+      <router-view></router-view>
+      <!-- <reserve-order v-show="this.stockType == '0'"></reserve-order>
       <stock-in v-show="this.stockType == '1'"></stock-in>
-      <stock-out v-show="this.stockType == '3'"></stock-out>
-    </div>
-    <div
-      class="btn d-flex"
-      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
-    >
-      <button
-        class="bg-peach-red-dark text-white"
-        style="width:0.45rem;height:0.3rem;border:none"
-        @click="Create"
-      >
-        <span class="iconfont icon-xinjian"></span>
-      </button>
-      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
-      <button
-        class="bg-peach-red text-white"
-        style="width:0.45rem;height:0.3rem;border:none;"
-        @click="Search"
-      >
-        <span class="iconfont icon-sousuo"></span>
-      </button>
+      <stock-out v-show="this.stockType == '3'"></stock-out> -->
     </div>
   </div>
 </template>
 
 <script>
 import { getStore, setStore } from "@/util/util";
-import reserveOrder from "@/views/WarehouseManagement/ReserveOrder.vue";
-import stockIn from "@/views/WarehouseManagement/StockIn.vue";
-import stockOut from "@/views/WarehouseManagement/StockOut.vue";
+// import reserveOrder from "@/views/WarehouseManagement/ReserveOrder.vue";
+// import stockIn from "@/views/WarehouseManagement/StockIn.vue";
+// import stockOut from "@/views/WarehouseManagement/StockOut.vue";
 export default {
-  components: { reserveOrder, stockIn, stockOut },
+  // components: { reserveOrder, stockIn, stockOut },
   data() {
     return {
-      stockType: "0"
+      stockType: "1"
     };
   },
   created() {
-    this.initStockType();
+    this.stockType = getStore("stockType");
+    if (this.stockType == undefined) {
+      this.stockType = "1";
+    }
+    // this.initStockType();
+  },
+  updated() {
+    this.stockType = getStore("stockType");
   },
   methods: {
     initStockType() {
       this.stockType = getStore("stockType");
       if (this.stockType == undefined) {
         this.stockType = "1";
+      } else if (this.stockType == "0") {
+        this.$router.push("/warehouse/reserve/order");
+      } else if (this.stockType == "1") {
+        this.$router.push("/warehouse/stockIn");
+      } else if (this.stockType == "2") {
+        this.$router.push("/warehouse/reserve/order");
+      } else if (this.stockType == "3") {
+        this.$router.push("/warehouse/stockOut");
       }
     },
     stockTypeActive(k) {
       setStore("stockType", k);
       this.initStockType();
-    },
-    Create() {
-      if (this.stockType == "0") {
-        // eslint-disable-next-line no-console
-        console.log("新建预约入库单");
-        this.$router.push("/reserve/order/form");
-      } else if (this.stockType == "1") {
-        // eslint-disable-next-line no-console
-        console.log("新建入库单");
-        this.$router.push("/stockIn/form");
-      } else if (this.stockType == "2") {
-        // eslint-disable-next-line no-console
-        console.log("新建预约出库单");
-      } else if (this.stockType == "3") {
-        // eslint-disable-next-line no-console
-        console.log("新建出库单");
-        this.$router.push("/stock/out/form");
-      }
-    },
-    Search() {
-      if (this.stockType == "0") {
-        // eslint-disable-next-line no-console
-        console.log("搜索预约入库单");
-        this.$router.push("/reserve/order/search");
-      } else if (this.stockType == "1") {
-        // eslint-disable-next-line no-console
-        console.log("搜索入库单");
-        this.$router.push("/stockIn/search");
-      } else if (this.stockType == "2") {
-        // eslint-disable-next-line no-console
-        console.log("搜索预约出库单");
-      } else if (this.stockType == "3") {
-        // eslint-disable-next-line no-console
-        console.log("搜索出库单");
-        this.$router.push("/stock/out/search");
-      }
     }
   }
 };
@@ -154,7 +114,7 @@ export default {
   }
 }
 .btn {
-  z-index: 999;
+  z-index: 2;
   .iocnfont {
     font-size: 0.13rem;
   }

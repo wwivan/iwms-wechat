@@ -245,7 +245,7 @@ export default {
     },
     findStockOutItemDetail(stockOutItem) {
       setStore("stockOutItem", stockOutItem);
-      this.$router.push("/stock/out/item/detail");
+      this.$router.push("/warehouse/stock/out/item/detail");
     },
 
     onClickForm(stockOut, StockOutType) {

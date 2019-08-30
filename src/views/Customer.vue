@@ -193,10 +193,10 @@ export default {
       setStore("selectedWarehouse", selectedWarehouse);
       setStore("customer", customer);
       if (this.StockInType == "1") {
-        this.$router.push("StockIn/form");
+        this.$router.push("/warehouse/stockIn/form");
       }
       if (this.StockOutType == "1") {
-        this.$router.push("/stock/out/form");
+        this.$router.push("/warehouse//stock/out/form");
       }
     },
 

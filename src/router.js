@@ -46,6 +46,7 @@ import PurchaseOrderDetail from "./views/SaleAndPurchase/PurchaseOrderDetail";
 import SaleOrder from "./views/SaleAndPurchase/SaleOrder";
 import SalePlanOrder from "./views/SaleAndPurchase/SalePlanOrder";
 import SaleOrderItemDetail from "./views/SaleAndPurchase/SaleOrderItemDetail";
+import ReserveOrder from "./views/WarehouseManagement/ReserveOrder";
 Vue.use(Router);
 
 export default new Router({
@@ -75,67 +76,7 @@ export default new Router({
           path: "/user/page",
           component: UserPage
         },
-        //仓储管理
-        {
-          path: "/stockIn",
-          component: StockIn
-        },
-        {
-          path: "/stockOut",
-          component: StockOut
-        },
-        {
-          path: "/stockIn/detail",
-          component: StockInDetail
-        },
-        {
-          path: "/stockIn/form",
-          component: StockInForm
-        },
-        {
-          path: "/reserve/order/form",
-          component: ReserveOrderForm
-        },
-        {
-          path: "/reserve/order/detail",
-          component: ReserveOrderDetail
-        },
-        {
-          path: "/stockIn/search",
-          component: StockInSearch
-        },
-        {
-          path: "/reserve/order/search",
-          component: ReserveOrderSearch
-        },
-        {
-          path: "/reserve/order/detail/form",
-          component: ReserveOrderDetailForm
-        },
-        {
-          path: "/reserve/order/detail/search",
-          component: ReserveOrderDetailSearch
-        },
-        {
-          path: "/stockIn/item/form",
-          component: StockInItemForm
-        },
-        {
-          path: "/stock/out/detail",
-          component: StockOutDetail
-        },
-        {
-          path: "/stock/out/item/detail",
-          component: StockOutItemDetail
-        },
-        {
-          path: "/stock/out/form",
-          component: StockOutForm
-        },
-        {
-          path: "/stock/out/search",
-          component: StockOutSearch
-        },
+
         //物料
         {
           path: "/materiel",
@@ -158,8 +99,75 @@ export default new Router({
           component: SearchPage
         },
         {
-          path: "/warehouse/management",
-          component: WarehouseManagement
+          path: "/warehouse",
+          component: WarehouseManagement,
+          children: [
+            //仓储管理
+            {
+              path: "stockIn",
+              component: StockIn
+            },
+            {
+              path: "reserve/order",
+              component: ReserveOrder
+            },
+            {
+              path: "stockOut",
+              component: StockOut
+            },
+            {
+              path: "stockIn/detail",
+              component: StockInDetail
+            },
+            {
+              path: "stockIn/form",
+              component: StockInForm
+            },
+            {
+              path: "reserve/order/form",
+              component: ReserveOrderForm
+            },
+            {
+              path: "reserve/order/detail",
+              component: ReserveOrderDetail
+            },
+            {
+              path: "stockIn/search",
+              component: StockInSearch
+            },
+            {
+              path: "reserve/order/search",
+              component: ReserveOrderSearch
+            },
+            {
+              path: "reserve/order/detail/form",
+              component: ReserveOrderDetailForm
+            },
+            {
+              path: "reserve/order/detail/search",
+              component: ReserveOrderDetailSearch
+            },
+            {
+              path: "stockIn/item/form",
+              component: StockInItemForm
+            },
+            {
+              path: "stock/out/detail",
+              component: StockOutDetail
+            },
+            {
+              path: "stock/out/item/detail",
+              component: StockOutItemDetail
+            },
+            {
+              path: "stock/out/form",
+              component: StockOutForm
+            },
+            {
+              path: "stock/out/search",
+              component: StockOutSearch
+            }
+          ]
         },
         {
           path: "/sap",

@@ -1,36 +1,6 @@
 /* eslint-disable no-console */
 <template>
   <div>
-    <!-- <van-nav-bar title="入库明细记录" left-text="返回" right-text="查询" left-arrow @click-left="onTitleClickLeft" @click-right="onTitileClickRight" > -->
-    <!-- <van-nav-bar title="入库明细记录" left-text="返回" left-arrow @click-left="onTitleClickLeft">
-      <van-button v-if="StockInType == 1" slot="right" @click="onClickForm(stockIn,StockInType)">
-        <van-icon name="plus" size="1.5em"/>
-      </van-button>
-      <van-button slot="right" @click="onClickSearch">
-        <van-icon name="search" size="1.5em"/>
-      </van-button>
-    </van-nav-bar>-->
-    <!-- <div class="top-bar">
-      <div style="height:0.2rem"></div>
-      <div class="stock-in-header">
-        <div @click="onTitleClickLeft">
-          <span style="font-size:0.24rem;color:#3F7FFE"
-                class="iconfont icon-ai207"></span>
-        </div>
-        <div style="margin-left:0.45rem;">
-          <span style="text-algin:center;color:#030303">入库明细记录</span>
-        </div>
-        <div>
-          <span v-if="StockInType == 1"
-                style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
-                class="iconfont icon-icon-test"
-                @click="onClickForm(stockIn,StockInType)"></span>
-          <span style="margin-left:0.2rem;font-size:0.2rem;color:#4A4A4A "
-                class="iconfont icon-iconset0157"
-                @click="onClickSearch"></span>
-        </div>
-      </div>
-    </div>-->
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <div
@@ -171,7 +141,7 @@ export default {
       console.log("查询");
     },
     stockInItemForm() {
-      this.$router.push("/stockIn/item/form");
+      this.$router.push("/warehouse/stockIn/item/form");
     },
     onRefreshList() {
       // 刷新

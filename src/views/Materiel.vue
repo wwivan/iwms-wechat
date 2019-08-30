@@ -90,6 +90,7 @@ import { Dialog } from "vant";
 export default {
   data() {
     return {
+      stockType: undefined,
       StockInType: undefined,
       show: false,
       loading: false,
@@ -164,11 +165,12 @@ export default {
     },
     useMateriel(materiel) {
       setStore("materielSku", materiel);
-      if (this.isshow == true) {
-        this.$router.push("/reserve/order/detail/form");
-      } else if (this.isshow == false) {
+      this.stockType = getStore("stockType");
+      if (this.stockType == "0") {
+        this.$router.push("/warehouse/reserve/order/detail/form");
+      } else if (this.stockType == "1") {
         this.initStatus();
-        this.$router.push("/stockIn/item/form");
+        this.$router.push("/warehouse/stockIn/item/form");
       }
     },
 
@@ -197,7 +199,7 @@ export default {
   margin-top: 0.22rem;
   margin-right: 0.12rem;
   /* display: flex;
-       justify-content: space-between; */
+           justify-content: space-between; */
 }
 .stock-in-detail .header {
   margin-top: 0.25rem;

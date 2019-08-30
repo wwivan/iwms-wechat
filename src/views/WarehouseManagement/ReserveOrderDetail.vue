@@ -1,35 +1,18 @@
 /* eslint-disable no-unused-vars */
 <template>
   <div>
-    <van-nav-bar
-      title="预约明细记录"
-      left-text="返回"
-      left-arrow
-      @click-left="onTitleClickLeft"
-    >
-      <van-button
-        slot="right"
-        v-if="records.length == 0 || status == '0'"
-        @click="onClickForm(StockInType)"
-      >
-        <van-icon name="plus" size="1.5em" />
-      </van-button>
-      <van-button slot="right" @click="onClickSearch">
-        <van-icon name="search" size="1.5em" />
-      </van-button>
-    </van-nav-bar>
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
-        <van-panel
+        <!-- <van-panel
           v-for="(item, index) in records"
           :title="item.barcode == undefined ? '' : item.barcode"
           :key="index"
           :status="item.status | statusFilter"
         >
           <div class="panel-item">
-            <div>物料名称: {{ item.materielSku.name }}</div>
-            <div>物料型号: {{ item.materielSku.model }}</div>
-            <div>送货数量: {{ item.purchaseNum }}</div>
+            <div >物料名称: {{ item.materielSku.name }}</div>
+            <div >物料型号: {{ item.materielSku.model }}</div>
+            <div >送货数量: {{ item.purchaseNum }}</div>
             <div v-if="item.status == '1'">确认数量: {{ item.qty }}</div>
             <van-field
               v-if="item.status == '0'"
@@ -40,14 +23,54 @@
               style="background-color:#F4F4F4;"
             ></van-field>
           </div>
-        </van-panel>
-        <van-button
+        </van-panel> -->
+        <div
+          v-for="(item, index) in records"
+          :key="index"
+          class="stock-in-detail"
+          :class="index < records.length - 1 ? 'bottom' : ''"
+        >
+          <div class="header">
+            <span
+              v-show="item.status == 0"
+              class="bot"
+              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
+            ></span>
+            <span
+              v-show="item.status == 4"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span>
+            <!-- <span
+              v-show="item.stockIn.status == '1'"
+              class="bot"
+              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
+            ></span> -->
+            <span class="context">{{ item.status | statusFilter }}</span>
+          </div>
+          <div class="content">
+            <div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>送货数量: {{ item.purchaseNum }}</div>
+              <div v-if="item.status == '1'">确认数量: {{ item.qty }}</div>
+              确认数量:
+              <input
+                v-if="item.status == '0'"
+                placeholder="请输入确认数量"
+                v-model="item.qty"
+              />
+              <div style="margin-bottom:0.05rem"></div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="confirm fs-md mt-3"
           v-if="records.length > 0 && status == '0'"
           @click="confirm()"
-          type="primary"
-          style="height:0.35rem;line-height:0.32rem;margin:0rem 1rem;"
-          :text="'确认收货'"
-        ></van-button>
+        >
+          确认收货
+        </div>
       </van-list>
       <div class="van-list__loading">
         <div
@@ -88,6 +111,43 @@
         </van-pull-refresh>
       </div>
     </van-dialog>
+    <!-- <van-nav-bar
+      title="预约明细记录"
+      left-text="返回"
+      left-arrow
+      @click-left="onTitleClickLeft"
+    >
+      <van-button
+        slot="right"
+        v-if="records.length == 0 || status == '0'"
+        @click="onClickForm(StockInType)"
+      >
+        <van-icon name="plus" size="1.5em" />
+      </van-button>
+      <van-button slot="right" @click="onClickSearch">
+        <van-icon name="search" size="1.5em" />
+      </van-button>
+    </van-nav-bar> -->
+    <div
+      class="btn d-flex"
+      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="onClickForm(StockInType)"
+      >
+        <span class="iconfont icon-xinjian"></span>
+      </button>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="onClickSearch"
+      >
+        <span class="iconfont icon-sousuo"></span>
+      </button>
+    </div>
   </div>
 </template>
 
@@ -287,7 +347,8 @@ export default {
                 this.finished = res.data.last;
                 Toast("收货成功!");
                 done();
-                this.$router.push("/stockIn");
+                this.$router.push("/warehouse/stockIn");
+                setStore("stockType", "1");
               })
               .catch(error => {
                 this.finished = true;
@@ -394,17 +455,18 @@ export default {
     },
     onTitleClickLeft() {
       // 返回
-      this.$router.push("/stockIn");
+      this.$router.push("/warehouse/stockIn");
+      // setStore("stockType", "1");
     },
     onClickForm(StockInType) {
       setStore("StockInType", StockInType);
       setStore("act", this.act);
       setStore("reserveOrdertail", this.reserveOrdertail);
       //getStore("StockInDetailParams");
-      this.$router.push("/reserve/order/detail/form");
+      this.$router.push("/warehouse/reserve/order/detail/form");
     },
     onClickSearch() {
-      this.$router.push("/reserve/order/detail/search");
+      this.$router.push("/warehouse/reserve/order/detail/search");
     },
     onTitileClickRight() {
       // 查询
@@ -437,4 +499,93 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.top-bar {
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  height: 0.7rem;
+  box-shadow: 0 0.1rem 0.5rem rgba(168, 168, 168, 0.25);
+}
+.stock-in-header {
+  display: flex;
+  height: 0.46rem;
+  justify-content: space-around;
+  align-items: center;
+}
+.stock-in-detail {
+  margin-left: 0.12rem;
+  margin-top: 0.22rem;
+  margin-right: 0.12rem;
+}
+.stock-in-detail .header {
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 0.13rem;
+  margin-right: 0.12rem;
+}
+.header .bot {
+  width: 0.11rem;
+  height: 0.11rem;
+  border-radius: 50%;
+  display: inline-block;
+}
+.header .context {
+  text-align: left;
+  margin-left: 0.07rem;
+  flex: 1;
+  font-size: 0.12rem;
+  color: #3f7ffe;
+}
+.header .icon {
+  margin-right: 0.1rem;
+  width: 0.18rem;
+  height: 0.18rem;
+}
+.content {
+  text-align: left;
+  margin-top: 0.16rem;
+  margin-left: 0.13rem;
+  display: flex;
+  align-items: center;
+  div {
+    font-size: 0.13rem;
+    div {
+      font-family: PingFangSC-Regular;
+      color: #4a4a4a;
+      font-size: 0.13rem;
+      line-height: 0.28rem;
+    }
+    input {
+      font-family: PingFangSC-Regular;
+      color: #4a4a4a;
+      font-size: 0.13rem;
+      line-height: 0.28rem;
+      border: none;
+    }
+  }
+}
+.confirm {
+  margin: 0 auto;
+  background: linear-gradient(135deg, #4181ff, #2360ef);
+  color: white;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+}
+
+.bottom {
+  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
+}
+
+.btn {
+  z-index: 999;
+  /* .iconfont {
+              font-size: 0.13rem;
+            } */
+}
+</style>

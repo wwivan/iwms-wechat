@@ -1,14 +1,50 @@
 <template>
   <div>
-    <van-nav-bar
+    <!-- <van-nav-bar
       title="预约明细登记"
       left-text="返回"
       right-text="确认"
       left-arrow
       @click-left="onTitleClickLeft"
       @click-right="onTitleClickRight"
-    />
-    <van-field
+    /> -->
+    <!-- <div class="title">预约明细登记</div> -->
+    <div class="content">
+      <div class="row">
+        <span style="margin-left:0" class="title">物料名称</span>
+        <span class="message">{{ params.materielSku.name }}</span>
+      </div>
+      <div class="row">
+        <span style="margin-left:0" class="title">物料型号</span>
+        <span class="message">{{ params.materielSku.model }}</span>
+      </div>
+      <!-- <van-button
+        size="small"
+        @click="selectMaterielSku"
+        style="border-radius:0.05rem;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:0.2rem;margin-left:0.27rem;"
+        >选择</van-button
+      > -->
+      <div
+        @click="selectMaterielSku"
+        class="fs-sm "
+        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;"
+      >
+        选择
+      </div>
+      <div class="row">
+        <span style="margin-left:0" class="title">送货数量</span>
+        <input
+          type="text"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
+          :placeholder="'请输入送货数量'"
+          v-model="params.purchaseNum"
+        />
+      </div>
+    </div>
+    <div class="confirm fs-md mt-3" @click="onTitleClickRight">
+      确认
+    </div>
+    <!-- <van-field
       clearable
       required
       readonly
@@ -29,14 +65,14 @@
       @click="selectMaterielSku"
       style="background-color:#337ab7;color:white;"
       >选择</van-button
-    >
-    <van-field
+    > -->
+    <!-- <van-field
       clearable
       required
       label="送货数量"
       placeholder="请输入 送货数量"
       v-model="params.purchaseNum"
-    ></van-field>
+    ></van-field> -->
   </div>
 </template>
 
@@ -90,7 +126,7 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .then(res => {
           Toast("保存成功!");
-          this.$router.push("/reserve/order/detail");
+          this.$router.push("/warehouse/reserve/order/detail");
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -124,3 +160,37 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.title {
+  margin: 10px 28px;
+  text-align: left;
+  font-size: 20px;
+}
+.content .row {
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
+  display: flex;
+  /* justify-content: space-around; */
+  justify-content: space-between;
+  align-items: center;
+}
+.content .row .title {
+  color: #333333;
+  font-size: 0.145rem;
+}
+.content .row .message {
+  color: #333333;
+  font-size: 0.13rem;
+}
+.confirm {
+  margin: 0 auto;
+  background: linear-gradient(135deg, #4181ff, #2360ef);
+  color: white;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+}
+</style>

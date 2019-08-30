@@ -223,9 +223,9 @@ export default {
       // eslint-disable-next-line no-console
       console.log(selectedStockInType.length);
       if (this.stockType == "0") {
-        this.$router.push("/reserve/order/form");
+        this.$router.push("/warehouse/reserve/order/form");
       } else if (this.stockType == "1") {
-        this.$router.push("/stockIn/form");
+        this.$router.push("/warehouse/stockIn/form");
       }
     },
 
@@ -277,7 +277,7 @@ export default {
   margin-top: 0.22rem;
   margin-right: 0.12rem;
   /* display: flex;
-       justify-content: space-between; */
+           justify-content: space-between; */
 }
 .stock-in-detail .header {
   margin-top: 0.25rem;

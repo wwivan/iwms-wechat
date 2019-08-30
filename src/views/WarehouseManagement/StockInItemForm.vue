@@ -17,7 +17,9 @@
     <div class="content">
       <div class="row">
         <span style="margin-left:0" class="title">入库单号</span>
-        <span class="message">{{ orderNo }}</span>
+        <span class="message">{{
+          this.stockInItem.stockIn.orderNo ? stockInItem.stockIn.orderNo : ""
+        }}</span>
       </div>
       <div class="row">
         <span style="margin-left:0" class="title">物料名称</span>

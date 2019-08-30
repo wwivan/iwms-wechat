@@ -122,6 +122,7 @@ export default {
         headimgurl: "",
         privilege: []
       },
+      stockType: undefined,
       code: "",
       tab1: true,
       tab2: false,
@@ -218,16 +219,17 @@ export default {
       if (this.tabActive == undefined) {
         this.tabActive = "1";
       } else if (this.tab == "0") {
-        this.$router.push("/home");
+        // this.$router.push("/home");
+
         this.topNavShow = 1;
       } else if (this.tab == "1") {
-        this.$router.push("/warehouse/management");
+        // this.$router.push("/warehouse");
         this.topNavShow = 1;
       } else if (this.tab == "2") {
-        this.$router.push("/sap");
+        // this.$router.push("/sap");
         this.topNavShow = 1;
       } else if (this.tab == "3") {
-        this.$router.push("/user/page");
+        // this.$router.push("/user/page");
         this.topNavShow = 0;
       }
     },
@@ -236,7 +238,19 @@ export default {
         this.$router.push("/home");
         this.topNavShow = 1;
       } else if (k == "1") {
-        this.$router.push("/warehouse/management");
+        this.$router.push("/warehouse");
+        this.stockType = getStore("stockType");
+        if (this.stockType == undefined) {
+          this.stockType = "1";
+        } else if (this.stockType == "0") {
+          this.$router.push("/warehouse/reserve/order");
+        } else if (this.stockType == "1") {
+          this.$router.push("/warehouse/stockIn");
+        } else if (this.stockType == "2") {
+          this.$router.push("/warehouse/reserve/order");
+        } else if (this.stockType == "3") {
+          this.$router.push("/warehouse/stockOut");
+        }
         this.topNavShow = 1;
       } else if (k == "2") {
         this.$router.push("/sap");
@@ -248,32 +262,6 @@ export default {
       setStore("tabActive", k);
       this.initTabActive();
     },
-    // tab1Active() {
-    //   this.topNavShow = 1;
-    //   this.tab1 = true;
-    //   this.tab5 = this.tab2 = this.tab3 = this.tab4 = false;
-    // },
-    // tab2Active() {
-    //   this.topNavShow = 1;
-    //   this.tab2 = true;
-    //   this.tab5 = this.tab1 = this.tab3 = this.tab4 = false;
-    // },
-    // tab3Active() {
-    //   this.topNavShow = 1;
-    //   this.tab3 = true;
-    //   this.tab5 = this.tab2 = this.tab1 = this.tab4 = false;
-    // },
-    // tab4Active() {
-    //   this.topNavShow = 1;
-    //   this.tab4 = true;
-    //   this.tab5 = this.tab2 = this.tab3 = this.tab1 = false;
-    // },
-    // tab5Active() {
-    //   this.topNavShow = 0;
-    //   this.tab5 = true;
-    //   this.tab4 = this.tab2 = this.tab3 = this.tab1 = false;
-    // },
-
     system() {
       // console.log("我的");
     },
@@ -291,7 +279,6 @@ export default {
       this.isshow = !this.isshow;
     },
     changeToshow() {
-      // console.log(1111111);
       this.toshow = false;
     },
     operation() {

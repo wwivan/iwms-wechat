@@ -47,7 +47,7 @@
               <span class="context">{{ item.status | statusFilter }}</span>
               <span class="icon" @click="findStockInDetail(item)">
                 <img
-                  style="width:100%"
+                  style="width:100%;line-height:0"
                   src="../../assets/images/入库登记-编辑@2x.png"
                   alt
                 />
@@ -85,6 +85,26 @@
           </div>
         </div>
       </van-pull-refresh>
+    </div>
+    <div
+      class="btn d-flex"
+      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="create"
+      >
+        <span class="iconfont icon-xinjian"></span>
+      </button>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:0.45rem;height:0.3rem;border:none;"
+        @click="search"
+      >
+        <span class="iconfont icon-sousuo"></span>
+      </button>
     </div>
   </div>
 </template>
@@ -145,6 +165,12 @@ export default {
     // },
     initStatus() {
       setStore("StockInType", "1");
+    },
+    create() {
+      this.$router.push("/warehouse/stockIn/form");
+    },
+    search() {
+      this.$router.push("/warehouse/stockIn/search");
     },
     onRefreshList() {
       // 刷新
@@ -252,7 +278,7 @@ export default {
       //获取单个入库单详细
       setStore("StockInDetailParams", StockInDetailParams);
       this.initStatus();
-      this.$router.push("/stockIn/detail");
+      this.$router.push("/warehouse/stockIn/detail");
     }
   },
   computed: {
@@ -354,9 +380,11 @@ export default {
   text-align: left;
 }
 .header .icon {
+  margin-top: -0.36rem;
   margin-right: 0.1rem;
   width: 0.18rem;
   height: 0.18rem;
+  line-height: 0;
 }
 .content {
   margin-top: 0.16rem;
