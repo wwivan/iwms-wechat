@@ -286,9 +286,7 @@ export default {
           // eslint-disable-next-line no-console
           console.log(StockOutType);
           setStore("StockOutDetailParams", res.data);
-          this.$router.push({
-            name: "StockOutDetail"
-          });
+          this.$router.push("/warehouse/stock/out/detail");
         })
         .catch(error => {
           // eslint-disable-next-line no-console

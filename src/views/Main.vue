@@ -49,7 +49,7 @@
     <div class="main bg-white">
       <router-view></router-view>
     </div>
-    <div style="height:0.57rem;width:100%"></div>
+    <div style="height:0.80rem;width:100%"></div>
     <div class="tabbar d-flex jc-around w-100">
       <div class="w-25" @click="tabActive('0')">
         <div class="box">

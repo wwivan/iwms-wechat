@@ -19,8 +19,10 @@ import ReserveOrderDetail from "./views/WarehouseManagement/ReserveOrderDetail";
 import ReserveOrderSearch from "./views/WarehouseManagement/ReserveOrderSearch";
 import StockInSearch from "./views/WarehouseManagement/StockInSearch";
 import StockInItemForm from "./views/WarehouseManagement/StockInItemForm";
+import StockInDetailSearch from "./views/WarehouseManagement/StockInDetailSearch";
 import StockOutDetail from "./views/WarehouseManagement/StockOutDetail";
 import StockOutItemDetail from "./views/WarehouseManagement/StockOutItemDetail";
+import StockOutItemForm from "./views/WarehouseManagement/StockOutItemForm";
 import StockOutForm from "./views/WarehouseManagement/StockOutForm";
 import StockOutSearch from "./views/WarehouseManagement/StockOutSearch";
 import Customer from "./views/Customer";
@@ -120,6 +122,10 @@ export default new Router({
               component: StockInDetail
             },
             {
+              path: "stockIn/detail/search",
+              component: StockInDetailSearch
+            },
+            {
               path: "stockIn/form",
               component: StockInForm
             },
@@ -161,7 +167,12 @@ export default new Router({
             },
             {
               path: "stock/out/form",
+              name: "StockOutForm",
               component: StockOutForm
+            },
+            {
+              path: "stock/out/item/form",
+              component: StockOutItemForm
             },
             {
               path: "stock/out/search",

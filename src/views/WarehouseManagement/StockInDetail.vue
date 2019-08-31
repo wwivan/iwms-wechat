@@ -139,6 +139,7 @@ export default {
     stockInItemSearch() {
       // eslint-disable-next-line no-console
       console.log("查询");
+      this.$router.push("/warehouse/stockIn/detail/search");
     },
     stockInItemForm() {
       this.$router.push("/warehouse/stockIn/item/form");
@@ -404,7 +405,7 @@ export default {
 .btn {
   z-index: 999;
   /* .iconfont {
-        font-size: 0.13rem;
-      } */
+          font-size: 0.13rem;
+        } */
 }
 </style>

@@ -29,12 +29,13 @@
         <span style="margin-left:0" class="title">物料条码</span>
         <span class="message">{{ stockInItem.materielSku.barcode }}</span>
       </div>
-      <van-button
-        size="small"
+      <div
         @click="selectMaterielSku"
-        style="border-radius:0.05rem;background: linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-top:0.2rem;margin-left:0.27rem;"
-        >选择</van-button
+        class="fs-sm "
+        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;"
       >
+        选择
+      </div>
       <div class="row">
         <span style="margin-left:0" class="title">入库数量</span>
         <input
@@ -209,7 +210,7 @@ export default {
   font-size: 0.13rem;
 }
 .confirm {
-  margin-left: 0.2rem;
+  margin: 0.2rem auto;
   line-height: 0.32rem;
   width: 0.8rem;
   height: 0.32rem;

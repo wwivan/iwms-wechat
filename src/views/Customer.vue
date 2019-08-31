@@ -71,7 +71,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findMaterielList"
+          @click="findCustomerList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -196,7 +196,7 @@ export default {
         this.$router.push("/warehouse/stockIn/form");
       }
       if (this.StockOutType == "1") {
-        this.$router.push("/warehouse//stock/out/form");
+        this.$router.push("/warehouse/stock/out/form");
       }
     },
 

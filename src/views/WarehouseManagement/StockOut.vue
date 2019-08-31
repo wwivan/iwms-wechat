@@ -85,6 +85,26 @@
         </div>
       </div>
     </van-pull-refresh>
+    <div
+      class="btn d-flex"
+      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
+    >
+      <button
+        class="bg-peach-red-dark text-white"
+        style="width:0.45rem;height:0.3rem;border:none"
+        @click="onClickForm"
+      >
+        <span class="iconfont icon-xinjian"></span>
+      </button>
+      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
+      <button
+        class="bg-peach-red text-white"
+        style="width:0.45rem;height:0.3rem;border:none;"
+        @click="onClickSearch"
+      >
+        <span class="iconfont icon-sousuo"></span>
+      </button>
+    </div>
   </div>
 </template>
 <script>
@@ -232,9 +252,8 @@ export default {
     },
     onClickForm() {
       setStore("StockOutType", "1");
-      this.$router.push({
-        name: "StockOutForm"
-      });
+      // setStore("stockType", "3");
+      this.$router.push("/warehouse/stock/out/form");
     },
     onTitileClickRight() {
       // 查询
