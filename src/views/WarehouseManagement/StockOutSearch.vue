@@ -109,6 +109,10 @@ export default {
       // 出库类型候选项
       stockOutTypes: [
         {
+          id: "0",
+          name: "销售出库"
+        },
+        {
           id: "1",
           name: "销售出库"
         },

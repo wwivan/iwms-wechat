@@ -15,11 +15,7 @@
         :columns="stockOutTypes"
       />
       <mutiple-picker-popup
-        v-if="
-          selectedStockOutType.id == '1' ||
-            selectedStockOutType.id == '2' ||
-            selectedStockOutType.id == '4'
-        "
+        v-if="selectedStockOutType.id == '1' || selectedStockOutType.id == '2'"
         class="text-left"
         style="margin-left:0.12rem"
         :title="'销售单号'"
@@ -32,20 +28,14 @@
       />
       <div
         class="row d-flex ai-center"
-        v-if="
-          selectedStockOutType.id == '1' ||
-            selectedStockOutType.id == '2' ||
-            selectedStockOutType.id == '4'
-        "
+        v-if="selectedStockOutType.id == '0' || selectedStockOutType.id == '4'"
       >
         <span style="margin-left:0" class="title">客户</span>
         <span class="message">{{ params.customerName }}</span>
         <van-button
           style="border-radius:0.05rem;background: linear-gradient(135deg, #FF9779, #F6617B);color:white;"
           v-if="
-            selectedStockOutType.id == '1' ||
-              selectedStockOutType.id == '2' ||
-              selectedStockOutType.id == '4'
+            selectedStockOutType.id == '0' || selectedStockOutType.id == '4'
           "
           size="small"
           @click="selectSupplier(selectedStockOutType)"
@@ -190,6 +180,10 @@ export default {
       ],
       // 入库类型候选项
       stockOutTypes: [
+        {
+          id: "0",
+          name: "普通销售出库"
+        },
         {
           id: "1",
           name: "销售出库"
