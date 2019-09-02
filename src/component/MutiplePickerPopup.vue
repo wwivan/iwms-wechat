@@ -9,6 +9,16 @@
       :placeholder="placeholder"
       :value="selectedItem.name"
     ></van-field>
+    <van-field
+      v-if="selectedItem.customer"
+      :border="border"
+      is-link
+      readonly
+      :label="title2"
+      :placeholder="placeholder2"
+      @click="show = true"
+      :value="selectedItem.customer.name"
+    ></van-field>
     <van-action-sheet
       v-model="show"
       :actions="columns"
@@ -21,6 +31,7 @@
 </template>
 
 <script>
+import { setStore } from "@/util/util";
 export default {
   name: "PickerPopup",
   data() {
@@ -39,8 +50,17 @@ export default {
       type: String,
       default: undefined
     },
+    title2: {
+      type: String,
+      default: ""
+    },
+    placeholder2: {
+      type: String,
+      default: undefined
+    },
     selectedItem: {
-      name: ""
+      name: {},
+      customer: ""
     },
     columns: {
       default: []
@@ -49,7 +69,9 @@ export default {
   methods: {
     onSelect(item) {
       this.$emit("update:selectedItem", item);
-      this.$emit("update:selectedItemId", item);
+      // this.$emit("update:selectedItemId", item);
+      setStore("customer", item.customer);
+      setStore("saleOrderId", item.id);
       this.show = false;
     },
     onCancel() {

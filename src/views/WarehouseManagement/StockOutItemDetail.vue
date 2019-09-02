@@ -63,10 +63,10 @@
           <div class="confirm" style="margin-left:1.35rem">
             <div
               v-if="item.status != '1'"
-              @click="findCamera(item, StockOutType)"
+              @click="back"
               style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
             >
-              拣货
+              返回
             </div>
           </div>
         </div>
@@ -126,6 +126,9 @@ export default {
     this.findToLocationByStockOutItemAndCell();
   },
   methods: {
+    back() {
+      this.$router.push("/warehouse/stock/out/detail");
+    },
     onRefreshList() {
       // 刷新
       this.params.pageNumber = 1;

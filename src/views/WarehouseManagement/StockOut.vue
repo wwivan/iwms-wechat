@@ -52,6 +52,10 @@
               <!-- <div>发票号: {{item.purchaseNo}}</div> -->
               <!-- <div>仓库: {{item.wareHouse==undefined? '':item.wareHouse.name}}</div> -->
               <div v-if="item.type == '3'">领用人: {{ item.operatorUser }}</div>
+              <div>
+                销售单号:
+                {{ item.saleOrder == undefined ? "" : item.saleOrder.orderNo }}
+              </div>
               <!-- <div>操作人: {{item.operatorUser}}</div> -->
               <div>出库时间: {{ item.createTime }}</div>
               <div style="margin-bottom:0.05rem"></div>
@@ -246,20 +250,12 @@ export default {
       }
     },
     onClickSearch() {
-      this.$router.push({
-        name: "StockOutSearch"
-      });
+      this.$router.push("/warehouse/stock/out/search");
     },
     onClickForm() {
       setStore("StockOutType", "1");
       // setStore("stockType", "3");
       this.$router.push("/warehouse/stock/out/form");
-    },
-    onTitileClickRight() {
-      // 查询
-      this.$router.push({
-        name: "StockOutSearch"
-      });
     },
     findStockOutDetail(StockOutDetailParams) {
       //获取单个出库单详细

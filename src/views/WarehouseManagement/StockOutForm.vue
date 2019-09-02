@@ -14,6 +14,22 @@
         :selectedItem.sync="selectedStockOutType"
         :columns="stockOutTypes"
       />
+      <mutiple-picker-popup
+        v-if="
+          selectedStockOutType.id == '1' ||
+            selectedStockOutType.id == '2' ||
+            selectedStockOutType.id == '4'
+        "
+        class="text-left"
+        style="margin-left:0.12rem"
+        :title="'销售单号'"
+        :title2="'客户'"
+        :placeholder="'请选择销售单号'"
+        :placeholder2="'请选择客户'"
+        :selectedItem.sync="saleOrderNoValue"
+        :selectedItemId.sync="saleOrderCustomer"
+        :columns="saleOrderNo"
+      />
       <div
         class="row d-flex ai-center"
         v-if="
@@ -69,6 +85,7 @@
       >
         <span style="margin-left:0" class="title">领用人</span>
         <input
+          class="fs-md"
           type="text"
           style="text-align:right;border:0 solid rgba(0,0,0,0.25)"
           :placeholder="'请输入领用人'"
@@ -101,8 +118,14 @@
 <script>
 import { Toast } from "vant";
 import PickerPopup from "@/component/PickerPopup";
+import MutiplePickerPopup from "@/component/MutiplePickerPopup";
 import DateSelectCell from "@/component/DateSelectCell";
-import { findWareHouseList, getStockOutOrderNo, saveStockOut } from "@/api/api";
+import {
+  findWareHouseList,
+  getStockOutOrderNo,
+  saveStockOut,
+  findSaleOrderList
+} from "@/api/api";
 import { mapGetters } from "vuex";
 import { setStore, getStore, removeStore } from "@/util/util";
 export default {
@@ -111,6 +134,7 @@ export default {
       StockOutType: undefined,
       active: 1,
       params: {
+        saleOrder: { id: undefined },
         orderNo: undefined, // 入库单号
         type: undefined,
         deliveryNo: undefined,
@@ -133,11 +157,37 @@ export default {
         fid: undefined,
         searchParams: {}
       },
+      //选择销售单号
+      findSaleOrderListParams: {
+        pageNumber: 1,
+        pageSize: 30,
+        sortType: "auto",
+        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        searchParams: {}
+      },
       // 选择的入库类型
       selectedStockOutType: {
         id: "",
         name: ""
       },
+      saleOrderNoValue: {
+        id: "",
+        name: ""
+      },
+      saleOrderNoId: {
+        id: "",
+        name: ""
+      },
+      saleOrderCustomer: {
+        id: "",
+        name: ""
+      },
+      saleOrderNo: [
+        {
+          id: "",
+          name: ""
+        }
+      ],
       // 入库类型候选项
       stockOutTypes: [
         {
@@ -167,9 +217,25 @@ export default {
       ]
     };
   },
+  updated() {
+    let temp = getStore("customer");
+    if (temp) {
+      removeStore("customer");
+      let temps = JSON.parse(temp);
+      this.params.customerName = temps.name;
+      this.params.customer.id = temps.id;
+    }
+    let temp1 = getStore("saleOrderId");
+    if (temp1) {
+      removeStore("saleOrderId");
+      this.params.saleOrder.id = temp1;
+    }
+  },
   mounted() {
     this.getStockOutOrderParams.fid = this.fid;
+    this.findSaleOrderListParams.fid = this.fid;
     this.getStockOutOrderNo();
+    this.getSaleOrderNo();
     let temp = getStore("customer");
     if (temp) {
       removeStore("customer");
@@ -182,6 +248,11 @@ export default {
     if (StockOutType) {
       removeStore("StockOutType");
       this.StockOutType = StockOutType;
+    }
+    let saleOrderNo = getStore("saleOrderNo");
+    if (saleOrderNo) {
+      removeStore("saleOrderNo");
+      this.saleOrderNo = saleOrderNo;
     }
 
     let items = getStore("selectedStockOutType");
@@ -215,6 +286,7 @@ export default {
           this.sarehouses = [];
           let items = res.data.content;
           this.sarehouses.push(...items);
+          // console.log(this.sarehouses);
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -222,11 +294,52 @@ export default {
           Toast("请求仓库列表错误");
         });
     },
+    getSaleOrderNo() {
+      // this.findSaleOrderListParams.searchParams = this.searchParams;
+      // this.params.searchParams["EQ_status"] = "0";
+      // 获取记录
+      findSaleOrderList(this.findSaleOrderListParams)
+        .then(res => {
+          let temp = [];
+          temp.push(...res.data.content);
+          const customer = temp.map(e => {
+            return e.customer;
+          });
+          const saleOrderNo = temp.map(e => {
+            return e.orderNo;
+          });
+          const saleOrderId = temp.map(e => {
+            return e.id;
+          });
+          let list = [];
+          for (var key in saleOrderNo) {
+            list[key] = {
+              id: saleOrderId[key],
+              name: saleOrderNo[key],
+              customer: customer[key]
+            };
+          }
+          // console.log(list);
+          this.saleOrderNo = list;
+          // console.log(JSON.stringify(res));
+          // this.loading = false;
+          // this.finished = res.data.last;
+          // this.records.push(...res.data.content);
+          // console.log(this.records);
+        })
+        .catch(error => {
+          this.finished = true;
+          this.loading = false;
+          // console.log(JSON.stringify(error));
+          Toast("请求错误" + error);
+        });
+    },
     getStockOutOrderNo() {
       // 仓库列表
       getStockOutOrderNo(this.getStockOutOrderParams)
         .then(res => {
           this.params.orderNo = res.data;
+          // console.log(res.data);
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -264,6 +377,7 @@ export default {
           Toast("请求仓库列表错误");
         });
     },
+    //保存接口需要修改
     addItem(StockOutType) {
       this.params.factory.id = this.fid;
       this.params.type = this.selectedStockOutType.id;
@@ -279,6 +393,7 @@ export default {
         this.params.outTimeVO = undefined;
         this.params.operatorUser = undefined;
       }
+      // console.log(this.params);
       saveStockOut(this.params)
         .then(res => {
           Toast("保存成功!");
@@ -286,7 +401,8 @@ export default {
           // eslint-disable-next-line no-console
           console.log(StockOutType);
           setStore("StockOutDetailParams", res.data);
-          this.$router.push("/warehouse/stock/out/detail");
+          // console.log(res.data);
+          // this.$router.push("/warehouse/stock/out/detail");
         })
         .catch(error => {
           // eslint-disable-next-line no-console
@@ -316,7 +432,8 @@ export default {
   },
   components: {
     PickerPopup,
-    DateSelectCell
+    DateSelectCell,
+    MutiplePickerPopup
   }
 };
 </script>

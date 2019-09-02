@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar
+    <!-- <van-nav-bar
       title="明细登记"
       left-text="返回"
       right-text="确认"
@@ -42,13 +42,36 @@
       label="出库数量"
       placeholder="请输入 出库数量"
       v-model="stockOutItem.qty"
-    ></van-field>
-    <van-tabbar v-model="active" @change="onTabChange">
-      <van-tabbar-item icon="home-o">主页</van-tabbar-item>
-      <!-- <van-tabbar-item icon="search">功能</van-tabbar-item> -->
-      <van-tabbar-item icon="orders-o">新增入库单</van-tabbar-item>
-      <van-tabbar-item icon="apps-o">选择入库单</van-tabbar-item>
-    </van-tabbar>
+    ></van-field> -->
+    <div class="content">
+      <div class="row">
+        <span style="margin-left:0" class="title">物料名称</span>
+        <span class="message">{{ stockOutItem.materielSku.name }}</span>
+      </div>
+      <div class="row">
+        <span style="margin-left:0" class="title">物料条码</span>
+        <span class="message">{{ stockOutItem.materielSku.barcode }}</span>
+      </div>
+      <div
+        @click="selectMaterielSku"
+        class="fs-sm "
+        style="width:0.6rem;height:0.3rem;line-height:0.3rem;border-radius:0.05rem;background:linear-gradient(135deg, #4181ff, #2360ef);color:white;margin-left:0.27rem;"
+      >
+        选择
+      </div>
+      <div class="row">
+        <span style="margin-left:0" class="title">出库数量</span>
+        <input
+          type="text"
+          style="text-align:right;border:0 solid rgba(0,0,0,0.25);font-size:0.13rem"
+          :placeholder="'请输入出库数量'"
+          v-model="stockOutItem.qty"
+        />
+      </div>
+    </div>
+    <div class="confirm fs-md mt-3" @click="onTitleClickRight">
+      确认
+    </div>
   </div>
 </template>
 
@@ -84,7 +107,7 @@ export default {
   },
   mounted() {
     this.params.fid = this.fid;
-    let temp = getStore("stockOut");
+    let temp = getStore("StockOutDetailParams");
     if (temp) {
       this.stockOutItem.stockOut = JSON.parse(temp);
     }
@@ -113,7 +136,7 @@ export default {
       this.$router.go(-1);
     },
     selectMaterielSku() {
-      this.$router.push("/materiel");
+      this.$router.push("/stock");
     },
     onTitleClickRight() {
       this.params.searchParams[
@@ -179,3 +202,36 @@ export default {
   }
 };
 </script>
+<style lang="scss" scoped>
+.title {
+  margin: 10px 28px;
+  text-align: left;
+  font-size: 20px;
+}
+.content .row {
+  width: 3.26rem;
+  height: 0.52rem;
+  margin-left: 0.27rem;
+  display: flex;
+  /* justify-content: space-around; */
+  justify-content: space-between;
+  align-items: center;
+}
+.content .row .title {
+  color: #333333;
+  font-size: 0.145rem;
+}
+.content .row .message {
+  color: #333333;
+  font-size: 0.13rem;
+}
+.confirm {
+  margin: 0 auto;
+  background: linear-gradient(135deg, #4181ff, #2360ef);
+  color: white;
+  width: 80px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 6px;
+}
+</style>

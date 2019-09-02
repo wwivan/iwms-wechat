@@ -10,17 +10,17 @@
         >
           <div class="header">
             <span
-              v-show="item.status == 3"
+              v-show="item.status == 0"
               class="bot"
               style="background: linear-gradient(135deg, #4181ff, #2360ef);"
             ></span>
             <span
-              v-show="item.status == 4"
+              v-show="item.status == 1"
               class="bot"
               style="background: linear-gradient(135deg, #FF9779, #F6617B);"
             ></span>
             <span
-              v-show="item.status == 5"
+              v-show="item.status == 2"
               class="bot"
               style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
             ></span>
@@ -74,13 +74,14 @@
       </div>
     </van-pull-refresh>
     <div
+      v-if="StockOutType == 1 && status != 3 && status != 5"
       class="btn d-flex"
       style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
     >
       <button
         class="bg-peach-red-dark text-white"
         style="width:0.45rem;height:0.3rem;border:none"
-        @click="onClickForm"
+        @click="onClickForm(stockOut, StockOutType)"
       >
         <span class="iconfont icon-xinjian"></span>
       </button>
@@ -151,7 +152,6 @@ export default {
     this.stockOut = stockOutDetailParams;
     let StockOutType = getStore("StockOutType");
     // eslint-disable-next-line no-console
-    console.log(StockOutType);
     this.StockOutType = StockOutType;
   },
   methods: {
@@ -237,6 +237,7 @@ export default {
     toLocation(stockOut) {
       // this.params.searchParams = this.searchParams;
       // this.params.id = stockOut.id;
+      // console.log(this.params.id);
       // 获取记录
       toLocation(this.params)
         .then(res => {

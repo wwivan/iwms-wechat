@@ -1,6 +1,49 @@
-/* eslint-disable no-console */
 <template>
   <div>
+    <!-- <van-nav-bar
+      title="物料"
+      left-text="返回"
+      left-arrow
+      @click-left="onTitleClickLeft"
+    >
+      <van-button slot="right" @click="onClickSearch">
+        <van-icon name="search" size="1.5em" />
+      </van-button>
+    </van-nav-bar>
+    <van-pull-refresh v-model="loading" @refresh="onRefreshList">
+      <van-list v-model="loading" :finished="finished" @load="onLoadMore">
+        <van-panel
+          v-for="(item, index) in records"
+          :title="item.barcode"
+          :key="index"
+        >
+          <div class="panel-item">
+            <div>物料名称: {{ item.materielSku.name }}</div>
+            <div>物料型号: {{ item.materielSku.model }}</div>
+            <div>总库存: {{ item.stockUseNum }}</div>
+            <van-row type="flex" justify="end" gutter="12">
+              <van-col>
+                <van-button
+                  @click="useMateriel(item.materielSku)"
+                  type="primary"
+                  style="height:35px;line-height:32px"
+                  :text="'选择'"
+                ></van-button>
+              </van-col>
+            </van-row>
+          </div>
+        </van-panel>
+      </van-list>
+      <div class="van-list__loading">
+        <div
+          v-if="!loading && records.length === 0"
+          @click="findStockList"
+          style="height: 1000px"
+        >
+          <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
+        </div>
+      </div>
+    </van-pull-refresh> -->
     <van-pull-refresh v-model="loading" @refresh="onRefreshList">
       <van-list v-model="loading" :finished="finished" @load="onLoadMore">
         <div
@@ -11,8 +54,9 @@
         >
           <div class="content" style="justify-content:space-between">
             <div>
-              <div>物料名称: {{ item.name }}</div>
-              <div>物料型号: {{ item.model }}</div>
+              <div>物料名称: {{ item.materielSku.name }}</div>
+              <div>物料型号: {{ item.materielSku.model }}</div>
+              <div>总库存: {{ item.stockUseNum }}</div>
               <div style="margin-bottom:0.05rem"></div>
             </div>
             <div class="confirm">
@@ -23,7 +67,7 @@
               >选择入库</div>-->
               <div
                 style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #FF9779, #F6617B);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="useMateriel(item)"
+                @click="useMateriel(item.materielSku)"
               >
                 选择
               </div>
@@ -34,7 +78,7 @@
       <div class="van-list__loading">
         <div
           v-if="!loading && records.length === 0"
-          @click="findMaterielList"
+          @click="findStockList"
           style="height: 10rem"
         >
           <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
@@ -46,103 +90,73 @@
 
 <script>
 import { Toast } from "vant";
-import { mapGetters, mapMutations } from "vuex";
-import { findMaterielList } from "@/api/api";
-// eslint-disable-next-line no-unused-vars
-import { setStore, getStore, removeStore, timeFormat } from "@/util/util";
-// eslint-disable-next-line no-unused-vars
-import { Dialog } from "vant";
+import { mapGetters } from "vuex";
+import { findStockList } from "@/api/api";
+import { setStore, getStore, removeStore } from "@/util/util";
+// import { Dialog } from "vant";
 export default {
   data() {
     return {
-      stockType: undefined,
-      StockInType: undefined,
       show: false,
       loading: false,
       finished: false,
-      act: undefined,
       records: [],
       searchParams: {},
       params: {
         pageNumber: 1,
-        pageSize: 30,
+        pageSize: 99,
         sortType: "auto",
-        fid: "" //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
+        searchParams: {
+          NEQ_stockUseNum: undefined
+        }
       }
     };
   },
-  created() {
-    this.StockInType = getStore("StockInType");
-    // eslint-disable-next-line no-console
-    console.log(this.StockInType);
-    // eslint-disable-next-line no-console
-    console.log(11111111110000);
-  },
   mounted() {
     this.params.fid = this.fid;
-    let temp = getStore("MaterielSkuSearchParams");
+    let temp = getStore("StockSearchParams");
     if (temp) {
-      removeStore("MaterielSkuSearchParams");
+      removeStore("StockSearchParams");
       this.searchParams = JSON.parse(temp);
     } else {
       this.searchParams = {};
     }
-    let act = getStore("active");
-    if (act) {
-      //removeStore("active");
-      this.act = act;
-      // eslint-disable-next-line no-console
-      console.log(this.act);
-    }
   },
   methods: {
-    initStatus() {
-      removeStore("StockInType");
-    },
     onRefreshList() {
       // 刷新
       //this.params.pageNumber = 1;
       this.records = [];
-      this.findMaterielList();
+      this.findStockList();
     },
     onLoadMore() {
-      // eslint-disable-next-line no-console
-      this.findMaterielList();
+      //this.params.pageNumber = this.params.pageNumber + 1;
+      this.findStockList();
     },
-    findMaterielList() {
+    findStockList() {
       this.params.searchParams = this.searchParams;
+      this.params.searchParams["NEQ_stockUseNum"] = "0";
       // 获取记录
-      findMaterielList(this.params)
+      findStockList(this.params)
         .then(res => {
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(res));
           this.loading = false;
           this.finished = res.data.last;
           this.records.push(...res.data.content);
         })
+        // eslint-disable-next-line no-unused-vars
         .catch(error => {
           this.finished = true;
           this.loading = false;
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(error));
           Toast("请求错误");
         });
     },
     useMateriel(materiel) {
       setStore("materielSku", materiel);
-      this.stockType = getStore("stockType");
-      if (this.stockType == "0") {
-        this.$router.push("/warehouse/reserve/order/detail/form");
-      } else if (this.stockType == "1") {
-        this.initStatus();
-        this.$router.push("/warehouse/stockIn/item/form");
-      } else if (this.stockType == "3") {
-        this.$router.push("/warehouse/stock/out/item/form");
-      }
+      this.$router.push("/warehouse/stock/out/item/form");
     },
-
     onClickSearch() {
-      this.$router.push("/materiel/search");
+      this.$router.push("/stock/search");
     },
     onTitleClickLeft() {
       // 返回
@@ -151,13 +165,8 @@ export default {
     onTitileClickRight() {}
   },
   computed: {
-    ...mapGetters(["fid", "isshow"]),
-    ...mapMutations(["resIsshow", "stockInIsshow"])
+    ...mapGetters(["fid"])
   }
-  // created(){
-  //   this.isshow =this.$store.state.isshow
-  //   console.log(this.isshow)
-  // }
 };
 </script>
 <style lang="scss" scoped>
@@ -166,7 +175,7 @@ export default {
   margin-top: 0.22rem;
   margin-right: 0.12rem;
   /* display: flex;
-             justify-content: space-between; */
+                 justify-content: space-between; */
 }
 .stock-in-detail .header {
   margin-top: 0.25rem;

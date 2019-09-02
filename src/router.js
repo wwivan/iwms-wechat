@@ -36,6 +36,8 @@ import ReserveOrderDetailSearch from "./views/WarehouseManagement/ReserveOrderDe
 import SearchPage from "./views/SearchPage";
 import WarehouseManagement from "./views/WarehouseManagement";
 import SaleAndPurchase from "./views/SaleAndPurchase";
+import Stock from "./views/Stock/Stock";
+import StockSearch from "./views/Stock/StockSearch";
 //用户界面
 import UserPage from "./views/UserPage.vue";
 //销售、采购部分
@@ -99,6 +101,14 @@ export default new Router({
         {
           path: "/search/page",
           component: SearchPage
+        },
+        {
+          path: "/stock",
+          component: Stock
+        },
+        {
+          path: "/stock/search",
+          component: StockSearch
         },
         {
           path: "/warehouse",
