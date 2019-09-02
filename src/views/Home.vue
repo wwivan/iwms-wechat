@@ -26,7 +26,7 @@
         </div>
         销售采购
       </router-link>
-      <router-link class="item fs-xs text-grey" tag="div" to="/materiel/search">
+      <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
         <div
           class="icon-container"
           style="background:linear-gradient(135deg, #4181FF, #2360EF)"

@@ -1,282 +1,138 @@
 <template>
   <div>
-    <van-pull-refresh v-model="loading" @refresh="onRefreshList">
-      <van-list v-model="loading" :finished="finished" @load="onLoadMore">
+    <div class="mt-3">
+      <div class="nav d-flex w-80">
         <div
-          v-for="(item, index) in records"
-          :key="index"
-          class="stock-take"
-          :class="index < records.length - 1 ? 'bottom' : ''"
+          class="sales_plan"
+          :class="orderType == '0' ? 'active' : ''"
+          @click="orderTypeActive('0')"
         >
-          <div class="header">
-            <span
-              v-show="item.status == 3"
-              class="bot"
-              style="background: linear-gradient(135deg, #4181ff, #2360ef);"
-            ></span>
-            <span
-              v-show="item.status == 1"
-              class="bot"
-              style="background: linear-gradient(135deg, #FF9779, #F6617B);"
-            ></span>
-            <span
-              v-show="item.status == 2"
-              class="bot"
-              style="background: linear-gradient(135deg, #F7C77F, #FF9860);"
-            ></span>
-            <span class="context">{{ item.orderNo }}</span>
-          </div>
-          <div class="content">
-            <div>
-              <div>盘点员: {{ item.operatorUser }}</div>
-              <div>
-                仓库:
-                {{ item.wareHouse == undefined ? "" : item.wareHouse.name }}
-              </div>
-              <div>盘点类型: {{ item.type | typeFilter }}</div>
-              <div>状态: {{ item.status | formatStockTakeStatus }}</div>
-              <div>创建时间: {{ item.createTime }}</div>
-              <div style="margin-bottom:0.05rem"></div>
-            </div>
-            <div class="confirm">
-              <div
-                style="width:0.8rem;height:0.33rem;background:linear-gradient(135deg, #4181ff, #2360ef);text-align:center;line-height:0.33rem;color:white;border-radius:0.03rem;font-size:0.15rem"
-                @click="findStockTakeDetail(item)"
-              >
-                详情
-              </div>
-            </div>
-          </div>
+          对账审核
         </div>
-      </van-list>
-      <div class="van-list__loading">
         <div
-          v-if="!loading && records.length === 0"
-          @click="findStockTakeList"
-          style="height: 10rem"
+          class="sales_order"
+          :class="orderType == '1' ? 'active' : ''"
+          @click="orderTypeActive('1')"
         >
-          <span class="van-list__loading-text">暂无数据, 下拉刷新</span>
+          应付对账
+        </div>
+        <div
+          class="purchase_plan"
+          :class="orderType == '2' ? 'active' : ''"
+          @click="orderTypeActive('2')"
+        >
+          应收对账
+        </div>
+        <div
+          class="purchase_plan"
+          :class="orderType == '3' ? 'active' : ''"
+          @click="orderTypeActive('3')"
+        >
+          智能应付对账
+        </div>
+        <div
+          class="purchase_order"
+          :class="orderType == '4' ? 'active' : ''"
+          @click="orderTypeActive('4')"
+        >
+          智能应收对账
         </div>
       </div>
-    </van-pull-refresh>
-    <div
-      class="btn d-flex"
-      style="position:fixed;bottom:0.8rem;right:0.4rem;width:0.92rem;height:0.3rem;border-radius:0.3rem;overflow:hidden"
-    >
-      <button
-        class="bg-peach-red-dark text-white"
-        style="width:0.45rem;height:0.3rem;border:none"
-        @click="checkAccountCreate"
-      >
-        <span class="iconfont icon-xinjian"></span>
-      </button>
-      <div class="bg-white" style="width:0.02rem;height:0.3rem"></div>
-      <button
-        class="bg-peach-red text-white"
-        style="width:0.45rem;height:0.3rem;border:none"
-        @click="checkAccountSearch"
-      >
-        <span class="iconfont icon-sousuo"></span>
-      </button>
+    </div>
+    <div class="main">
+      <!-- <purchase-plan-order v-show="this.orderType == '2'"></purchase-plan-order> -->
+      <!-- <sale-plan v-if="this.orderType == '0'"></sale-plan>
+      <sale-order v-if="this.orderType == '1'"></sale-order>
+      <purchase-plan v-if="this.orderType == '2'"></purchase-plan>
+      <purchase-order v-if="this.orderType == '3'"></purchase-order> -->
+      <router-view></router-view>
     </div>
   </div>
 </template>
+
 <script>
-import Vue from "vue";
-import { Toast } from "vant";
-import { mapGetters } from "vuex";
-// eslint-disable-next-line no-unused-vars
-import { findStockTakeList, doToCell } from "@/api/api";
-import {
-  setStore,
-  getStore,
-  removeStore,
-  formatStockTakeStatus
-} from "@/util/util";
-// eslint-disable-next-line no-unused-vars
-import { Dialog } from "vant";
-Vue.filter("formatStockTakeStatus", formatStockTakeStatus);
+import { getStore, setStore } from "@/util/util";
+// import salePlan from "@/views/SaleAndPurchase/SalePlanOrder.vue";
+// import purchasePlanOrder from "@/views/SaleAndPurchase/PurchasePlanOrder.vue";
+// import purchasePlan from "@/views/SaleAndPurchase/PurchasePlan";
+// import purchaseOrder from "@/views/SaleAndPurchase/PurchaseOrder.vue";
+// import saleOrder from "@/views/SaleAndPurchase/SaleOrder.vue";
 export default {
+  // components: {
+  //   // eslint-disable-next-line vue/no-unused-components
+  //   purchasePlanOrder,
+  //   purchaseOrder,
+  //   purchasePlan,
+  //   saleOrder,
+  //   salePlan
+  // },
   data() {
     return {
-      active: 1,
-      loading: false,
-      finished: false,
-      records: [],
-      searchParams: {},
-      params: {
-        pageNumber: 1,
-        pageSize: 10,
-        sortType: "auto",
-        fid: "", //42dd7498-b9d3-43b3-b736-3e9844f03ff5
-        searchParams: {}
-      }
+      orderType: ""
     };
   },
-  mounted() {
-    this.params.fid = this.fid;
-    let temp = getStore("stockTakeSearchParams");
-    if (temp) {
-      removeStore("stockTakeSearchParams");
-      this.searchParams = JSON.parse(temp);
-    } else {
-      this.searchParams = {};
-    }
+  created() {
+    this.initOrderType();
   },
   methods: {
-    checkAccountCreate() {
-      // eslint-disable-next-line no-console
-      console.log("新建盘点单");
-      this.$router.push("/stock/take/form");
-    },
-    checkAccountSearch() {
-      // eslint-disable-next-line no-console
-      console.log("盘点查询");
-      this.$router.push("/stock/take/search");
-    },
-    onRefreshList() {
-      // 刷新
-      //this.params.pageNumber = 1;
-      this.records = [];
-      this.findStockTakeList();
-    },
-    onLoadMore() {
-      // eslint-disable-next-line no-console
-      console.log("############");
-      //this.params.pageNumber = this.params.pageNumber + 1;
-      // eslint-disable-next-line no-console
-      console.log(this.params.pageNumber);
-      this.findStockTakeList();
-    },
-    findStockTakeList() {
-      this.params.searchParams = this.searchParams;
-      // 获取记录
-      findStockTakeList(this.params)
-        .then(res => {
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(res));
-          this.loading = false;
-          this.finished = res.data.last;
-          this.records.push(...res.data.content);
-        })
-        .catch(error => {
-          this.finished = true;
-          this.loading = false;
-          // eslint-disable-next-line no-console
-          console.log(JSON.stringify(error));
-          Toast("请求错误");
-        });
-    },
-    onTabChange(active) {
-      if (active == "0") {
-        this.$router.push({
-          name: "Main"
-        });
-      } else if (active == "1") {
-        this.$router.push({
-          name: "Statistics"
-        });
-      } else if (active == "2") {
-        this.$router.push({
-          name: "Mine"
-        });
+    initOrderType() {
+      this.orderType = getStore("orderType");
+      if (this.orderType == undefined) {
+        this.orderType = "1";
+      } else if (this.orderType == "0") {
+        // this.$router.push("/sap/sale/plan/order");
+      } else if (this.orderType == "1") {
+        // this.$router.push("/sap/sale/order");
+      } else if (this.orderType == "2") {
+        // this.$router.push("/sap/purchase/plan");
+      } else if (this.orderType == "3") {
+        // this.$router.push("/sap/purchase/order");
       }
     },
-    onTitleClickLeft() {
-      // 返回
-      this.$router.push({
-        name: "Main"
-      });
-    },
-    onClickSearch() {
-      // 查询
-      this.$router.push({
-        name: "StockTakeSearch"
-      });
-    },
-    findStockTakeDetail(StockTakeDetailParams) {
-      //获取单个盘点单详细
-      setStore("StockTakeDetailParams", StockTakeDetailParams);
-      this.$router.push("/stock/take/detail");
-    },
-    onClickForm() {
-      this.$router.push({
-        name: "StockTakeForm"
-      });
-    }
-  },
-  computed: {
-    ...mapGetters(["fid"])
-  },
-  filters: {
-    typeFilter(value) {
-      let realVal = "";
-      if (value == 1) {
-        realVal = "按区盘点";
-      } else if (value == 2) {
-        realVal = "按物料盘点";
+    orderTypeActive(k) {
+      if (k == "0") {
+        // this.$router.push("/sap/sale/plan/order");
+      } else if (k == "1") {
+        // this.$router.push("/sap/sale/order");
+      } else if (k == "2") {
+        // this.$router.push("/sap/purchase/plan");
+      } else if (k == "3") {
+        // this.$router.push("/sap/purchase/order");
+      } else if (k == "4") {
+        // this.$router.push("/");
       }
-      return realVal;
+      setStore("orderType", k);
+      this.initOrderType();
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.stock-take {
-  margin-left: 0.12rem;
-  margin-top: 0.22rem;
-  margin-right: 0.12rem;
-}
-.stock-take .header {
-  margin-top: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-left: 0.13rem;
-  margin-right: 0.12rem;
-}
-.header .bot {
-  width: 0.11rem;
-  height: 0.11rem;
-  border-radius: 50%;
-  display: inline-block;
-}
-.header .context {
-  margin-left: 0.07rem;
-  flex: 1;
-  font-size: 0.12rem;
-  color: #3f7ffe;
-  text-align: left;
-}
-.header .icon {
-  margin-right: 0.1rem;
-  width: 0.18rem;
-  height: 0.18rem;
-}
-.content {
-  margin-top: 0.16rem;
-  margin-left: 0.13rem;
-  display: flex;
-  align-items: center;
-  text-align: left;
-}
-.content div div {
-  font-family: PingFangSC-Regular;
-  color: #4a4a4a;
-  font-size: 0.13rem;
-  line-height: 0.28rem;
-}
-.content .confirm {
-  margin-left: 0.6rem;
-}
-.bottom {
-  border-bottom: 0.01rem solid rgba(0, 0, 0, 0.25);
-}
-.btn {
-  z-index: 999;
-  .iocnfont {
+.nav {
+  margin: 0 auto;
+  div {
+    background: grey;
+    text-align: center;
+    line-height: 0.3rem;
     font-size: 0.13rem;
+    color: white;
+    width: 25%;
+    height: 0.3rem;
+  }
+  .active {
+    background: #ff9860;
+    color: white;
+  }
+  .sales_plan {
+    border-bottom-left-radius: 0.05rem;
+    border-top-left-radius: 0.05rem;
+  }
+  //   .supplier-search {
+  //   }
+  .purchase_order {
+    border-bottom-right-radius: 0.05rem;
+    border-top-right-radius: 0.05rem;
   }
 }
 </style>
