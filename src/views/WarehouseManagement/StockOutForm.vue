@@ -55,7 +55,10 @@
           :value.sync="params.outTimeVO"
         ></date-select-cell>
       </div>
-      <div class="row" v-if="selectedStockOutType.id == '1'">
+      <div
+        class="row"
+        v-if="selectedStockOutType.id == '1' || selectedStockOutType.id == '0'"
+      >
         <span style="margin-left:0" class="title">送货单号</span>
         <input
           class="fs-md"

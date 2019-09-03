@@ -14,7 +14,7 @@
         </div>
         仓储管理
       </div>
-      <router-link class="item fs-xs text-grey" tag="div" to="/sap">
+      <div class="item fs-xs text-grey">
         <div
           class="icon-container"
           @click="setTab('2')"
@@ -25,7 +25,7 @@
           </div>
         </div>
         销售采购
-      </router-link>
+      </div>
       <router-link class="item fs-xs text-grey" tag="div" to="/check/account">
         <div
           class="icon-container"
@@ -527,6 +527,20 @@ export default {
           this.$router.push("/warehouse/reserve/order");
         } else if (this.stockType == "3") {
           this.$router.push("/warehouse/stockOut");
+        }
+      } else if (k == "2") {
+        this.$router.push("/sap");
+        this.orderType = getStore("orderType");
+        if (this.orderType == undefined) {
+          this.orderType = "1";
+        } else if (this.orderType == "0") {
+          this.$router.push("/sap/sale/plan/order");
+        } else if (this.orderType == "1") {
+          this.$router.push("/sap/sale/order");
+        } else if (this.orderType == "2") {
+          this.$router.push("/sap/purchase/plan");
+        } else if (this.orderType == "3") {
+          this.$router.push("/sap/purchase/order");
         }
       }
       setStore("tabActive", k);

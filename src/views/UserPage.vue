@@ -18,15 +18,21 @@
       </div>
     </div>
     <div class="main">
-      <!-- 待处理事项 -->
-      <div class="fs-xl">待处理事项</div>
-      <div></div>
+      <need-approval></need-approval>
+      <stock-warning></stock-warning>
+      <receipt-remind></receipt-remind>
+      <payment-remind></payment-remind>
     </div>
   </div>
 </template>
 <script>
 import { getStore } from "@/util/util";
+import NeedApproval from "./UserPage/NeedApproval";
+import StockWarning from "./UserPage/StockWarning";
+import ReceiptRemind from "./UserPage/ReceiptRemind";
+import PaymentRemind from "./UserPage/PaymentRemind";
 export default {
+  components: { NeedApproval, StockWarning, ReceiptRemind, PaymentRemind },
   data() {
     return {
       userInfo: {
@@ -52,9 +58,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .header {
-  position: relative;
-  width: 95%;
-  margin: 0 auto;
+  position: sticky;
+  // width: 95%;
+  top: 0;
+  z-index: 1000;
+  margin: -0.64rem auto;
   height: 1.5rem;
   // background: linear-gradient(-135deg, #f7c77f, #ff9860);
   background: linear-gradient(-135deg, #ff9779, #f6617b);
@@ -76,5 +84,8 @@ export default {
     top: 0.5rem;
     left: 1rem;
   }
+}
+.main {
+  margin-top: 0.64rem;
 }
 </style>

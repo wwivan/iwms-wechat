@@ -65,7 +65,13 @@ export default {
     };
   },
   created() {
-    this.initOrderType();
+    this.orderType = getStore("orderType");
+    if (this.orderType == undefined) {
+      this.orderType = "1";
+    }
+  },
+  updated() {
+    this.orderType = getStore("orderType");
   },
   methods: {
     initOrderType() {
@@ -83,15 +89,15 @@ export default {
       }
     },
     orderTypeActive(k) {
-      if (k == "0") {
-        this.$router.push("/sap/sale/plan/order");
-      } else if (k == "1") {
-        this.$router.push("/sap/sale/order");
-      } else if (k == "2") {
-        this.$router.push("/sap/purchase/plan");
-      } else if (k == "3") {
-        this.$router.push("/sap/purchase/order");
-      }
+      // if (k == "0") {
+      //   this.$router.push("/sap/sale/plan/order");
+      // } else if (k == "1") {
+      //   this.$router.push("/sap/sale/order");
+      // } else if (k == "2") {
+      //   this.$router.push("/sap/purchase/plan");
+      // } else if (k == "3") {
+      //   this.$router.push("/sap/purchase/order");
+      // }
       setStore("orderType", k);
       this.initOrderType();
     }

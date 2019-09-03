@@ -13,6 +13,7 @@
     "core-js": "^2.6.5",
     "crypto-js": "^3.1.9-1",
     "date-format-lite": "^17.7.0",
+    "dayjs": "^1.8.16",
     "echarts": "^4.2.1",
     "mint-ui": "^2.2.13",
     "semantic-kanban": "^1.4.4",

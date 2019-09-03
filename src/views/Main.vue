@@ -1,10 +1,7 @@
 /* eslint-disable no-dupe-keys */
 <template>
   <div>
-    <div
-      class="header bg-dark-1 d-flex jc-between ai-center"
-      v-if="this.topNavShow"
-    >
+    <div class="header bg-dark-1 d-flex jc-between ai-center">
       <div
         to="/authorize"
         class="text-white ml-3"
@@ -130,7 +127,6 @@ export default {
       toshow: true,
       navName: "功能",
       pulldown: true,
-      topNavShow: 1,
       appID: "wx08c444d8f0255f63",
       // eslint-disable-next-line no-dupe-keys
       pagecode: undefined,
@@ -211,22 +207,6 @@ export default {
     },
     initTabActive() {
       this.tab = getStore("tabActive");
-      if (this.tabActive == undefined) {
-        this.tabActive = "1";
-      } else if (this.tab == "0") {
-        // this.$router.push("/home");
-
-        this.topNavShow = 1;
-      } else if (this.tab == "1") {
-        // this.$router.push("/warehouse");
-        this.topNavShow = 1;
-      } else if (this.tab == "2") {
-        // this.$router.push("/sap");
-        this.topNavShow = 1;
-      } else if (this.tab == "3") {
-        // this.$router.push("/user/page");
-        this.topNavShow = 0;
-      }
     },
     tabActive(k) {
       if (k == "0") {
@@ -249,10 +229,21 @@ export default {
         this.topNavShow = 1;
       } else if (k == "2") {
         this.$router.push("/sap");
+        this.orderType = getStore("orderType");
+        if (this.orderType == undefined) {
+          this.orderType = "1";
+        } else if (this.orderType == "0") {
+          this.$router.push("/sap/sale/plan/order");
+        } else if (this.orderType == "1") {
+          this.$router.push("/sap/sale/order");
+        } else if (this.orderType == "2") {
+          this.$router.push("/sap/purchase/plan");
+        } else if (this.orderType == "3") {
+          this.$router.push("/sap/purchase/order");
+        }
         this.topNavShow = 1;
       } else if (k == "3") {
         this.$router.push("/user/page");
-        this.topNavShow = 0;
       }
       setStore("tabActive", k);
       this.initTabActive();

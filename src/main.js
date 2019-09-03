@@ -10,10 +10,14 @@ import "./assets/iconfont-tab/iconfont.css";
 import "./assets/iconfont-btn/iconfont.css";
 import VueAwesomeSwiper from "vue-awesome-swiper";
 import "swiper/dist/css/swiper.css";
+import Card from "./component/Card.vue";
+import ListCard from "./component/ListCard.vue";
+
 Vue.use(Vant);
 Vue.config.productionTip = false;
 Vue.use(VueAwesomeSwiper);
-
+Vue.component("m-card", Card);
+Vue.component("m-list-card", ListCard);
 import {
   formatStockInStatus,
   formatFen2Yuan,
